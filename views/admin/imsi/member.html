@@ -1,0 +1,249 @@
+<section class="main">
+	<div class="title">
+		<h2>회원관리</h2>
+
+		<div class="time">
+			<span id="todayIs"> 2022년 10월 18일 </span> <span> <b> <span>
+						<img src="/admin/images/time.png">
+				</span> <em id="clock" style="font-style: normal"></em>
+			</b>
+			</span>
+		</div>
+
+	</div>
+
+
+	<div class="tab_are">
+		<ul class="left">
+			<li><a href="#none" class="on">전체(41)</a></li>
+			<li><a href="#none">총회원(32)</a></li>
+			<li><a href="#none">신청(0)</a></li>
+			<li><a href="#none">승인완료(0)</a></li>
+		</ul>
+	</div>
+
+	<div class="table_are">
+		<div class="btn_are">
+			<ul class="left">
+				<li><select>
+						<option>100</option>
+						<option>50</option>
+						<option>30</option>
+				</select> <span>개씩 보기</span></li>
+				<li>
+					<div class="search_form">
+						<input type="text" placeholder="검색어"> <a href="#none">
+							<img src="/admin/images/search.png">
+						</a>
+					</div>
+				</li>
+			</ul>
+			<ul class="right">
+				<li><a href="javascript:void(0);" class="btn-example" id="regist_btn"> <span>
+					<img src="/admin/images/ok.png"></span> 신규 등록
+				</a></li>
+			</ul>
+		</div>
+
+
+		<div class="table">
+
+			<table>
+				<tr>
+
+					<th>번호</th>
+					<th>ID</th>
+					<th>PW</th>
+					<th>업체명</th>
+					<th>연락처</th>
+					<th>카카오톡</th>
+					<th>메모</th>
+					<th>쿠팡</th>
+					<th>N쇼핑</th>
+					<th>테스트</th>
+					<th>등급</th>
+					<th>승인여부</th>
+					<th>설정</th>
+				</tr>
+				<tr>
+
+					<td>1</td>
+					<td>nowandnew</td>
+					<td>1234</td>
+					<td>nowandnew</td>
+					<td>01012345678</td>
+					<td>roockman</td>
+					<td>메모사항입니다.</td>
+					<td>0</td>
+					<td>40</td>
+					<td>0</td>
+					<td><select>
+							<option>일반</option>
+							<option>총판</option>
+							<option>관리자</option>
+					</select></td>
+					<td><select>
+							<option>승인</option>
+							<option>대기</option>
+							<option>탈퇴</option>
+					</select></td>
+					<td class="custom"><a href="#layer2" class="btn-example">
+							<span><img src="/admin/images/okb.png"></span> 작업 설정
+					</a></td>
+
+				</tr>
+
+
+
+
+
+			</table>
+
+		</div>
+
+	</div>
+
+</section>
+
+
+
+
+<div id="member_regist_pop" class="pop-layer">
+
+	<div class="dim"></div>
+
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>회원등록</h2>
+			<a href="javascript:void(0);" class="btn-layerClose" onclick="closePop('member_regist_pop')">
+				<img src="/admin/images/close_pop.png">
+			</a>
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>아이디</p> <input type="text" placeholder="">
+				</li>
+				<li>
+					<p>비밀번호</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>업체명</p> <input type="text" placeholder="">
+				</li>
+				<li>
+					<p>연락처</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>카카오톡</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>업체명</p> <select>
+						<option>일반</option>
+						<option>총판</option>
+						<option>관리자</option>
+				</select>
+				</li>
+				<li>
+					<p>승인여부</p> <select>
+						<option>승인</option>
+						<option>대기</option>
+						<option>탈퇴</option>
+				</select>
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>메모사항</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">신규 등록</a> 
+			<a href="javascript:void(0);" class="btn-layerClose"  onclick="closePop('member_regist_pop')"> 등록취소 </a>
+		</div>
+
+
+	</div>
+</div>
+
+
+
+<div id="layer2" class="pop-layer">
+
+	<div class="dim"></div>
+
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>회원수정</h2>
+			<a href="#" class="btn-layerClose"> <img
+				src="/admin/images/close_pop.png">
+			</a>
+
+
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>아이디</p> <span>nowandnew</span>
+				</li>
+				<li>
+					<p>비밀번호</p> <input type="text" placeholder="1234">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>업체명</p> <input type="text" placeholder="nowandnew">
+				</li>
+				<li>
+					<p>연락처</p> <input type="text" placeholder="01012345678">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>카카오톡</p> <input type="text" placeholder="roockman">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>업체명</p> <select>
+						<option>일반</option>
+						<option>총판</option>
+						<option>관리자</option>
+				</select>
+				</li>
+				<li>
+					<p>승인여부</p> <select>
+						<option>승인</option>
+						<option>대기</option>
+						<option>탈퇴</option>
+				</select>
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>메모사항</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">수정</a> <a href="#"
+				class="btn-layerClose"> 취소 </a>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	$('#regist_btn').click(function(){
+		console.log('~~~~~~~~~~~')
+		$('#member_regist_pop').css('display', 'block');
+	});
+</script>

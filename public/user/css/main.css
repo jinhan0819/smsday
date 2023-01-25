@@ -1,0 +1,38 @@
+.banner{
+    background: url(../images/main/banner.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 400px;
+    display: flex;align-items: center;
+    justify-content: flex-start
+}
+.banner h2{font-size: 35px; font-weight: normal; color: #222}
+.banner .inner{width: 100%; min-width: 1200px}
+
+.title_main{text-align: center; margin-bottom: 50px}
+.title_main h2{font-size: 25px; color: #222; font-weight: 400}
+
+
+.system{padding: 80px 0;}
+.system ul{display: flex; flex-wrap: wrap; justify-content: space-between; }
+.system ul li{width: calc(33.33% - 15px); margin: 0 10px; text-align: center; margin-bottom: 30px}
+.system ul li:first-child{margin-left: 0}
+.system ul li:nth-child(4){margin-left: 0}
+.system ul li:nth-child(3){margin-right: 0}
+.system ul li:last-child{margin-right: 0}
+
+.system ul li img{width: 100%}
+.system ul li h2{font-size: 20px; margin: 20px 0 10px; font-weight: bold}
+.system ul li p{font-size: 16px; font-weight: normal; word-break: keep-all}
+
+
+
+
+
+
+
+
+
+
+

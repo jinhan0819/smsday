@@ -1,0 +1,182 @@
+.landing{background: #f9f9f9}
+.landing .inner{max-width: 1360px; width: 100%}
+
+.step01{height: 100vh; display: flex; position: relative; overflow: hidden; justify-content: center;
+    align-items: flex-start;
+    flex-direction: column; }
+.step01 .ld_bg{position: absolute; left: 0; top: 0; z-index: -1}
+.step01 .ld_bg img{width: 100%}
+.step01 h2{font-size: 80px; font-weight: 900; color: #fff; line-height: 90px}
+.step01 p{margin-top: 20px; color: #fff; font-size: 30px; font-weight: 500}
+
+.step01 p + a{margin-top: 50px}
+
+a.ld_btn{border-radius: 50px; font-size: 20px; color: #4400E1; background: #fff; height: 48px; line-height: 48px; display: inline-block; padding: 0 30px; border: 1px solid #fff }
+a.ld_btn:hover{background: #3666CB; color: #fff; transition-duration: .5s; border: 1px solid #3666CB}
+
+a.ld_btn2{border-radius: 50px; font-size: 20px; color: #3666CB; background: #fff; height: 48px; line-height: 48px; display: inline-block; padding: 0 30px; border: 1px solid #fff }
+a.ld_btn2:hover{background: #4400E1; color: #fff; transition-duration: .5s; border: 1px solid #3666CB}
+
+
+.ld_service{max-width: 1360px; margin: 0 auto; padding: 100px 0}
+
+.ld_service.white{background: #fff; max-width: 100%}
+
+.ld_title{text-align: center}
+.ld_title h2{font-size: 50px; font-weight: 700}
+.ld_title p{font-size: 30px; font-weight: 500; margin-top: 10px}
+
+.ld_service ul{display: flex;margin-top: 50px }
+.ld_service ul li{margin: 0 10px; justify-content: center; text-align: center}
+.ld_service ul li img{box-shadow:5px 5px 20px rgba(0,0,0,0.0); border-radius: 30px; overflow: hidden}
+.ld_service ul li img:hover{box-shadow:5px 5px 20px rgba(0,0,0,0.3); transition-duration: .5s}
+.ld_service ul li h2{font-size: 25px; font-weight: bold; margin: 30px 0 10px}
+.ld_service ul li p{font-size: 20px; font-weight: 400;}
+
+.step3{max-width: 1360px; margin: 50px auto 0}
+.step3 .flex3{display: flex; text-align: center; justify-content: center}
+.step3 .flex3 .peopel{width: 180px; margin: 0 20px}
+.step3 .flex3 .peopel .thum{width: 180px; height: 180px; background: #D9D9D9; display: flex; align-items: center; justify-content: center; border-radius: 100px}
+.step3 .flex3 .peopel p{margin: 10px 0 5px; font-size: 16px;}
+.step3 .flex3 .peopel h2{font-weight: bold; font-size: 22px}
+
+.step3 .flex3 .peopel .thum.atv{background: #3666CB; transition-duration: .5s}
+.step3 .flex3 .peopel .thum:hover{background: #3666CB; transition-duration: .5s}
+.step3 .flex3 .peopel .thum:hover img{}
+.price{width: 160px; height: 160px; border: 1px solid #dfdfdf; margin: 0 10px; border-radius: 100px; display: flex;     flex-direction: column;
+    justify-content: center;
+    align-items: center;}
+.price p{font-size: 14px;}
+.price span{display: none; font-size: 12px; text-decoration: line-through}
+.price h2{font-size: 22px;font-weight: bold }
+
+.step3 .flex3 .price:hover{background:#3666CB; text-decoration: .5s }
+.step3 .flex3 .price:hover p{color: #fff; text-decoration: .5s}
+.step3 .flex3 .price:hover span{color: #fff; display: block; text-decoration: .5s}
+.step3 .flex3 .price:hover h2{color: #FFC90A; text-decoration: .5s}
+
+
+.line{margin: 20px 0; position: relative; height: 200px}
+.line .mid{height: 200px; display: block; width: 1px; background: #dfdfdf; margin: 0 auto; position: absolute; left: 50%}
+.line .mid .bg{width: 1px; position: absolute; left: 0; height: 0; top: 50%; background:#3666CB }
+.line .mid .bg2{width: 1px; position: absolute; left: 0; height: 0; top: 0; background:#3666CB }
+
+.line .left{width: 230px; height: 1px; background: #dfdfdf; display: block; 
+    position: absolute; top: 50%; left: 50%; transform: translateX(-230px)}
+.line .left .bg{width: 0px; position: absolute; left: 0; height: 1px; top: 0; background:#3666CB }
+
+
+.line .right{width: 230px; height: 1px; background: #dfdfdf; display: block; 
+    position: absolute; top: 50%; left: 50%; }
+.line .right .bg{width: 0px; position: absolute; right: 0; height: 1px; top: 0; background:#3666CB }
+
+
+.line .lefttop{width: 1px; height: 100px; background: #dfdfdf; display: block; 
+    position: absolute; top: 0%; left: 50%; transform: translateX(-230px)}
+.line .lefttop .bg{width: 1px; position: absolute; left: 0; height: 0; top: 0; background:#3666CB }
+
+
+.line .righttop{width: 1px; height: 100px; background: #dfdfdf; display: block; 
+    position: absolute; top: 0%; left: 50%; transform: translateX(230px)}
+.line .righttop .bg{width: 1px; position: absolute; left: 0; height: 0; top: 0; background:#3666CB }
+
+.line1.atv{z-index: 2; position: absolute; left: 50%; height: 200px}
+.line1.atv .mid .bg{height: 100px; transition-duration: 1s;  top: 50%;  transition-delay: 2s}
+.line1.atv .left .bg{width: 230px; transition-duration: 1s; transition-delay: 1s}
+.line1.atv .right .bg{height: 0; transition-duration: 1s}
+.line1.atv .lefttop .bg{height: 100px; transition-duration: 1s}
+.line1.atv .righttop .bg{height: 0px; transition-duration: 1s}
+
+.line2.atv{z-index: 2; position: absolute; left: 50%; height: 200px}
+.line2.atv .mid .bg2{height: 200px; transition-duration: 1s;  top: 0%;  transition-delay: 0s}
+
+.line3.atv{z-index: 2; position: absolute; left: 50%; height: 200px}
+.line3.atv .mid .bg{height: 100px; transition-duration: 1s;  top: 50%;  transition-delay: 2s}
+
+.line3.atv .right .bg{width: 230px; transition-duration: 1s; transition-delay: 1s}
+
+.line3.atv .righttop .bg{height: 100px; transition-duration: 1s}
+
+
+.step3 .flex3 .price.atv{background:#3666CB; text-decoration: .5s; transition-delay: 2.5s }
+.step3 .flex3 .price.atv p{color: #fff; text-decoration: .5s; transition-delay: 2.5s}
+.step3 .flex3 .price.atv span{color: #fff; display: block; text-decoration: .5s; transition-delay: 2.5s}
+.step3 .flex3 .price.atv h2{color: #FFC90A; text-decoration: .5s; transition-delay: 2.5s}
+
+@media (max-width: 1700px) {
+  
+}
+
+
+
+
+@media (max-width: 1600px) {
+ 
+
+}
+
+
+
+@media (max-width: 1440px) { 
+  
+
+
+
+}
+
+
+
+@media (max-width: 1199px) { 
+  
+
+}
+
+
+
+@media (max-width: 1024px) { 
+  
+
+
+}
+
+@media (max-width: 959px) { 
+  
+
+}
+
+
+
+@media (max-width: 767px) {
+ 
+   
+
+}
+
+
+
+@media (max-width: 640px) {
+ 
+}
+
+
+
+
+
+@media (max-width: 479px) {
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,479 @@
+<section class="main">
+	<div class="title">
+		<h2>쇼핑몰현황</h2>
+
+		<div class="time">
+			<span id="todayIs"> 2022년 10월 18일 </span> <span> <b> <span>
+						<img src="/admin/images/time.png">
+				</span> <em id="clock" style="font-style: normal"></em>
+			</b>
+			</span>
+		</div>
+
+	</div>
+
+	<div class="tab_are">
+		<ul class="left">
+			<li><b>주문현황</b></li>
+		</ul>
+
+	</div>
+
+	<div class="graf">
+		<img src="/admin/images/graf.png">
+	</div>
+
+	<div class="flex flex2">
+		<div class="table">
+			<h2>처리할 주문</h2>
+			<table>
+				<tr>
+					<th>상태변경</th>
+					<th>건수</th>
+					<th>금액</th>
+
+				</tr>
+				<tr>
+
+					<td>주문 -> 입금</td>
+					<td>20</td>
+					<td>3,618,000</td>
+
+				</tr>
+
+				<tr>
+
+					<td>입금 -> 준비</td>
+					<td>20</td>
+					<td>3,618,000</td>
+
+				</tr>
+
+				<tr>
+					<td>준비 -> 배송</td>
+					<td>20</td>
+					<td>3,618,000</td>
+
+				</tr>
+
+				<tr>
+					<td>배송 -> 완료</td>
+					<td>20</td>
+					<td>3,618,000</td>
+
+				</tr>
+
+
+
+			</table>
+
+		</div>
+
+		<div class="table">
+			<h2>재고현황</h2>
+			<table>
+				<tr>
+					<th>재고부족 상품</th>
+					<th>재고부족 옵션</th>
+					<th>SMS 잔여금액</th>
+
+				</tr>
+				<tr>
+
+					<td>0</td>
+					<td>0</td>
+					<td>0원</td>
+
+				</tr>
+
+
+
+			</table>
+
+		</div>
+
+
+
+	</div>
+
+
+	<div class="table_are">
+
+		<div class="table">
+			<h2>결제수단별 주문현황</h2>
+			<table>
+				<tr>
+					<th rowspan="2">구분</th>
+					<th colspan="2">12-24 (토)</th>
+					<th colspan="2">12-25 (일)</th>
+					<th colspan="2">12-26 (월)</th>
+
+
+				</tr>
+				<tr>
+					<th style="border-left: 1px solid #dfdfdf">건수</th>
+					<th>금액</th>
+					<th>건수</th>
+					<th>금액</th>
+					<th>건수</th>
+					<th>금액</th>
+				</tr>
+				<tr>
+					<td>신용카드</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>계좌이체</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>가상계좌</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>무통장</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>휴대폰</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>포인트</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>쿠폰</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+
+			</table>
+
+		</div>
+
+	</div>
+
+
+
+
+</section>
+
+
+
+
+<div id="layer1" class="pop-layer">
+
+	<div class="dim"></div>
+
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>신규 등록</h2>
+			<a href="#" class="btn-layerClose"> <img
+				src="/admin/images/close_pop.png">
+			</a>
+
+
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>이용상품</p> <select>
+						<option>일300</option>
+						<option>일200</option>
+						<option>일100</option>
+				</select>
+				</li>
+				<li>
+					<p>고객 아이디</p> <input type="text" placeholder="nowandnew">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>시작일</p> <input type="date">
+				</li>
+				<li>
+					<p>기간설정</p> <input type="date">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>nvMid / nvMid2</p> <input type="text" placeholder="상품 MID">
+				</li>
+				<li>
+					<p></p> <input type="text" placeholder="판매처 MID">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>순위검색어</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>작업검색어</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">신규 등록</a> <a href="#"
+				class="btn-layerClose"> 등록취소 </a>
+		</div>
+
+
+	</div>
+</div>
+
+
+
+<div id="layer2" class="pop-layer">
+
+	<div class="dim"></div>
+
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>작업 설정</h2>
+			<a href="#" class="btn-layerClose"> <img
+				src="/admin/images/close_pop.png">
+			</a>
+
+
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>이용상품 변경</p> <select>
+						<option>일300</option>
+						<option>일200</option>
+						<option>일100</option>
+				</select>
+				</li>
+				<li>
+					<p>고객 아이디</p> <span>nowandnew</span>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>등록일</p> <span>22-09-02</span>
+				</li>
+				<li>
+					<p>기간설정</p> <input type="date">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>nvMid / nvMid2</p> <input type="text" placeholder="상품 MID">
+				</li>
+				<li>
+					<p></p> <input type="text" placeholder="판매처 MID">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>순위검색어</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>작업검색어</p> <input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">설정완료</a> <a href="#"
+				class="btn-layerClose"> 설정취소 </a>
+		</div>
+
+
+	</div>
+</div>
+
+
+
+<div id="layer3" class="pop-layer">
+
+	<div class="dim"></div>
+
+	<div class="pop-container">
+		<div class="head_pop" style="background: #0BC167">
+			<h2 style="color: #fff">N쇼핑 순위</h2>
+			<a href="#" class="btn-layerClose"> <img
+				src="/admin/images/close_pop.png">
+			</a>
+
+
+		</div>
+		<div class="pop_form_are">
+			<div class="table">
+				<table>
+					<tr>
+						<th>변동일시</th>
+						<th>검색순위</th>
+						<th>최초대비</th>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="down"> [ <span>
+									<img src="/admin/images/down.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown"><b>17</b> <b class="up"> [ <span>
+									<img src="/admin/images/up.png">
+							</span> 1]
+						</b></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">설정완료</a> <a href="#"
+				class="btn-layerClose"> 설정취소 </a>
+		</div>
+	</div>
+</div>
