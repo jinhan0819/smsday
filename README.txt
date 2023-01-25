@@ -8,7 +8,7 @@ PM2 json 만들때 내용
             "watch": false,
             "env": {
                 "NODE_ENV": "production",
-                "PORT": 3800
+                "PORT": 8000
             },
             "exec_mode": "cluster",
             "instances": 1,
