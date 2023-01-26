@@ -1,0 +1,237 @@
+<header>
+    <div class="header">
+        <a href="/" class="logo">
+            <h2 class="prefont"><b>문자</b>데이</h2>
+        </a>
+        <% if(isLogin) { %>
+        <% if(auth == 1) { %>
+        <div class="right_nav">
+            <div class="user">
+                <p>
+                    <b><%- memberInfo.member_name %></b>님의 충전잔액은<span> 0</span>원입니다.
+                </p>
+            </div>
+            <button class="coin">
+                충전하기
+            </button>
+            <a href="/doLogout" class="login">
+                로그아웃
+            </a>
+        </div>
+        <% } else {%>
+        <div class="right_nav">
+            <div class="user">
+                <p>
+                    <b><%- memberInfo.member_name %></b>님의 충전잔액은<span> 0</span>원입니다.
+                </p>
+            </div>
+            <button class="coin">
+                충전하기
+            </button>
+            <a href="/admin" class="login marr20">
+                관리자
+            </a>
+            <a href="/doLogout" class="login">
+                로그아웃
+            </a>
+        </div>
+        <% } %>
+        <% } else { %>
+
+        <div class="right_nav">
+            <button class="coin login_btn">
+                로그인
+            </button>
+            
+            <div class="login_box">
+                <div class="form_login">
+                    <input type="text" placeholder="아이디" id="login_id">
+                    <input type="password" placeholder="비밀번호" id="login_password" onkeyup="if (window.event.keyCode == 13) {doLogin();}">
+                    <div class="summit">
+                        <a href="#" class="nomember">
+                            아이디 / 비밀번호 찾기
+                        </a>
+                        <button class="btn" type="button" onclick="doLogin();">
+                            로그인
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <a href="/front/join/join_selection" class="login">회원가입</a>
+        </div>
+        <% } %>
+    
+
+    </div>
+     <div class="center_nav">
+         <ul>
+             <li>
+                 <a href="#none">
+                     문자발송
+                 </a>
+                 <ul class="subdeps">
+                     <li>
+                         <a href="#">
+                            단·장문 보내기
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            이미지문자 보내기
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            대량문자 보내기
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#none">
+                     단문·장문
+                 </a>
+                 <ul class="subdeps">
+                     <li>
+                         <a href="#">
+                            단·장문 보내기
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            이미지문자 보내기
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            대량문자 보내기
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#none">
+                     개인주소록
+                 </a>
+                 <ul class="subdeps">
+                     <li>
+                         <a href="#">
+                            주소록
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            수신거부
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            080수신거부목록 (자동등록)
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#none">
+                     전송내역
+                 </a>
+                 <ul class="subdeps">
+                     <li>
+                         <a href="#">
+                            전송결과
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            예약전송
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            전송통계
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#none">
+                     결제관리
+                 </a>
+                 <ul class="subdeps">
+                     <li>
+                         <a href="#">
+                            문자단가
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            충전내역
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            발송(금액차감)내역
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#none">
+                     마이페이지
+                 </a>
+                 <ul class="subdeps">
+                     <li>
+                         <a href="#">
+                            내정보변경
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            환경설정
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            패스워드변경
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            발신번호추가/삭제
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                            회원탈퇴
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+         </ul>
+     </div>
+</header>
+
+<script>
+    async function doLogin(){
+        if($('#login_id').val() === ''){
+            alert('아이디를 입력해주세요.');
+            return false;
+        }
+        if($('#login_password').val() === ''){
+            alert('비밀번호를 입력해주세요.');
+            return false;
+        }
+
+        let data = {
+            id : $('#login_id').val(),
+            password : $('#login_password').val()
+        }
+
+        let res = await axios.post('/doLogin', data);
+        if(res.data.authenticate){
+            location.href = '/front';
+        }else{
+            alert('아이디 또는 비밀번호가 틀립니다.\n다시 시도해주세요.');
+        }
+    }
+</script>

@@ -4,24 +4,23 @@ let sess = require('../modules/session');
 
 module.exports = {
     index: function (req, res, next) {
-        res.redirect('/user')
+        res.redirect('/front')
     },
     doLogin: function (req, res, next) {
-        // let user = req.body;
-        passport.authenticate('local', (err, user, info) => {
+        passport.authenticate('local', (err, member, info) => {
             if (err) return next(err);
-            if (!user) {
-                console.log(user);
+            if (!member) {
+                console.log(member);
                 // 로그인 실패시 다시 로그인 => return res.redirect(req.app.locals.__logToURL);
-                return res.send({authenticate: false, user: user});
+                return res.send({authenticate: false, member: member});
             }
             else {
-                req.login(user, async (err) => {
-                    sess.setPlain(req, 'auth', user.user_level);
-                    sess.setPlain(req, 'userInfo', user);
+                req.login(member, async (err) => {
+                    sess.setPlain(req, 'auth', member.member_level);
+                    sess.setPlain(req, 'memberInfo', member);
                     
                     if (err) return next(err);
-                    return res.send({authenticate: true, user: user});
+                    return res.send({authenticate: true, member: member});
                 });
             }
         })(req, res, next);

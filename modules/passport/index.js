@@ -41,7 +41,7 @@ module.exports = () => {
         async (req, id, password, done) => {
             try {
                 //*** 로그인 및 암호화 등 비지니스 로직 작성 ***
-                let sql = 'select * from tb_user where id = ?';
+                let sql = 'select * from tb_member where id = ?';
                 let rslt = await db.queryTransaction(sql, [id]);
 
                 if(rslt.result.length > 0){

@@ -60,7 +60,7 @@ app.use(function (req, res, next) {
   if (typeof req.session.auth !== 'undefined'){
       res.locals.isLogin = (req.session.auth > 0);
       res.locals.auth = req.session.auth;
-      res.locals.userInfo = req.session.userInfo; 
+      res.locals.memberInfo = req.session.memberInfo; 
   } else {
       res.locals.isLogin = false;
   }
@@ -68,9 +68,9 @@ app.use(function (req, res, next) {
 });
 
 // settings for page layout
-app.use('/user/*', function (req, res, next) {
+app.use('/front/*', function (req, res, next) {
   app.set('layout', 'layout');
-  app.set('views', path.join(__dirname, 'views/user'));
+  app.set('views', path.join(__dirname, 'views/front'));
   next();
 });
 

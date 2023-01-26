@@ -9,7 +9,7 @@ module.exports = {
    //반환값 : 로그인 전 -1, 권한 없음 0, 통과 1
    authenticate: function (req) {
 
-      let user_authority = req.session.auth || -1;
+      let member_authority = req.session.auth || -1;
       let req_path = PATH(req.path).split('/');
       let need_authority = -1;
       let match;
@@ -35,11 +35,11 @@ module.exports = {
 
       //이제 권한 정의 있음
       //사용자가 로그인 하지 않은 상태
-      if (user_authority == -1)
+      if (member_authority == -1)
          return -1; //로그인 필요
 
       //패스에 권한도 정의되어 있고 사용자도 로그인 한 상태
-      if (need_authority > user_authority)
+      if (need_authority > member_authority)
          return 0; //권한 없음
       else
          return 1; //통과
