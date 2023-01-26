@@ -2,22 +2,6 @@ let db = require('../../modules/db');
 let config = require('../../config');
 
 module.exports = {
-    memberInfo: async function(data){
-        let sql = `
-                    SELECT 
-                        member_id,
-                        member_name,
-                        member_hp,
-                        id,
-                        email
-                    from tb_member 
-                    WHERE tb_index = ?
-                    AND password = ?`;
-        // 쿼리를 하나만 처리할 때 사용
-        let rslt = await db.queryTransaction(sql, [data.id, data.password]);
-        return rslt;
-    },
-    
 }
 
 // 쿼리를 하나만 처리할 때 사용

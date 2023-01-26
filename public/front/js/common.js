@@ -111,6 +111,7 @@ window.addEventListener('load', function() {
 $(function(){
    var $firstmenu = $('.center_nav > ul > li'),
        $header = $('.subdeps');
+
     $firstmenu.mouseenter(function(){
        $header.stop().animate({height:'80px'},200);
     })

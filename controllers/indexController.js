@@ -1,6 +1,7 @@
 let config = require('../config');
 let passport = require('../modules/passport')();
 let sess = require('../modules/session');
+let indexModel = require('../models/indexModel');
 
 module.exports = {
     index: function (req, res, next) {
@@ -16,7 +17,7 @@ module.exports = {
             }
             else {
                 req.login(member, async (err) => {
-                    sess.setPlain(req, 'auth', member.member_level);
+                    sess.setPlain(req, 'auth', member.mb_level);
                     sess.setPlain(req, 'memberInfo', member);
                     
                     if (err) return next(err);
@@ -28,5 +29,10 @@ module.exports = {
     doLogout: function (req, res) {
         sess.Clear(req, res);
         res.redirect('/');
+    },
+    getMemberInfo: async function (req, res, next) {
+        let data = req.body;
+        let result = await indexModel.getMemberInfo(data);
+        res.send(result);
     },
 };

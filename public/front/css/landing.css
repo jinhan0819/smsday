@@ -4,7 +4,8 @@
 .step01{height: 100vh; display: flex; position: relative; overflow: hidden; justify-content: center;
     align-items: flex-start;
     flex-direction: column; }
-.step01 .ld_bg{position: absolute; left: 0; top: 0; z-index: -1}
+.step01 .ld_bg{position: absolute; left: 0; top: 0; z-index: -1; width: 100%}
+.step01 .ld_bg svg{width: 100%}
 .step01 .ld_bg img{width: 100%}
 .step01 h2{font-size: 80px; font-weight: 900; color: #fff; line-height: 90px}
 .step01 p{margin-top: 20px; color: #fff; font-size: 30px; font-weight: 500}
@@ -24,137 +25,133 @@ a.ld_btn2:hover{background: #4400E1; color: #fff; transition-duration: .5s; bord
 
 .ld_title{text-align: center}
 .ld_title h2{font-size: 50px; font-weight: 700}
-.ld_title p{font-size: 30px; font-weight: 500; margin-top: 10px}
+.ld_title p{font-size: 20px; font-weight: 500; margin-top: 10px}
 
-.ld_service ul{display: flex;margin-top: 50px }
-.ld_service ul li{margin: 0 10px; justify-content: center; text-align: center}
-.ld_service ul li img{box-shadow:5px 5px 20px rgba(0,0,0,0.0); border-radius: 30px; overflow: hidden}
-.ld_service ul li img:hover{box-shadow:5px 5px 20px rgba(0,0,0,0.3); transition-duration: .5s}
-.ld_service ul li h2{font-size: 25px; font-weight: bold; margin: 30px 0 10px}
+.ld_service ul{display: flex;margin-top: 50px; justify-content: center}
+.ld_service ul li{margin: 0 10px; justify-content: center; text-align: center; background: #fff; border: 1px solid #dfdfdf; border-radius: 100%; width: 250px; height: 250px;    display: flex;
+    flex-direction: column;
+    align-items: center; }
+.ld_service ul li:hover{background:#3666CB; transition-duration: .5s }
+.ld_service ul li:hover h2{color: #fff}
+.ld_service ul li:hover p{color: #fff}
+.ld_service ul li h2{font-size: 25px; font-weight: bold; margin: 0px 0 10px}
 .ld_service ul li p{font-size: 20px; font-weight: 400;}
 
-.step3{max-width: 1360px; margin: 50px auto 0}
-.step3 .flex3{display: flex; text-align: center; justify-content: center}
-.step3 .flex3 .peopel{width: 180px; margin: 0 20px}
-.step3 .flex3 .peopel .thum{width: 180px; height: 180px; background: #D9D9D9; display: flex; align-items: center; justify-content: center; border-radius: 100px}
-.step3 .flex3 .peopel p{margin: 10px 0 5px; font-size: 16px;}
-.step3 .flex3 .peopel h2{font-weight: bold; font-size: 22px}
 
-.step3 .flex3 .peopel .thum.atv{background: #3666CB; transition-duration: .5s}
-.step3 .flex3 .peopel .thum:hover{background: #3666CB; transition-duration: .5s}
-.step3 .flex3 .peopel .thum:hover img{}
-.price{width: 160px; height: 160px; border: 1px solid #dfdfdf; margin: 0 10px; border-radius: 100px; display: flex;     flex-direction: column;
-    justify-content: center;
-    align-items: center;}
-.price p{font-size: 14px;}
-.price span{display: none; font-size: 12px; text-decoration: line-through}
-.price h2{font-size: 22px;font-weight: bold }
+.landing_head{position: absolute; left: 0; top: 0; width: 100%; padding: 25px 0; z-index: 2}
+.landing_head .inner{display: flex; justify-content: space-between; align-items: center}
 
-.step3 .flex3 .price:hover{background:#3666CB; text-decoration: .5s }
-.step3 .flex3 .price:hover p{color: #fff; text-decoration: .5s}
-.step3 .flex3 .price:hover span{color: #fff; display: block; text-decoration: .5s}
-.step3 .flex3 .price:hover h2{color: #FFC90A; text-decoration: .5s}
+.landing_head h2{color: #fff; font-size: 30px;}
+.landing_head .ld_menu{display: flex; justify-content: flex-end; align-items: center}
+.landing_head .ld_menu a{color: #fff; font-size: 18px; display: inline-block; margin-left: 25px}
+.landing_head .ld_menu a.menubtn{border-radius: 50px; font-size: 20px; color: #4400E1; background: #fff; height: 48px; line-height: 48px; display: inline-block; padding: 0 30px; border: 1px solid #fff }
 
+.step3{display: flex; justify-content: center;margin-top: 50px}
+.step3 .box{margin: 0 20px; text-align: center}
+.step3 .box .text{margin-top: 20px;}
+.step3 .box .text h3{font-size: 20px;}
+.step3 .box .text h2{font-size: 25px; margin-bottom: 10px}
+.step3 .box .text p{font-size: 18px; font-weight: normal}
 
-.line{margin: 20px 0; position: relative; height: 200px}
-.line .mid{height: 200px; display: block; width: 1px; background: #dfdfdf; margin: 0 auto; position: absolute; left: 50%}
-.line .mid .bg{width: 1px; position: absolute; left: 0; height: 0; top: 50%; background:#3666CB }
-.line .mid .bg2{width: 1px; position: absolute; left: 0; height: 0; top: 0; background:#3666CB }
-
-.line .left{width: 230px; height: 1px; background: #dfdfdf; display: block; 
-    position: absolute; top: 50%; left: 50%; transform: translateX(-230px)}
-.line .left .bg{width: 0px; position: absolute; left: 0; height: 1px; top: 0; background:#3666CB }
-
-
-.line .right{width: 230px; height: 1px; background: #dfdfdf; display: block; 
-    position: absolute; top: 50%; left: 50%; }
-.line .right .bg{width: 0px; position: absolute; right: 0; height: 1px; top: 0; background:#3666CB }
-
-
-.line .lefttop{width: 1px; height: 100px; background: #dfdfdf; display: block; 
-    position: absolute; top: 0%; left: 50%; transform: translateX(-230px)}
-.line .lefttop .bg{width: 1px; position: absolute; left: 0; height: 0; top: 0; background:#3666CB }
-
-
-.line .righttop{width: 1px; height: 100px; background: #dfdfdf; display: block; 
-    position: absolute; top: 0%; left: 50%; transform: translateX(230px)}
-.line .righttop .bg{width: 1px; position: absolute; left: 0; height: 0; top: 0; background:#3666CB }
-
-.line1.atv{z-index: 2; position: absolute; left: 50%; height: 200px}
-.line1.atv .mid .bg{height: 100px; transition-duration: 1s;  top: 50%;  transition-delay: 2s}
-.line1.atv .left .bg{width: 230px; transition-duration: 1s; transition-delay: 1s}
-.line1.atv .right .bg{height: 0; transition-duration: 1s}
-.line1.atv .lefttop .bg{height: 100px; transition-duration: 1s}
-.line1.atv .righttop .bg{height: 0px; transition-duration: 1s}
-
-.line2.atv{z-index: 2; position: absolute; left: 50%; height: 200px}
-.line2.atv .mid .bg2{height: 200px; transition-duration: 1s;  top: 0%;  transition-delay: 0s}
-
-.line3.atv{z-index: 2; position: absolute; left: 50%; height: 200px}
-.line3.atv .mid .bg{height: 100px; transition-duration: 1s;  top: 50%;  transition-delay: 2s}
-
-.line3.atv .right .bg{width: 230px; transition-duration: 1s; transition-delay: 1s}
-
-.line3.atv .righttop .bg{height: 100px; transition-duration: 1s}
-
-
-.step3 .flex3 .price.atv{background:#3666CB; text-decoration: .5s; transition-delay: 2.5s }
-.step3 .flex3 .price.atv p{color: #fff; text-decoration: .5s; transition-delay: 2.5s}
-.step3 .flex3 .price.atv span{color: #fff; display: block; text-decoration: .5s; transition-delay: 2.5s}
-.step3 .flex3 .price.atv h2{color: #FFC90A; text-decoration: .5s; transition-delay: 2.5s}
-
-@media (max-width: 1700px) {
-  
-}
+.landing_end{padding: 150px 15px; text-align: center; background: url(../images/landing/bg2.png); background-size: cover; background-position: center}
+.landing_end h2{font-size: 40px; color: #fff; font-weight: 400}
+.landing_end h2 b{color: #fff}
+.landing_end .ld_btn{margin-top: 30px}
 
 
 
 
-@media (max-width: 1600px) {
- 
-
-}
 
 
 
-@media (max-width: 1440px) { 
-  
+
+@media (max-width: 1200px) { 
+    
+    img{max-width: 100%}
+
+    
+    .inner{padding: 0 25px}
+    .step01 h2{font-size: 40px; line-height: 50px}
+    .step01 p{font-size: 16px; line-height: 25px}
+    .landing_end h2{font-size: 30px}
+    .ld_title h2{font-size: 30px}
+    .ld_title p{font-size: 16px}
+    a.ld_btn2, a.ld_btn, .landing_head .ld_menu a.menubtn{font-size: 16px; height: 40px; line-height: 40px}
+    
+    .step3 .box {
+    margin: 0;
+    text-align: center;
+    width: 33.33%;
+    padding: 0 10px;}
+    
+    .step3 .box .text p{font-size: 16px}
+    .step3 .box .text h2{font-size: 18px}
+    .step3 .box .text h3{font-size: 16px}
 
 
-
-}
-
-
-
-@media (max-width: 1199px) { 
-  
 
 }
 
 
 
 @media (max-width: 1024px) { 
-  
+    
+    .landing_head h2{font-size: 20px}
+    .landing_head .ld_menu a{font-size: 17px}
+    
+     .step01{height: 85vh}
+    .step01 .ld_bg{height: 85vh}
+    .ld_service ul li{width: 200px; height: 200px}
+    .ld_service ul li h2{font-size: 18px}
+    .ld_service ul li p{font-size: 16px} 
 
 
 }
 
-@media (max-width: 959px) { 
-  
-
-}
 
 
 
-@media (max-width: 767px) {
+
+@media (max-width: 800px) {
  
-   
+     .step01{height: auto; padding: 150px 0 100px}
+    .step01 .ld_bg{height:100%; width: 100%; left: 0; top: 0; position: absolute; background: #4400E1}
+    .ld_service{padding: 100px 15px}
+    .ld_title p{word-break: keep-all}
+    .ld_title p br{display: none}
+    .ld_service ul{flex-wrap: wrap}
+    .ld_service ul li{width: calc(50% - 10px); height: auto; border-radius: 0; padding: 20px; margin: 5px}
+    .ld_service ul li h2{font-size: 18px}
+    .ld_service ul li p{font-size: 16px} 
 
 }
 
 
 
 @media (max-width: 640px) {
+    .step3 {flex-wrap: wrap}
+    .step3 .box{width: 100%; margin: 10px 0}
+    .step3 .box img{max-width: 300px}
+    .landing_end{padding: 100px 0}
+    .landing_end h2{font-size: 20px; word-break: keep-all}
+    footer .foot_link a{font-size: 14px; margin:0 10px}
+    footer p{font-size: 14px}
+    
+    .ld_bg img{display: none}
+    
+    .step01 h2{font-size: 30px; line-height: 40px}
+    a.ld_btn2, a.ld_btn, .landing_head .ld_menu a.menubtn{font-size: 14px; height: 35px; line-height: 35px}
+    
+    .landing .inner{text-align: center}
+    footer .foot_link{justify-content: center}
+    
+    .floating_nav a{max-width: 40px}
+    
+    .ld_title h2{font-size: 25px; line-height: 35px}
+    .landing_head .inner{display: block}
+    .landing_head h2{text-align: left}
+    .landing_head .ld_menu{display: none}
+
  
 }
 

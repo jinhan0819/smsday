@@ -8,13 +8,13 @@
         <table id="member_table">
             <tr>
                 <th>이름<span class="inportant">*</span></th>
-                <td><input type="text" id="member_name"></td>
+                <td><input type="text" id="mb_name"></td>
             </tr>
             <tr>
                 <th>핸드폰 번호<span class="inportant">*</span></th>
                 <td>
                     <div class="tlb_flex">
-                        <input type="text" id="member_hp" maxlength="13"><button class="btn">본인인증</button>
+                        <input type="text" id="mb_hp" maxlength="13"><button class="btn">본인인증</button>
                     </div>
                 </td>
             </tr>
@@ -37,7 +37,7 @@
             </tr>
             <tr>
                 <th>이메일<span class="inportant">*</span></th>
-                <td><input type="text" id="email"></td>
+                <td><input type="text" id="mb_email"></td>
             </tr>
         </table>
     </div>
@@ -78,7 +78,7 @@
         // 회원가입
         let regist_bool = true;
 
-        $('#memberInfo').find('input').each(function(idx, el){
+        $('#member_table').find('input').each(function(idx, el){
             if($(el).val() == ''){
                 alert('모든 정보를 입력해주세요.');
                 regist_bool = false;
@@ -101,7 +101,7 @@
         }
 
         // 이메일 정규식
-        if($('#email').val() !== '' && !doCheckEmail($('#email').val())){
+        if($('#mb_email').val() !== '' && !doCheckEmail($('#mb_email').val())){
             alert('이메일 형식이 올바르지 않습니다.');
             regist_bool = false;
             return false;

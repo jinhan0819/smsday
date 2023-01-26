@@ -6,7 +6,12 @@ module.exports = {
     main: function (req, res, next) {
         res.render('main');
     },
-
+    menual: function (req, res, next) {
+        res.render('menual');
+    },
+    pre: function (req, res, next) {
+        res.render('pre');
+    },
     test: function (req, res, next) {
         let data = req.body.data;
         file.fileUpload(req, (result) => {

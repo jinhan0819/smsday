@@ -8,6 +8,7 @@ module.exports = function () {
     router.get('/', indexController.index);
     router.post('/doLogin', indexController.doLogin);
     router.get('/doLogout', indexController.doLogout);
+    router.post('/getMemberInfo', indexController.getMemberInfo);
     
     return router;
 

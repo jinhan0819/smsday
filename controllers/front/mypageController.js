@@ -2,16 +2,19 @@ let config = require('../../config');
 let mypageModel = require('../../models/front/mypageModel');
 
 module.exports = {
-    test: function (req, res, next) {
-        let data = req.body.data;
-        file.fileUpload(req, (result) => {
-            console.log('111 : ', result);
-
-        });
-        res.send('ok');
-        // indexModel.testDB(data, (result) => {
-        //     console.log('222 : ', result)
-        //     res.send(result);
-        // })
+    member_modify: function (req, res, next) {
+        res.render('mypage/member_modify');
+    },
+    setting: function (req, res, next) {
+        res.render('mypage/setting');
+    },
+    pwd_change: function (req, res, next) {
+        res.render('mypage/pwd_change');
+    },
+    tel_modify: function (req, res, next) {
+        res.render('mypage/tel_modify');
+    },
+    member_delete: function (req, res, next) {
+        res.render('mypage/member_delete');
     },
 };

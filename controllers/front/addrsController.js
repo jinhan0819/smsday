@@ -2,16 +2,13 @@ let config = require('../../config');
 let addrsModel = require('../../models/front/addrsModel');
 
 module.exports = {
-    test: function (req, res, next) {
-        let data = req.body.data;
-        file.fileUpload(req, (result) => {
-            console.log('111 : ', result);
-
-        });
-        res.send('ok');
-        // indexModel.testDB(data, (result) => {
-        //     console.log('222 : ', result)
-        //     res.send(result);
-        // })
+    address_book: function (req, res, next) {
+        res.render('addrs/address_book');
+    },
+    address_reject: function (req, res, next) {
+        res.render('addrs/address_reject');
+    },
+    address_reject_list: function (req, res, next) {
+        res.render('addrs/address_reject_list');
     },
 };

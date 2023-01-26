@@ -8,7 +8,7 @@
         <div class="right_nav">
             <div class="user">
                 <p>
-                    <b><%- memberInfo.member_name %></b>님의 충전잔액은<span> 0</span>원입니다.
+                    <b><%- memberInfo.mb_name %></b>님의 충전잔액은<span name="mb_point"> 0</span>원입니다.
                 </p>
             </div>
             <button class="coin">
@@ -22,7 +22,7 @@
         <div class="right_nav">
             <div class="user">
                 <p>
-                    <b><%- memberInfo.member_name %></b>님의 충전잔액은<span> 0</span>원입니다.
+                    <b><%- memberInfo.mb_name %></b>님의 충전잔액은<span name="mb_point"> 0</span>원입니다.
                 </p>
             </div>
             <button class="coin">
@@ -70,143 +70,143 @@
                      문자발송
                  </a>
                  <ul class="subdeps">
-                     <li>
-                         <a href="#">
-                            단·장문 보내기
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            이미지문자 보내기
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            대량문자 보내기
-                         </a>
-                     </li>
+                    <li>
+                        <a href="/front/sms/sms_send">
+                        단·장문 보내기
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/sms/img_sms_send">
+                        이미지문자 보내기
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/sms/large_sms_send">
+                        대량문자 보내기
+                        </a>
+                    </li>
                  </ul>
              </li>
              <li>
-                 <a href="#none">
-                     단문·장문
-                 </a>
-                 <ul class="subdeps">
-                     <li>
-                         <a href="#">
-                            단·장문 보내기
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            이미지문자 보내기
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            대량문자 보내기
-                         </a>
-                     </li>
-                 </ul>
+                <a href="#none">
+                    단문·장문
+                </a>
+                <ul class="subdeps">
+                    <li>
+                        <a href="/front/sms/sms_send">
+                        단·장문 보내기
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/sms/img_sms_send">
+                        이미지문자 보내기
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/sms/large_sms_send">
+                        대량문자 보내기
+                        </a>
+                    </li>
+                </ul>
              </li>
              <li>
-                 <a href="#none">
-                     개인주소록
-                 </a>
-                 <ul class="subdeps">
-                     <li>
-                         <a href="#">
-                            주소록
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            수신거부
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            080수신거부목록 (자동등록)
-                         </a>
-                     </li>
-                 </ul>
+                <a href="#none">
+                    개인주소록
+                </a>
+                <ul class="subdeps">
+                    <li>
+                        <a href="/front/addrs/address_book">
+                        주소록
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/addrs/address_reject">
+                        수신거부
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/addrs/address_reject_list">
+                        080수신거부목록 (자동등록)
+                        </a>
+                    </li>
+                </ul>
              </li>
              <li>
-                 <a href="#none">
-                     전송내역
-                 </a>
-                 <ul class="subdeps">
-                     <li>
-                         <a href="#">
-                            전송결과
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            예약전송
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            전송통계
-                         </a>
-                     </li>
-                 </ul>
+                <a href="#none">
+                    전송내역
+                </a>
+                <ul class="subdeps">
+                    <li>
+                        <a href="/front/history/send_result">
+                        전송결과
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/history/reservation">
+                        예약전송
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/history/send_stats">
+                        전송통계
+                        </a>
+                    </li>
+                </ul>
              </li>
              <li>
-                 <a href="#none">
-                     결제관리
-                 </a>
-                 <ul class="subdeps">
-                     <li>
-                         <a href="#">
-                            문자단가
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            충전내역
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            발송(금액차감)내역
-                         </a>
-                     </li>
-                 </ul>
+                <a href="#none">
+                    결제관리
+                </a>
+                <ul class="subdeps">
+                    <li>
+                        <a href="/front/payment/sms_price">
+                        문자단가
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/payment/charge_history">
+                        충전내역
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/payment/send_history">
+                        발송(금액차감)내역
+                        </a>
+                    </li>
+                </ul>
              </li>
              <li>
-                 <a href="#none">
-                     마이페이지
-                 </a>
-                 <ul class="subdeps">
-                     <li>
-                         <a href="#">
-                            내정보변경
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            환경설정
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            패스워드변경
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            발신번호추가/삭제
-                         </a>
-                     </li>
-                     <li>
-                         <a href="#">
-                            회원탈퇴
-                         </a>
-                     </li>
-                 </ul>
-             </li>
+                <a href="#none">
+                    마이페이지
+                </a>
+                <ul class="subdeps">
+                    <li>
+                        <a href="/front/mypage/member_modify">
+                        내정보변경
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/mypage/setting">
+                        환경설정
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/mypage/pwd_change">
+                        패스워드변경
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/mypage/tel_modify">
+                        발신번호추가/삭제
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/front/mypage/member_delete">
+                        회원탈퇴
+                        </a>
+                    </li>
+                </ul>
+            </li>
          </ul>
      </div>
 </header>
@@ -233,5 +233,13 @@
         }else{
             alert('아이디 또는 비밀번호가 틀립니다.\n다시 시도해주세요.');
         }
-    }
+    };
+
+    (async function init(){
+        let data = {};
+        data.mb_index = '<%- memberInfo.mb_index %>';
+        let res = await axios.post('/getMemberInfo', data);
+        let info = res.data.result[0];
+        $('span[name=mb_point]').text(setComma(info.mb_point));
+    }());
 </script>
