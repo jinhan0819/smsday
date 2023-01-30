@@ -6,18 +6,18 @@ let superman = 999;
 
 const DATABASE_INFO = {
     dev: {
-        HOST: 'lineworldap.iptime.org',
-        PORT: 33306,
-        USER: 'root',
-        PASSWORD: 'line9876',
-        DATABASE: 'smsday'
+        HOST: 'db.smsday.kr',
+        PORT: 3306,
+        USER: 'smsday',
+        PASSWORD: 'cd19593363@@',
+        DATABASE: 'dbsmsday'
     },
     pro: {
-        HOST: 'lineworldap.iptime.org',
-        PORT: 33306,
-        USER: 'root',
-        PASSWORD: 'line9876',
-        DATABASE: 'smsday'
+        HOST: 'db.smsday.kr',
+        PORT: 3306,
+        USER: 'smsday',
+        PASSWORD: 'cd19593363@@',
+        DATABASE: 'dbsmsday'
     }
 };
 
