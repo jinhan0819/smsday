@@ -1,0 +1,19 @@
+{
+    "apps": [
+        {
+            "name": "smsday",
+            "script": "bin/dev",
+            "watch": false,
+            "env": {
+                "NODE_ENV": "production",
+                "PORT": 8000
+            },
+            "exec_mode": "cluster",
+            "instances": 1,
+			"error_file" : "smsday_err.log",
+			"out_file" : "smsday_out.log",
+			"log_date_format" : "YYYY_MM_DD HH:mm:ss Z",
+			"combine_logs" : true
+        }
+    ]
+}
