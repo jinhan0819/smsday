@@ -6,7 +6,7 @@
             "watch": false,
             "env": {
                 "NODE_ENV": "production",
-                "PORT": 8000
+                "PORT": 8080
             },
             "exec_mode": "cluster",
             "instances": 1,

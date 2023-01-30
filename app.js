@@ -63,6 +63,7 @@ app.use(function (req, res, next) {
       res.locals.memberInfo = req.session.memberInfo; 
   } else {
       res.locals.isLogin = false;
+      res.locals.memberInfo = {};
   }
   next();
 });
