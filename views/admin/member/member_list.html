@@ -3,8 +3,8 @@
 		<h2>회원관리</h2>
 
 		<div class="time">
-			<span id="todayIs"> 2022년 10월 18일 </span> <span> <b> <span>
-						<img src="resources/images/time.png">
+			<span id="todayIs"> </span> <span> <b> <span>
+						<img src="/admin/images/time.png">
 					</span> <em id="clock" style="font-style: normal"></em>
 				</b>
 			</span>
@@ -13,9 +13,8 @@
 	<div class="tab_are">
 		<ul class="left">
 			<li><a href="#none" class="on">전체(41)</a></li>
-			<li><a href="#none">총회원(32)</a></li>
-			<li><a href="#none">신청(0)</a></li>
-			<li><a href="#none">승인완료(0)</a></li>
+			<li><a href="#none">회원(0)</a></li>
+			<li><a href="#none">관리자(0)</a></li>
 		</ul>
 	</div>
 	<div class="table_are">
@@ -28,176 +27,253 @@
 					</select> <span>개씩 보기</span></li>
 				<li>
 					<div class="search_form">
-						<input type="text" placeholder="검색어"> <a href="#none">
-							<img src="resources/images/search.png">
+						<input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){member_search()}"> 
+						<a href="javascript:void(0);" onclick="member_search()">
+							<img src="/admin/images/search.png">
 						</a>
 					</div>
 				</li>
 			</ul>
 			<ul class="right">
-				<li><a href="#layer1" class="btn-example"> <span><img src="resources/images/ok.png"></span> 신규 등록
+				<li><a href="javascript:void(0);" onclick="openMemberPop('회원 등록', 'REGIST');" class="btn-example"> <span><img src="/admin/images/ok.png"></span> 신규 등록
 					</a></li>
 			</ul>
 		</div>
 
 		<div class="table">
 			<table>
-				<tr>
+				<thead>
 					<th>번호</th>
 					<th>ID</th>
-					<th>PW</th>
-					<th>업체명</th>
+					<th>이름</th>
+					<th>회원구분</th>
 					<th>연락처</th>
-					<th>카카오톡</th>
-					<th>메모</th>
-					<th>쿠팡</th>
-					<th>N쇼핑</th>
-					<th>테스트</th>
-					<th>등급</th>
-					<th>승인여부</th>
+					<!-- <th>등급</th> -->
+					<th>이메일</th>
 					<th>설정</th>
-				</tr>
-				<tr>
+				</thead>
+				<tbody id="memberListBody">
 					<td>1</td>
 					<td>nowandnew</td>
-					<td>1234</td>
-					<td>nowandnew</td>
+					<td>홍길동</td>
+					<td>회원</td>
 					<td>01012345678</td>
-					<td>roockman</td>
-					<td>메모사항입니다.</td>
-					<td>0</td>
-					<td>40</td>
-					<td>0</td>
-					<td><select>
+					<td>test@naver.com</td>
+					<!-- <td>
+						<select>
 							<option>일반</option>
 							<option>총판</option>
 							<option>관리자</option>
-						</select></td>
-					<td><select>
-							<option>승인</option>
-							<option>대기</option>
-							<option>탈퇴</option>
-						</select></td>
+						</select>
+					</td> -->
 					<td class="custom"><a href="#layer2" class="btn-example">
-							<span><img src="resources/images/okb.png"></span> 작업 설정
+							<span><img src="/admin/images/okb.png"></span> 작업 설정
 						</a></td>
-				</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
 </section>
 
-<div id="layer1" class="pop-layer">
+<div id="memberModifyPop" class="pop-layer">
 	<div class="dim"></div>
 	<div class="pop-container">
 		<div class="head_pop">
-			<h2>회원등록</h2>
-			<a href="#" class="btn-layerClose"><img src="resources/images/close_pop.png"></a>
+			<h2 id="member_text"></h2>
+			<a href="javascript:void(0);" onclick="closeMemberPop();" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
 		</div>
-		<div class="pop_form_are">
+		<div class="pop_form_are" id="member_table">
 			<ul>
 				<li>
-					<p>아이디</p> <input type="text" placeholder="">
+					<p>아이디</p> <input type="text" placeholder="" id="mb_id">
 				</li>
 				<li>
-					<p>비밀번호</p> <input type="text" placeholder="">
+					<p>비밀번호</p> <input type="text" placeholder="" id="mb_password">
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<p>업체명</p> <input type="text" placeholder="">
+					<p>이름</p> <input type="text" placeholder="" id="mb_name">
 				</li>
 				<li>
-					<p>연락처</p> <input type="text" placeholder="">
-				</li>
-			</ul>
-			<ul>
-				<li class="w100">
-					<p>카카오톡</p> <input type="text" placeholder="">
+					<p>이메일</p> <input type="text" placeholder="" id="mb_email">
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<p>업체명</p> <select>
-						<option>일반</option>
-						<option>총판</option>
-						<option>관리자</option>
-					</select>
+					<p>연락처</p> <input type="text" placeholder="" id="mb_hp" maxlength="13">
 				</li>
 				<li>
-					<p>승인여부</p> <select>
-						<option>승인</option>
-						<option>대기</option>
-						<option>탈퇴</option>
+					<p>회원 구분</p> 
+					<select id="mb_level">
+						<option value="1">회원</option>
+						<option value="10">관리자</option>
 					</select>
 				</li>
 			</ul>
 			<ul>
-				<li class="w100">
-					<p>메모사항</p> <input type="text" placeholder="">
+				<li>
+					<p>포인트</p> <input type="text" placeholder="" id="mb_point" value="0">
 				</li>
 			</ul>
 		</div>
 		<div class="pop_btn">
-			<a href="#none" class="okbtn">신규 등록</a> <a href="#" class="btn-layerClose"> 등록취소 </a>
+			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a> <a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();"> 취소 </a>
 		</div>
 	</div>
 </div>
 
-<div id="layer2" class="pop-layer">
-	<div class="dim"></div>
-	<div class="pop-container">
-		<div class="head_pop">
-			<h2>회원수정</h2>
-			<a href="#" class="btn-layerClose"> <img src="resources/images/close_pop.png">
-			</a>
-		</div>
-		<div class="pop_form_are">
-			<ul>
-				<li>
-					<p>아이디</p> <span>nowandnew</span>
-				</li>
-				<li>
-					<p>비밀번호</p> <input type="text" placeholder="1234">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>업체명</p> <input type="text" placeholder="nowandnew">
-				</li>
-				<li>
-					<p>연락처</p> <input type="text" placeholder="01012345678">
-				</li>
-			</ul>
-			<ul>
-				<li class="w100">
-					<p>카카오톡</p> <input type="text" placeholder="roockman">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>업체명</p> <select>
-						<option>일반</option>
-						<option>총판</option>
-						<option>관리자</option>
-					</select>
-				</li>
-				<li>
-					<p>승인여부</p> <select>
-						<option>승인</option>
-						<option>대기</option>
-						<option>탈퇴</option>
-					</select>
-				</li>
-			</ul>
-			<ul>
-				<li class="w100">
-					<p>메모사항</p> <input type="text" placeholder="">
-				</li>
-			</ul>
-		</div>
-		<div class="pop_btn">
-			<a href="#none" class="okbtn">수정</a> <a href="#" class="btn-layerClose"> 취소 </a>
-		</div>
-	</div>
-</div>
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script>
+	let index_no = null;
+
+	async function init(){
+		let data = {};
+		data.perPage = 10;
+		data.page = 1;
+		data.keyword = $('#keyword').val();
+		let res = await axios.post('/admin/member/getMemberList', data);
+
+		let list = res.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr>
+						<td>${item.rownum}</td>
+						<td>${item.mb_id}</td>
+						<td>${item.mb_name}</td>
+						<td>${item.mb_level_nm}</td>
+						<td>${item.mb_hp}</td>
+						<td>${item.mb_email}</td>
+						<td class="custom">
+							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
+								<span><img src="/admin/images/okb.png"></span> 작업 설정
+							</a>
+						</td>
+					</tr>
+				`
+			});
+		}
+		$('#memberListBody').html(html)
+
+	}
+	init();
+
+	function member_search(){
+		init();
+	}
+
+	function openMemberPop(text, type){
+		if(type === 'REGIST'){
+			index_no = null;
+			$('#mb_id').prop('readonly', false);
+		}else{
+			$('#mb_id').prop('readonly', true);
+		}
+		
+		$('#memberModifyPop').css('display', 'block');
+		$('#member_text').text(text);
+		$('#member_table').find('input').each(function(idx, el){
+			if($(el).attr('id') === 'mb_point'){
+				$(el).val(0);
+			}else{
+				$(el).val('');
+			}
+		});
+		$('#mb_level').val(1).prop('selected', true);
+	}
+
+	function closeMemberPop(){
+		$('#memberModifyPop').css('display', 'none');
+	}
+
+	async function memberModify(){
+		let regist_bool = true;
+
+        $('#member_table').find('input').each(function(idx, el){
+            if($(el).val() == '' && index_no == null){
+                alert('모든 정보를 입력해주세요.');
+                regist_bool = false;
+                return false;
+            }
+        })
+
+        // 비밀번호 정규식
+        if($('#mb_password').val() !== '' && !passwordValidationCheck($('#mb_password').val())){
+            alert('비밀번호 정규식에 맞게 입력해주세요.');
+            regist_bool = false;
+            return false;
+        }
+
+        // 이메일 정규식
+        if($('#mb_email').val() !== '' && !doCheckEmail($('#mb_email').val())){
+            alert('이메일 형식이 올바르지 않습니다.');
+            regist_bool = false;
+            return false;
+        }
+
+        if(regist_bool){
+			let id_check = true;
+			if(index_no == null) id_check = await doDuplIdCheck();
+			
+			if(id_check){
+				let data = {};
+				$('#member_table').find('input[type=text]').each(function(idx, el){
+					data[$(el).attr('id')] = $(el).val();
+				})
+				data.mb_password= $('#mb_password').val();
+				data.mb_level = $('#mb_level option:selected').val();
+				data.index_no = index_no;
+				
+				let res = await axios.post('/admin/member/memberModify', data);
+				if(res.data.code == 200){
+					location.reload();
+				}else{
+					alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+
+			}
+        }
+	}
+
+
+    // 아이디 중복 확인
+    async function doDuplIdCheck(){
+		let id_chk_bool = false;
+
+        let regType = /^[A-Za-z0-9]*$/; 
+        if(regType.test($('#mb_id').val()) && $('#mb_id').val().length >= 6){
+            let data = {mb_id: $('#mb_id').val()};
+            let res = await axios.post('/front/join/id_check', data);
+    
+            if(!res.data.check){
+                id_chk_bool = true;
+            }else{
+                alert('중복되는 아이디가 존재합니다.\n다른 아이디를 입력해주세요.');
+                $('#mb_id').val('');
+                id_chk_bool = false;
+            }
+        }else{
+            alert('ID는 6~20자 이내의 영문, 숫자만 가능합니다.');
+			id_chk_bool = false;
+        }
+
+		return id_chk_bool;
+
+    }
+
+	$(document).on('click', '.custom a', async function(){
+		let data = {index_no: $(this).data('index')};
+		let res = await axios.post('/admin/member/getMemberDetail', data);
+		let info = res.data.result[0];
+		index_no = info.index_no;
+		
+		openMemberPop('회원 수정', 'UPDATE');
+		for(let key in info){
+			$('#'+key).val(info[key]);
+		}
+	});
+
+
+</script>

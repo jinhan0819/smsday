@@ -1,6 +1,6 @@
 $(function(){
     // 전화번호 keyup
-    $(document).on("keyup", "#tel", function() { 
+    $(document).on("keyup", "#mb_hp", function() { 
         $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
     });
 })
@@ -8,12 +8,25 @@ $(function(){
 // 이메일 형식 체크
 function doCheckEmail(email){
     let emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9_-]+[A-Za-z0-9_-]*[.]{1}[A-Za-z]{1,3}$/;
-    if (!emailRegExp.test(email)) {
-        alert('이메일 형식이 올바르지 않습니다.');
-        return false;
-    }else{
-        return true;
-    }
+    return emailRegExp.test(email);
+    // if (!emailRegExp.test(email)) {
+    //     alert('이메일 형식이 올바르지 않습니다.');
+    //     return false;
+    // }else{
+    //     return true;
+    // }
+}
+
+// 비밀번호 영문, 숫자, 특수문자 정규식
+function passwordValidationCheck(password){
+    let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    return regPass.test(password);
+    // if (!regPass.test(password)) {
+    //     alert('비밀번호 정규식에 맞게 입력해주세요.');
+    //     return false;
+    // }else{
+    //     return true;
+    // }
 }
 
 // 비밀번호 체크
