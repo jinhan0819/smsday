@@ -289,8 +289,8 @@ ul.tabs li.current{
 	display: inherit;
 }
 
-.tab-content.pre_box{border: 1px solid #dfdfdf; padding: 30px; }
-.tab-content.pre_box p{font-size: 16px; color: #555}
+.tab-content.pre_box{border: 1px solid #dfdfdf; padding: 30px; overflow-y: auto; max-height: 800px}
+.tab-content.pre_box p{font-size: 16px; color: #555; word-break: break-all;}
 
 
 .tab_sub{display: flex;}
