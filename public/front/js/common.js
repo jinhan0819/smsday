@@ -107,13 +107,66 @@ window.addEventListener('load', function() {
     });
 });
 
-
 $(function(){
-   var $firstmenu = $('.center_nav > ul > li'),
-       $header = $('.subdeps');
+    var $firstmenu = $('.center_nav > ul > li.dep1'), $header = $('.subdeps01');
 
     $firstmenu.mouseenter(function(){
-       $header.stop().animate({height:'80px'},200);
+        $header.stop().animate({height:'80px'},200);
+    })
+    .mouseleave(function(){
+        $header.stop().animate({height:'0px'},200);
+    })
+});
+
+$(function(){
+    var $firstmenu = $('.center_nav > ul > li.dep2'), $header = $('.subdeps02');
+
+    $firstmenu.mouseenter(function(){
+        $header.stop().animate({height:'80px'},200);
+    })
+    .mouseleave(function(){
+        $header.stop().animate({height:'0px'},200);
+    })
+});
+
+$(function(){
+    var $firstmenu = $('.center_nav > ul > li.dep3'), $header = $('.subdeps03');
+
+    $firstmenu.mouseenter(function(){
+        $header.stop().animate({height:'80px'},200);
+    })
+    .mouseleave(function(){
+        $header.stop().animate({height:'0px'},200);
+    })
+});
+
+$(function(){
+    var $firstmenu = $('.center_nav > ul > li.dep4'), $header = $('.subdeps04');
+
+    $firstmenu.mouseenter(function(){
+        $header.stop().animate({height:'80px'},200);
+    })
+    .mouseleave(function(){
+        $header.stop().animate({height:'0px'},200);
+    })
+});
+
+$(function(){
+    var $firstmenu = $('.center_nav > ul > li.dep5'), $header = $('.subdeps05');
+
+    $firstmenu.mouseenter(function(){
+        $header.stop().animate({height:'80px'},200);
+    })
+    .mouseleave(function(){
+        $header.stop().animate({height:'0px'},200);
+    })
+});
+
+$(function(){
+    var $firstmenu = $('.center_nav > ul > li.dep6'), $header = $('.subdeps06');
+
+    $firstmenu.mouseenter(function(){
+        $header.stop().animate({height:'80px'},200);
     })
     .mouseleave(function(){
         $header.stop().animate({height:'0px'},200);
