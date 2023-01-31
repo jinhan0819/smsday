@@ -223,8 +223,8 @@
         }
 
         let data = {
-            id : $('#login_id').val(),
-            password : $('#login_password').val()
+            mb_id : $('#login_id').val(),
+            mb_password : $('#login_password').val()
         }
 
         let res = await axios.post('/doLogin', data);
@@ -237,7 +237,7 @@
 
     (async function init(){
         let data = {};
-        data.mb_index = '<%- memberInfo.mb_index %>';
+        data.index_no = '<%- memberInfo.index_no %>';
         let res = await axios.post('/getMemberInfo', data);
         let info = res.data.result[0];
         $('span[name=mb_point]').text(setComma(info.mb_point));

@@ -34,18 +34,18 @@ module.exports = () => {
 
     passport.use(new LocalStrategy({
             // Login Control 의 ID, PASS 값 매핑
-            usernameField: 'id',
-            passwordField: 'password',
+            usernameField: 'mb_id',
+            passwordField: 'mb_password',
             passReqToCallback: true
         },
         async (req, id, password, done) => {
             try {
                 //*** 로그인 및 암호화 등 비지니스 로직 작성 ***
-                let sql = 'select * from tb_member where id = ?';
+                let sql = 'select * from tb_member where mb_id = ?';
                 let rslt = await db.queryTransaction(sql, [id]);
 
                 if(rslt.result.length > 0){
-                    let cipherPassword = await cipher.chkBcryptPassAsync(password, rslt.result[0].password);
+                    let cipherPassword = await cipher.chkBcryptPassAsync(password, rslt.result[0].mb_password);
                     if(cipherPassword){
                         if(rslt.result.length > 0){
                             //req.user 로 접근
