@@ -1,11 +1,11 @@
 <header>
     <div class="allnav">
         <ul>
-            <li><a href="#none">회원관리</a></li>
-            <li><a href="#none">디자인관리</a></li>
-            <li><a href="#none">결제관리</a></li>
+            <li><a href="/memberList">회원관리</a></li>
+            <li><a href="#none">가맹점관리</a></li>
             <li><a href="#none">문자관리</a></li>
-            <li><a href="#none">게시판관리</a></li>
+            <li><a href="#none">충전관리</a></li>
+            <li><a href="#none">디자인관리</a></li>
             <li><a href="#none">환경설정</a></li>
         </ul>
     </div>
@@ -69,6 +69,7 @@ $('.btn-example').click(function () {
     var $href = $(this).attr('href');
     layer_popup($href);
 });
+
 function layer_popup(el) {
 
     var $el = $(el); //레이어의 id를 $el 변수에 저장
@@ -102,13 +103,9 @@ function layer_popup(el) {
         $('.dim-layer').fadeOut();
         return false;
     });
-
 }
-</script>
 
-<script>
-function showtime()//    
-{
+function showtime() {
     var nowTime = new Date();//        
     var hours = nowTime.getHours();//       
     var minutes = nowTime.getMinutes();//       
