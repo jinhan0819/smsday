@@ -63,6 +63,7 @@ app.use(function (req, res, next) {
       res.locals.memberInfo = req.session.memberInfo; 
   } else {
       res.locals.isLogin = false;
+      res.locals.auth = req.session.auth;
       res.locals.memberInfo = {};
   }
   next();
@@ -70,13 +71,13 @@ app.use(function (req, res, next) {
 
 // settings for page layout
 app.use('/front/*', function (req, res, next) {
-  app.set('layout', 'layout');
+  app.set('layout', 'frnt_layout');
   app.set('views', path.join(__dirname, 'views/front'));
   next();
 });
 
 app.use('/admin/*', function (req, res, next) {
-  app.set('layout', 'layout');
+  app.set('layout', 'ad_layout');
   app.set('views', path.join(__dirname, 'views/admin'));
   next();
 });

@@ -5,7 +5,8 @@ let passport = require('../../modules/passport')();
 
 module.exports = {
     main: function (req, res, next) {
-        res.render('main');
+        console.log('admin page access');
+        res.render('ad_main');
     },
     itemlist: function (req, res, next) {
         res.render('imsi/itemlist');

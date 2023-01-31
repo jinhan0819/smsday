@@ -4,7 +4,8 @@ let file = require('../../modules/file')
 
 module.exports = {
     main: function (req, res, next) {
-        res.render('main');
+        console.log('member page access');
+        res.render('frnt_main');
     },
     menual: function (req, res, next) {
         res.render('menual');

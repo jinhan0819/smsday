@@ -4,6 +4,7 @@
             <h2 class="prefont"><b>문자</b>데이</h2>
         </a>
         <% if(isLogin) { %>
+        <% console.log('member auth ==> ', auth)%>
         <% if(auth == 1) { %>
         <div class="right_nav">
             <div class="user">
@@ -18,7 +19,7 @@
                 로그아웃
             </a>
         </div>
-        <% } else {%>
+        <% } else if(auth == 10) {%>
         <div class="right_nav">
             <div class="user">
                 <p>
