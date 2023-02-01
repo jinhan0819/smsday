@@ -29,7 +29,7 @@ module.exports = {
                 Z.index_no,
                 Z.mb_id,
                 Z.mb_name, 
-                Z.mb_hp, 
+                IFNULL(Z.mb_hp, '-') AS mb_hp,
                 IFNULL(Z.mb_email, '-') AS mb_email,
                 Z.mb_point,
                 Z.mb_level,
