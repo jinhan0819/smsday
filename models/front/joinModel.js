@@ -7,7 +7,7 @@ module.exports = {
         let sql = `
             select
                 mb_id
-            from tb_member
+            from TB_MEMBER
             where mb_id = ?
         `;
         // 쿼리를 하나만 처리할 때 사용
@@ -20,7 +20,7 @@ module.exports = {
     signup: async function(data){
         data.mb_password = await cipher.bcryptPass(data.mb_password);
 
-        let sql = `insert into tb_member set ?`;
+        let sql = `insert into TB_MEMBER set ?`;
         // 쿼리를 하나만 처리할 때 사용
         let rslt = await db.queryTransaction(sql, data);
 

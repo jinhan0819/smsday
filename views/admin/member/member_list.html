@@ -1,6 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>회원관리</h2>
+		<h2>회원정보 관리</h2>
 
 		<div class="time">
 			<span id="todayIs"> </span> <span> <b> <span>
@@ -11,19 +11,21 @@
 		</div>
 	</div>
 	<div class="tab_are">
-		<ul class="left">
-			<li><a href="#none" class="on">전체(41)</a></li>
-			<li><a href="#none">회원(0)</a></li>
-			<li><a href="#none">관리자(0)</a></li>
+		<ul class="left" id="count_ul">
+			<li><a href="javascript:void(0);" class="on">전체(<span id="total_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="1">회원(<span id="member_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="2">가맹점(<span id="franchisee_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="10">관리자(<span id="admin_count">0</span>)</a></li>
 		</ul>
 	</div>
 	<div class="table_are">
 		<div class="btn_are">
 			<ul class="left">
-				<li><select>
-						<option>100</option>
-						<option>50</option>
-						<option>30</option>
+				<li>
+					<select id="search_count">
+						<option value="100">100</option>
+						<option value="50">50</option>
+						<option value="30">30</option>
 					</select> <span>개씩 보기</span></li>
 				<li>
 					<div class="search_form">
@@ -68,7 +70,8 @@
 					</td> -->
 					<td class="custom"><a href="#layer2" class="btn-example">
 							<span><img src="/admin/images/okb.png"></span> 작업 설정
-						</a></td>
+						</a>
+					</td>
 				</tbody>
 			</table>
 		</div>
@@ -107,6 +110,7 @@
 					<p>회원 구분</p> 
 					<select id="mb_level">
 						<option value="1">회원</option>
+						<option value="2">가맹점</option>
 						<option value="10">관리자</option>
 					</select>
 				</li>
@@ -125,16 +129,29 @@
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script>
+
 	let index_no = null;
+	let params = {}; // 검색 파라미터 (전역변수)
+
+	function getParams(){
+		params.perPage = parseInt($('#search_count option:selected').val());
+		params.page = 1;
+		params.keyword = $('#keyword').val();
+		return params;
+	}
 
 	async function init(){
-		let data = {};
-		data.perPage = 10;
-		data.page = 1;
-		data.keyword = $('#keyword').val();
-		let res = await axios.post('/admin/member/getMemberList', data);
+		let data = getParams();
+		// 회원별 count
+		let m_count = await axios.post('/admin/member/getMemberCount', data);
+		for(let key in m_count.data.result[0]){
+			$('#'+key).text(m_count.data.result[0][key]);
+		}
 
-		let list = res.data.result;
+		// 회원 list
+		let member = await axios.post('/admin/member/getMemberList', data);
+
+		let list = member.data.result;
 		let html = '';
 		if(list.length > 0){
 			list.forEach(item => {
@@ -154,8 +171,10 @@
 					</tr>
 				`
 			});
+		}else{
+			html = '<tr><td colspan="7">데이터가 존재하지 않습니다.</td></tr>'
 		}
-		$('#memberListBody').html(html)
+		$('#memberListBody').html(html);
 
 	}
 	init();
@@ -263,6 +282,7 @@
 
     }
 
+	// 회원 목록 - 작업 설정 클릭 이벤트
 	$(document).on('click', '.custom a', async function(){
 		let data = {index_no: $(this).data('index')};
 		let res = await axios.post('/admin/member/getMemberDetail', data);
@@ -275,5 +295,18 @@
 		}
 	});
 
+	// 회원 count 클릭 이벤트
+	$('#count_ul li').find('a').click(function(){
+		$('#count_ul').find('a').removeClass('on');
+		$(this).addClass('on');
+		params.mb_level = $(this).data('level');
+		init();
+	});
+
+	// 회원 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		params.perPage = $(this).val();
+		init();
+	});
 
 </script>

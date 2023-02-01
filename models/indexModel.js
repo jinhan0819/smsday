@@ -10,7 +10,7 @@ module.exports = {
                         mb_id,
                         mb_email,
                         mb_point
-                    from tb_member 
+                    FROM TB_MEMBER 
                     WHERE index_no = ?
                 `;
         // 쿼리를 하나만 처리할 때 사용
