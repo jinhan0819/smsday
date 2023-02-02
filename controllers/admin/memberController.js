@@ -7,7 +7,8 @@ module.exports = {
         res.render('member/member_list');
     },
     getMemberCount: async function (req, res, next) {
-        let rslt = await memberModel.getMemberCount();
+        let data = req.body;
+        let rslt = await memberModel.getMemberCount(data);
         res.send(rslt);
     },
     getMemberList: async function (req, res, next) {

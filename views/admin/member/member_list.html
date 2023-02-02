@@ -3,9 +3,11 @@
 		<h2>회원정보 관리</h2>
 
 		<div class="time">
-			<span id="todayIs"> </span> <span> <b> <span>
-						<img src="/admin/images/time.png">
-					</span> <em id="clock" style="font-style: normal"></em>
+			<span id="todayIs"></span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
 				</b>
 			</span>
 		</div>
@@ -26,7 +28,9 @@
 						<option value="100">100</option>
 						<option value="50">50</option>
 						<option value="30">30</option>
-					</select> <span>개씩 보기</span></li>
+					</select> 
+					<span>개씩 보기</span>
+				</li>
 				<li>
 					<div class="search_form">
 						<input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){member_search()}"> 
@@ -37,8 +41,9 @@
 				</li>
 			</ul>
 			<ul class="right">
-				<li><a href="javascript:void(0);" onclick="openMemberPop('회원 등록', 'REGIST');" class="btn-example"> <span><img src="/admin/images/ok.png"></span> 신규 등록
-					</a></li>
+				<li>
+					<a href="javascript:void(0);" onclick="openMemberPop('회원 등록', 'REGIST');" class="btn-example"> <span><img src="/admin/images/ok.png"></span>신규 등록</a>
+				</li>
 			</ul>
 		</div>
 
@@ -68,12 +73,14 @@
 							<option>관리자</option>
 						</select>
 					</td> -->
-					<td class="custom"><a href="#layer2" class="btn-example">
-							<span><img src="/admin/images/okb.png"></span> 작업 설정
-						</a>
+					<td class="custom">
+						<a href="#layer2" class="btn-example"><span><img src="/admin/images/okb.png"></span>작업 설정</a>
 					</td>
 				</tbody>
 			</table>
+
+			<div id="pagenation_view" class="pagenation"></div>
+
 		</div>
 	</div>
 </section>
@@ -88,23 +95,28 @@
 		<div class="pop_form_are" id="member_table">
 			<ul>
 				<li>
-					<p>아이디</p> <input type="text" placeholder="" id="mb_id">
+					<p>아이디</p>
+					<input type="text" placeholder="" id="mb_id">
 				</li>
 				<li>
-					<p>비밀번호</p> <input type="text" placeholder="" id="mb_password">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>이름</p> <input type="text" placeholder="" id="mb_name">
-				</li>
-				<li>
-					<p>이메일</p> <input type="text" placeholder="" id="mb_email">
+					<p>비밀번호</p>
+					<input type="text" placeholder="" id="mb_password">
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<p>연락처</p> <input type="text" placeholder="" id="mb_hp" maxlength="13">
+					<p>이름</p>
+					<input type="text" placeholder="" id="mb_name">
+				</li>
+				<li>
+					<p>이메일</p>
+					<input type="text" placeholder="" id="mb_email">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>연락처</p>
+					<input type="text" placeholder="" id="mb_hp" maxlength="13">
 				</li>
 				<li>
 					<p>회원 구분</p> 
@@ -117,12 +129,14 @@
 			</ul>
 			<ul>
 				<li>
-					<p>포인트</p> <input type="text" placeholder="" id="mb_point" value="0">
+					<p>포인트</p>
+					<input type="text" placeholder="" id="mb_point" value="0">
 				</li>
 			</ul>
 		</div>
 		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a> <a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();"> 취소 </a>
+			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a>
+			<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();">취소</a>
 		</div>
 	</div>
 </div>
@@ -132,10 +146,11 @@
 
 	let index_no = null;
 	let params = {}; // 검색 파라미터 (전역변수)
+	params.page = 1;
+	params.perPage = 2;
 
 	function getParams(){
-		params.perPage = parseInt($('#search_count option:selected').val());
-		params.page = 1;
+		// params.perPage = parseInt($('#search_count option:selected').val());
 		params.keyword = $('#keyword').val();
 		return params;
 	}
@@ -176,8 +191,22 @@
 		}
 		$('#memberListBody').html(html);
 
+		/******************** start paging ********************/
+		$(document).unbind("click").on('click', '#pagenation_view a', function(){
+			params.page = $(this).data('num');
+			init();
+		});
+
+		// await pagination(URL, DATA, 데이터 갯수, 페이징 갯수, 현재 페이지);
+		let pagingHtml = await pagination('/admin/member/getMemberCount', params, 2, 5, params.page);
+		$('#pagenation_view').html(pagingHtml);
+		/******************** end paging ********************/
+
 	}
+	
 	init();
+
+
 
 	function member_search(){
 		init();

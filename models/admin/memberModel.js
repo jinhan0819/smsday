@@ -3,14 +3,12 @@ let cipher = require('../../modules/cipher');
 let config = require('../../config');
 
 module.exports = {
-    getMemberCount: async function(){
+    getMemberCount: async function(data){
         let sql = `
             SELECT
-                (SELECT COUNT(index_no) FROM TB_MEMBER) AS total_count,
-                (SELECT COUNT(index_no) FROM TB_MEMBER WHERE mb_level = 1) AS member_count,
-                (SELECT COUNT(index_no) FROM TB_MEMBER WHERE mb_level = 2) AS franchisee_count,
-                (SELECT COUNT(index_no) FROM TB_MEMBER WHERE mb_level = 10) AS admin_count
-            FROM DUAL;
+                COUNT(index_no) AS total_count
+            FROM TB_MEMBER
+            WHERE (mb_id LIKE '%${data.keyword}%' OR mb_name LIKE '%${data.keyword}%' OR mb_email LIKE '%${data.keyword}%')
         `;
         let rslt = await db.queryTransaction(sql, []);
 
