@@ -54,5 +54,8 @@ module.exports = {
             // "no": no 
         } 
         return result;
+    },
+    pagingRange: function(data){
+        return [parseInt(data.perPage) * (parseInt(data.page) - 1), parseInt(data.perPage)]
     }
 }

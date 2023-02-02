@@ -4,7 +4,7 @@ let config = require('../../config');
 let paging = require('../../modules/pagination');
 
 module.exports = {
-    getMemberCount: async function(data){
+    getPartnerCount: async function(data){
         let sql = `
             SELECT
                 COUNT(index_no) AS total_count
@@ -15,8 +15,8 @@ module.exports = {
 
         return rslt;
     },
-    getMemberList: async function(data){
-        let params = paging.pagingRange(data.paging);
+    getPartnerList: async function(data){
+        let params = paging.pagingRange(data);
         let level_sql = '';
         if(typeof data.mb_level !== 'undefined'){
             level_sql = `AND mb_level = ${data.mb_level}`
