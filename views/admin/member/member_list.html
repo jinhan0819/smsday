@@ -198,12 +198,11 @@
 		});
 
 		// await pagination(URL, DATA, 데이터 갯수, 페이징 갯수, 현재 페이지);
-		let pagingHtml = await pagination('/admin/member/getMemberCount', params, 2, 5, params.page);
-		$('#pagenation_view').html(pagingHtml);
+		$('#pagenation_view').html( await pagination('/admin/member/getMemberCount', params, 2, 5, params.page) );
 		/******************** end paging ********************/
 
 	}
-	
+
 	init();
 
 
