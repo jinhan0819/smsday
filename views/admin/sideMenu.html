@@ -1,23 +1,43 @@
 <ul>
-    <li class="nav01" id="member" style="display:none;">
+    <li class="side_menu" id="member" style="display:none;">
         <a href="javascript:void(0);" class="open_sub">
             <span><img src="/admin/images/member.png"></span>회원관리
         </a>
-        <div class="sub_nav subnav01">
-            <a href="javascript:void(0);" onclick="route_('/admin/member/memberList')">회원 목록</a>
-            <a href="javascript:void(0);" onclick="route_('/admin')">회원포인트관리</a>
+        <div class="sub_nav subnav">
+            <a href="javascript:void(0);" onclick="route_('/admin/member/memberList')">회원 정보관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin')">회원 포인트관리</a>
         </div>
     </li>
-    <li class="nav01" id="partner" style="display:none;">
+    <li class="side_menu" id="partner" style="display:none;">
         <a href="javascript:void(0);" class="open_sub">
             <span><img src="/admin/images/member.png"></span>가맹점관리
         </a>
-        <div class="sub_nav subnav01">
+        <div class="sub_nav subnav">
             <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerList')">가맹점 정보관리</a>
             <a href="#">가맹점 신규신청</a>
             <a href="#">가맹점 사용내역</a>
             <a href="#">가맹점 충전관리</a>
             <a href="#">가맹점 충전내역</a>
+        </div>
+    </li>
+    <li class="side_menu" id="sms" style="display:none;">
+        <a href="javascript:void(0);" class="open_sub">
+            <span><img src="/admin/images/member.png"></span>문자관리
+        </a>
+        <div class="sub_nav subnav">
+            <a href="#">문자 내역관리</a>
+            <a href="#">단문 관리</a>
+            <a href="#">장문 관리</a>
+            <a href="#">이미지문자 관리</a>
+        </div>
+    </li>
+    <li class="side_menu" id="point" style="display:none;">
+        <a href="javascript:void(0);" class="open_sub">
+            <span><img src="/admin/images/member.png"></span>충천관리
+        </a>
+        <div class="sub_nav subnav">
+            <a href="javascript:void(0);" onclick="route_('/admin/point/pointList')">충천 내역관리</a>
+            <a href="#">충전 신청관리</a>
         </div>
     </li>
     <!--
@@ -53,10 +73,13 @@
 
 <script>
     try {
-        let url = window.location.pathname;
+        let url      = window.location.pathname;
         let urlSplit = url.split('/');
         let url_path = urlSplit[2];
-        $('#'+url_path).css('display', 'block');
+        let el       = '#' + url_path;
+
+        $(el).css('display', 'block');
+        $(el + ' .subnav').addClass('atv');
     } catch (error) {
         location.href = '/error';
     }

@@ -190,40 +190,14 @@ a {
 	border-bottom: 1px solid #121217
 }
 
-.subnav01 {
+.subnav {
 	opacity: 0;
 	overflow: hidden;
 	height: 0;
 	transition-duration: 0.5s
 }
 
-.subnav01.atv {
-	opacity: 1;
-	height: auto;
-	transition-duration: 0.5s
-}
-
-.subnav02 {
-	opacity: 0;
-	overflow: hidden;
-	height: 0;
-	transition-duration: 0.5s
-}
-
-.subnav02.atv {
-	opacity: 1;
-	height: auto;
-	transition-duration: 0.5s
-}
-
-.subnav03 {
-	opacity: 0;
-	overflow: hidden;
-	height: 0;
-	transition-duration: 0.5s
-}
-
-.subnav03.atv {
+.subnav.atv {
 	opacity: 1;
 	height: auto;
 	transition-duration: 0.5s
@@ -319,7 +293,7 @@ section.main {
 	padding: 20px 15px;
 	border-radius: 15px;
 	box-shadow: 5px 5px 15px rgba(0, 0, 0, .2);
-	margin-top: 30px;
+	margin-top: 15px;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -535,6 +509,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	background: #222
 }
 
+.btn_are .left a {
+	border-radius: 50px;
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #dfdfdf;
+	padding: 5px 15px;
+	color: #222
+}
+
+.btn_are .left a span {
+	display: inline-block;
+	margin-right: 5px;
+	margin-top: -2px;
+	vertical-align: middle
+}
+
 .btn_are .right a {
 	border-radius: 50px;
 	display: inline-block;
@@ -555,7 +546,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .table {
 	font-size: 14px;
 	color: #222;
-	margin-top: 20px;
+	margin-top: 10px;
 	overflow-x: auto
 }
 
