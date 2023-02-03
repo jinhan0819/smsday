@@ -4,7 +4,7 @@
             <li><a href="javascript:void(0);" onclick="route_('/admin/member/memberList')">회원관리</a></li>
             <li><a href="javascript:void(0);" onclick="route_('/admin/partner/partnerList')">가맹점관리</a></li>
             <li><a href="#none">문자관리</a></li>
-            <li><a href="#none">충전관리</a></li>
+            <li><a href="javascript:void(0);" onclick="route_('/admin/point/pointList')">충천관리</a></li>
             <li><a href="#none">디자인관리</a></li>
             <li><a href="#none">환경설정</a></li>
         </ul>
@@ -41,27 +41,11 @@ $(".nav_close .open_btn").click(function () {
     }
 });
 
-$(".nav01 .open_sub").click(function () {
-    if ($(".subnav01").hasClass("atv")) {
-        $(".subnav01").removeClass("atv");
+$(".side_menu .open_sub").click(function () {
+    if ($(".subnav").hasClass("atv")) {
+        $(".subnav").removeClass("atv");
     } else {
-        $(".subnav01").addClass("atv");
-    }
-});
-
-$(".nav02 .open_sub").click(function () {
-    if ($(".subnav02").hasClass("atv")) {
-        $(".subnav02").removeClass("atv");
-    } else {
-        $(".subnav02").addClass("atv");
-    }
-});
-
-$(".nav03 .open_sub").click(function () {
-    if ($(".subnav03").hasClass("atv")) {
-        $(".subnav03").removeClass("atv");
-    } else {
-        $(".subnav03").addClass("atv");
+        $(".subnav").addClass("atv");
     }
 });
 
