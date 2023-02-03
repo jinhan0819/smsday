@@ -1,5 +1,5 @@
 let pagination = {
-    perPage: 100, // 페이지 갯수
+    perPage: 10, // 페이지 갯수
     page: 1 // 현재 페이지
 }
 

@@ -25,9 +25,9 @@
 			<ul class="left">
 				<li>
 					<select id="search_count">
-						<option value="10">100</option>
-						<option value="5">50</option>
-						<option value="3">30</option>
+						<option value="10">10</option>
+						<option value="5">5</option>
+						<option value="3">3</option>
 					</select> 
 					<span>개씩 보기</span>
 				</li>
@@ -154,8 +154,25 @@
 	*/
 
 	let index_no = null;
-	let params = {}; // 검색 파라미터 (전역변수)
-	pagination.perPage = $('#search_count option:selected').val(); // 페이지 갯수
+	// 검색 파라미터 (전역변수)
+	let params = {
+		keyword : $('#keyword').val(),
+		paging : pagination
+	};
+
+
+	// 현상 유지 (조건 검색 시) - 추가
+	function paramsInit(){
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params = JSON.parse(getLocalStorage('search_params'));
+			pagination = params.paging;
+			$('#search_count').val(params.paging.perPage.toString()).prop('selected', true);
+			$('#keyword').val(params.keyword);
+		}
+		init();
+	}
+	paramsInit();
 
 	function getParams(){
 		params.keyword = $('#keyword').val();
@@ -165,6 +182,9 @@
 
 	async function init(){
 		let data = getParams();
+		
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장 - 추가
+
 		// 회원별 count
 		let m_count = await axios.post('/admin/member/getMemberCount', data);
 		for(let key in m_count.data.result[0]){
@@ -203,7 +223,6 @@
 		$('#pagenation_view').html(await Pagination('/admin/member/getMemberCount', params, pagination.page, pagination.perPage, 5, 'init'));
 
 	}
-	init();
 
 	function member_search(){
 		pagination.page = 1; // 페이징 번호 초기화
@@ -323,12 +342,12 @@
 	});
 
 	// 회원 count 클릭 이벤트
-	$('#count_ul li').find('a').click(function(){
-		$('#count_ul').find('a').removeClass('on');
-		$(this).addClass('on');
-		params.mb_level = $(this).data('level');
-		init();
-	});
+	// $('#count_ul li').find('a').click(function(){
+	// 	$('#count_ul').find('a').removeClass('on');
+	// 	$(this).addClass('on');
+	// 	params.mb_level = $(this).data('level');
+	// 	init();
+	// });
 
 	// 회원 n개씩 보기 클릭 이벤트
 	$('#search_count').change(function(){

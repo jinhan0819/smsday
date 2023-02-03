@@ -1,9 +1,23 @@
 $(function(){
     // 전화번호 keyup
-    $(document).on("keyup", "#mb_hp", function() { 
+    $(document).on("keyup", "#mb_hp,#pt_tel,#pt_fax", function() { 
         $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
     });
+
+    // 사업자번호 keyup
+    $(document).on("keyup", "#pt_saupja", function() { 
+        $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/([0-9]{3})([0-9]{2})([0-9]{5})?/,"$1-$2-$3").replace("--", "-") ); 
+    });
 })
+
+// 사업자 번호 체크
+function doCheckSaupja(saupja){
+    if (/^[0-9]{3}-[0-9]{2}-[0-9]{5}$/.test( saupja ) ) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // 이메일 형식 체크
 function doCheckEmail(email){

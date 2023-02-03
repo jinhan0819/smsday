@@ -751,7 +751,7 @@ a.state_box {
 }
 
 .pop_form_are ul li {
-	width: calc(50% - 5px);
+	width: calc(100% - 5px);
 	margin: 0 5px
 }
 

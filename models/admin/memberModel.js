@@ -10,6 +10,7 @@ module.exports = {
                 COUNT(index_no) AS total_count
             FROM TB_MEMBER
             WHERE (mb_id LIKE '%${data.keyword}%' OR mb_name LIKE '%${data.keyword}%' OR mb_email LIKE '%${data.keyword}%')
+            AND mb_level = 1
         `;
         let rslt = await db.queryTransaction(sql, []);
 
@@ -17,10 +18,6 @@ module.exports = {
     },
     getMemberList: async function(data){
         let params = paging.pagingRange(data.paging);
-        let level_sql = '';
-        if(typeof data.mb_level !== 'undefined'){
-            level_sql = `AND mb_level = ${data.mb_level}`
-        }
 
         let sql = `
             SELECT
@@ -50,7 +47,7 @@ module.exports = {
                 FROM TB_MEMBER
             ) Z, (SELECT @ROWNUM := 0) R
             WHERE (mb_id LIKE '%${data.keyword}%' OR mb_name LIKE '%${data.keyword}%' OR mb_email LIKE '%${data.keyword}%')
-            ${level_sql}
+            AND mb_level = 1
             ORDER BY rownum DESC 
             LIMIT ?, ? 
         `;

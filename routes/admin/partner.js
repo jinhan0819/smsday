@@ -7,10 +7,10 @@ module.exports = function () {
     let router = express.Router();
 
     router.get('/partnerList', partnerController.partnerList);
-    // router.post('/getMemberCount', memberController.getMemberCount);
-    // router.post('/getMemberList', memberController.getMemberList);
-    // router.post('/getMemberDetail', memberController.getMemberDetail);
-    // router.post('/memberModify', memberController.memberModify);
+    router.post('/getPartnerCount', partnerController.getPartnerCount);
+    router.post('/getPartnerList', partnerController.getPartnerList);
+    router.post('/getPartnerDetail', partnerController.getPartnerDetail);
+    router.post('/partnerModify', partnerController.partnerModify);
     
     return router;
 

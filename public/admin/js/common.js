@@ -37,6 +37,25 @@ function clearLocalStorage() {
 	localStorage.clear();
 }
 
+function route_(url){
+    clearLocalStorage(); // 메뉴 클릭 시 
+    location.href = url;
+}
+
+function copyObj(obj) {
+    const result = {};
+
+    for (let key in obj) {
+        if (typeof obj[key] === 'object') {
+        result[key] = copyObj(obj[key]);
+        } else {
+        result[key] = obj[key];
+        }
+    }
+
+    return result;
+}
+
 // URL Parameter 만들기 
 async function makeParamsUrl(data){
     let url_params = '';

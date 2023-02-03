@@ -22,9 +22,9 @@
 			<ul class="left">
 				<li>
 					<select id="search_count">
-						<option value="100">100</option>
-						<option value="50">50</option>
-						<option value="30">30</option>
+						<option value="10">10</option>
+						<option value="5">5</option>
+						<option value="3">3</option>
 					</select> 
 					<span>개씩 보기</span>
 				</li>
@@ -37,41 +37,32 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="right">
-				<li>
-					<a href="javascript:void(0);" onclick="openMemberPop('회원 등록', 'REGIST');" class="btn-example"> <span><img src="/admin/images/ok.png"></span>신규 등록</a>
-				</li>
-			</ul>
 		</div>
 
 		<div class="table">
 			<table>
 				<thead>
 					<th>번호</th>
-					<th>ID</th>
-					<th>이름</th>
-					<th>회원구분</th>
-					<th>연락처</th>
-					<!-- <th>등급</th> -->
-					<th>이메일</th>
+					<th>가맹점 ID</th>
+					<th>회사명</th>
+					<th>대표자명</th>
+					<th>사업자번호</th>
+					<th>통신판매업신고번호</th>
+					<th>업태</th>
+					<th>종목</th>
 					<th>설정</th>
 				</thead>
-				<tbody id="memberListBody">
+				<tbody id="partnerListBody">
 					<td>1</td>
 					<td>nowandnew</td>
+					<td>문자데이</td>
 					<td>홍길동</td>
-					<td>회원</td>
-					<td>01012345678</td>
-					<td>test@naver.com</td>
-					<!-- <td>
-						<select>
-							<option>일반</option>
-							<option>총판</option>
-							<option>관리자</option>
-						</select>
-					</td> -->
+					<td>21-551818-123</td>
+					<td>1014081215</td>
+					<td>업태?</td>
+					<td>종목1</td>
 					<td class="custom">
-						<a href="#layer2" class="btn-example"><span><img src="/admin/images/okb.png"></span>작업 설정</a>
+						<a href="javascript:void(0);" class="btn-example" onclick="openPop('partnerModifyPop');"><span><img src="/admin/images/okb.png"></span>작업 설정</a>
 					</td>
 				</tbody>
 			</table>
@@ -82,53 +73,244 @@
 	</div>
 </section>
 
-<div id="partnerDetailPop" class="pop-layer">
+<div id="partnerModifyPop" class="pop-layer">
 	<div class="dim"></div>
 	<div class="pop-container">
 		<div class="head_pop">
-			<h2 id="member_text"></h2>
-			<a href="javascript:void(0);" onclick="closeMemberPop();" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
+			<h2 id="partner_text">가맹점 정보</h2>
+			<a href="javascript:void(0);" onclick="closePop('partnerModifyPop');" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
 		</div>
-		<div class="pop_form_are" id="member_table">
+		<div class="pop_form_are" id="partner_table">
 			<ul>
 				<li>
-					<p>아이디</p>
-					<input type="text" placeholder="" id="mb_id">
+					<p>가맹점 ID</p>
+					<input type="text" placeholder="" id="pt_id">
+				</li>
+				<li>
+					<p>대표자명</p>
+					<input type="text" placeholder="" id="pt_owner">
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<p>이름</p>
-					<input type="text" placeholder="" id="mb_name">
+					<p>회사명</p>
+					<input type="text" placeholder="" id="pt_company_name">
+				</li>
+				
+			</ul>
+			<ul>
+				<li>
+					<p>사업자 번호</p>
+					<input type="text" placeholder="" id="pt_saupja" maxlength="12">
 				</li>
 				<li>
-					<p>이메일</p>
-					<input type="text" placeholder="" id="mb_email">
+					<p>통신판매업신고번호</p> 
+					<input type="text" placeholder="" id="pt_tongsin">
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<p>연락처</p>
-					<input type="text" placeholder="" id="mb_hp" maxlength="13">
+					<p>업태</p>
+					<input type="text" placeholder="" id="pt_item">
 				</li>
 				<li>
-					<p>회원 구분</p> 
-					<select id="mb_level">
-						<option value="1">회원</option>
-						<!-- <option value="10">관리자</option> -->
-					</select>
+					<p>종목</p>
+					<input type="text" placeholder="" id="pt_service">
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<p>포인트</p>
-					<input type="text" placeholder="" id="mb_point" value="0">
+					<p>대표 전화번호</p>
+					<input type="text" placeholder="" id="pt_tel" maxlength="13">
+				</li>
+				<li>
+					<p>Fax</p>
+					<input type="text" placeholder="" id="pt_fax" maxlength="13">
 				</li>
 			</ul>
+			<ul>
+				<li>
+					<p>우편번호</p>
+					<input type="text" placeholder="" id="pt_zip" readonly onclick="getPostCode();">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>주소</p>
+					<input type="text" placeholder="" id="pt_addr">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>상세 주소</p>
+					<input type="text" placeholder="" id="pt_addr_detail">
+				</li>
+			</ul>
+			
 		</div>
 		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a>
-			<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();">취소</a>
+			<a href="javascript:void(0);" class="okbtn" onclick="partnerModify()">수정</a>
+			<a href="javascript:void(0);" class="btn-layerClose" onclick="closePop('partnerModifyPop');">취소</a>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+	let index_no = null;
+
+	// 검색 파라미터 (전역변수)
+	let params = {
+		keyword : $('#keyword').val(),
+		paging : pagination
+	};
+
+
+	// 현상 유지 (조건 검색 시)
+	function paramsInit(){
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params = JSON.parse(getLocalStorage('search_params'));
+			pagination = params.paging;
+			$('#search_count').val(params.paging.perPage.toString()).prop('selected', true);
+			$('#keyword').val(params.keyword);
+		}
+		init();
+	}
+	paramsInit();
+
+	function getParams(){
+		params.keyword = $('#keyword').val();
+		params.paging = pagination;
+		return params;
+	}
+
+	async function init(){
+		let data = getParams();
+		
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
+
+		// 가맹점 count
+		let m_count = await axios.post('/admin/partner/getPartnerCount', data);
+		for(let key in m_count.data.result[0]){
+			$('#'+key).text(m_count.data.result[0][key]);
+		}
+
+		// 가맹점 list
+		let member = await axios.post('/admin/partner/getPartnerList', data);
+
+		let list = member.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr>
+						<td>${item.rownum}</td>
+						<td>${item.pt_id}</td>
+						<td>${item.pt_company_name}</td>
+						<td>${item.pt_owner}</td>
+						<td>${item.pt_saupja}</td>
+						<td>${item.pt_tongsin}</td>
+						<td>${item.pt_item}</td>
+						<td>${item.pt_service}</td>
+						<td class="custom">
+							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
+								<span><img src="/admin/images/okb.png"></span> 작업 설정
+							</a>
+						</td>
+					</tr>
+				`
+			});
+		}else{
+			html = '<tr><td colspan="7">데이터가 존재하지 않습니다.</td></tr>'
+		}
+		$('#partnerListBody').html(html);
+
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/partner/getPartnerCount', params, pagination.page, pagination.perPage, 5, 'init'));
+
+	}
+
+	function member_search(){
+		pagination.page = 1; // 페이징 번호 초기화
+		init();
+	}
+
+	function getPostCode(){
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $('#pt_zip').val(data.zonecode);
+                $("#pt_addr").val(addr);
+                // 커서를 상세주소 필드로 이동한다.
+                $("#pt_addr_detail").focus();
+            }
+        }).open();
+	}
+
+	async function partnerModify(){
+		let regist_bool = true;
+
+        $('#partner_table').find('input').each(function(idx, el){
+            if($(el).val() == ''){
+                alert('모든 정보를 입력해주세요.');
+                regist_bool = false;
+                return false;
+            }
+        })
+
+		// 이메일 정규식
+        if($('#pt_saupja').val() !== '' && !doCheckSaupja($('#pt_saupja').val())){
+            alert('사업자 형식이 올바르지 않습니다.');
+            regist_bool = false;
+            return false;
+        }
+
+        if(regist_bool){
+			let data = {};
+			$('#partner_table').find('input[type=text]').each(function(idx, el){
+				data[$(el).attr('id')] = $(el).val();
+			})
+			data.index_no = index_no;
+			
+			let res = await axios.post('/admin/partner/partnerModify', data);
+			if(res.data.code == 200){
+				location.reload();
+			}else{
+				alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+
+        }
+	}
+
+	// 가맹점 목록 - 작업 설정 클릭 이벤트
+	$(document).on('click', '.custom a', async function(){
+		openPop('partnerModifyPop');
+		let data = {index_no: $(this).data('index')};
+		let res = await axios.post('/admin/partner/getPartnerDetail', data);
+		let info = res.data.result[0];
+		index_no = info.index_no;
+		
+		for(let key in info){
+			$('#'+key).val(info[key]);
+		}
+	});
+
+	// 회원 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		pagination.perPage = $(this).val();
+		init();
+	});
+
+</script>

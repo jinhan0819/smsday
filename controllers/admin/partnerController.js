@@ -8,22 +8,22 @@ module.exports = {
     },
     getPartnerCount: async function (req, res, next) {
         let data = req.body;
-        let rslt = await memberModel.getPartnerCount(data);
+        let rslt = await partnerModel.getPartnerCount(data);
         res.send(rslt);
     },
     getPartnerList: async function (req, res, next) {
         let data = req.body;
-        let rslt = await memberModel.getPartnerList(data);
+        let rslt = await partnerModel.getPartnerList(data);
         res.send(rslt);
     },
-    // getMemberDetail: async function (req, res, next) {
-    //     let data = req.body;
-    //     let rslt = await memberModel.getMemberDetail(data);
-    //     res.send(rslt);
-    // },
-    // memberModify: async function (req, res, next) {
-    //     let data = req.body;
-    //     let rslt = await memberModel.memberModify(data);
-    //     res.send(rslt);
-    // },
+    getPartnerDetail: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await partnerModel.getPartnerDetail(data);
+        res.send(rslt);
+    },
+    partnerModify: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await partnerModel.partnerModify(data);
+        res.send(rslt);
+    },
 };
