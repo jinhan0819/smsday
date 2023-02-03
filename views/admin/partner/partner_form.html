@@ -1,0 +1,232 @@
+<section class="main">
+	<div class="title">
+		<h2>가맹점 신규신청</h2>
+
+		<div class="time">
+			<span id="todayIs"> 2022년 10월 18일 </span> <span> <b> <span>
+						<img src="/admin/images/time.png">
+				</span> <em id="clock" style="font-style: normal"></em>
+			</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="tab_are stiky">
+
+		<ul class="left">
+			<li><a href="#none" style="margin-right: 10px"> 사업자정보</a></li>
+		</ul>
+	</div>
+
+	<div class="table_are textleft">
+		<h2>사업자정보</h2>
+		<div class="table">
+
+			<table id="partner_table">
+				<tr>
+					<th>가맹점 ID</th>
+					<td><input type="text" placeholder="" id="pt_id" readonly onclick="openMemberSearchPop()"></td>
+					<th>대표자명</th>
+					<td><input type="text" placeholder="" id="pt_owner" readonly></td>
+				<tr>
+				<tr>
+					<th>회사명</th>
+					<td colspan="3"><input type="text" placeholder="" id="pt_company_name"></td>
+				<tr>
+				<tr>
+					<th>사업자번호</th>
+					<td><input type="text" placeholder="" id="pt_saupja" maxlength="12"></td>
+					<th>통신판매업신고번호</th>
+					<td><input type="text" placeholder="" id="pt_tongsin"></td>
+				<tr>
+				<tr>
+					<th>업태</th>
+					<td><input type="text" placeholder="" id="pt_item"></td>
+					<th>종목</th>
+					<td><input type="text" placeholder="" id="pt_service"></td>
+				<tr>
+				<tr>
+					<th>대표 전화번호</th>
+					<td><input type="text" placeholder="" id="pt_tel" maxlength="13"></td>
+					<th>Fax</th>
+					<td><input type="text" placeholder="" id="pt_fax" maxlength="13"></td>
+				<tr>
+				<tr>
+					<th>우편번호</th>
+					<td colspan="3"><input type="text" placeholder="" id="pt_zip" readonly onclick="getPostCode();"></td>
+				<tr>
+				<tr>
+					<th>주소</th>
+					<td colspan="3"><input type="text" placeholder="" id="pt_addr"></td>
+				<tr>
+				<tr>
+					<th>상세 주소</th>
+					<td colspan="3"><input type="text" placeholder="" id="pt_addr_detail"></td>
+				<tr>
+			</table>
+			<a href="javascript:void(0);" class="btnstyle" style="margin-top: 15px" onclick="partnerModify()">등록</a>
+
+		</div>
+
+	</div>
+
+	<div id="memberSearchPop" class="pop-layer">
+
+		<div class="dim"></div>
+	
+		<div class="pop-container">
+			<div class="head_pop" >
+				<h2 style="color: #fff">회원 검색</h2>
+				<a href="javascript:void(0);" class="btn-layerClose"  onclick="closeMemberSearchPop()"> <img
+					src="/admin/images/close_pop.png">
+				</a>
+			</div>
+			<div class="tab_are_pop">
+				<ul class="left flex">
+					<!-- <li>
+						<select>
+							<option>전체</option>
+							<option>ID</option>
+							<option>이름</option>
+							<option>이메일</option>
+						</select>
+					</li> -->
+					<li><input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){searchMember()}"></li>
+		
+					<li><a href="javascript:void(0);" class="on2" onclick="searchMember();">검색</a></li>
+		
+				</ul>
+			</div>
+			<div class="pop_form_are">
+				<div class="table">
+					<table>
+						<thead>
+							<th>회원 ID</th>
+							<th>이름</th>
+							<th>이메일</th>
+						</thead>
+						<tbody id="memberListBody">
+							<tr>
+								<td>test123</td>
+								<td>홍길동</td>
+								<td class="updown">test@naver.com</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="pagenation" id="pagenation_view"></div>
+				</div>
+			</div>
+	
+			<div class="pop_btn">
+				<!-- <a href="#none" class="okbtn">설정완료</a>  -->
+				<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberSearchPop()"> 확인 </a>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function openMemberSearchPop(){
+		$('#memberSearchPop').css('display', 'block');
+		searchMember();
+	}
+	function closeMemberSearchPop(){
+		$('#memberSearchPop').css('display', 'none');
+		$('#keyword').val('');
+	}
+
+	async function searchMember(){
+		let data = {
+			keyword : $('#keyword').val(),
+			paging : pagination
+		};
+
+		// 회원 list
+		let member = await axios.post('/admin/member/getNotPartnerMemberList', data);
+
+		let list = member.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr class="memberTr" style="cursor:pointer;" data-id="${item.mb_id}" data-name="${item.mb_name}">
+						<td>${item.mb_id}</td>
+						<td>${item.mb_name}</td>
+						<td>${item.mb_email}</td>
+					</tr>
+				`
+			});
+		}else{
+			html = '<tr><td colspan="7">데이터가 존재하지 않습니다.</td></tr>'
+		}
+		$('#memberListBody').html(html);
+
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/member/getNotPartnerMemberCount', data, pagination.page, data.paging.perPage, 5, 'searchMember'));
+	}
+
+	function getPostCode(){
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $('#pt_zip').val(data.zonecode);
+                $("#pt_addr").val(addr);
+                // 커서를 상세주소 필드로 이동한다.
+                $("#pt_addr_detail").focus();
+            }
+        }).open();
+	}
+
+	async function partnerModify(){
+		let regist_bool = true;
+
+        $('#partner_table').find('input').each(function(idx, el){
+            if($(el).val() == ''){
+                alert('모든 정보를 입력해주세요.');
+                regist_bool = false;
+                return false;
+            }
+        })
+
+		// 사업자 정규식
+        if($('#pt_saupja').val() !== '' && !doCheckSaupja($('#pt_saupja').val())){
+            alert('사업자 형식이 올바르지 않습니다.');
+            regist_bool = false;
+            return false;
+        }
+
+        if(regist_bool){
+			let data = {};
+			$('#partner_table').find('input[type=text]').each(function(idx, el){
+				data[$(el).attr('id')] = $(el).val();
+			})
+			
+			let res = await axios.post('/admin/partner/partnerModify', data);
+			if(res.data.code == 200){
+				alert('등록되었습니다.');
+				location.href = '/admin/partner/partnerList';
+			}else{
+				alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+
+        }
+	}
+
+	$(document).on('click', '.memberTr', function(){
+		$('#pt_id').val($(this).data('id'));
+		$('#pt_owner').val($(this).data('name'));
+		closeMemberSearchPop();
+	});
+</script>

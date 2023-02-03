@@ -54,6 +54,7 @@ async function Pagination(url, params, currentPage, perPage, pagingCount, func) 
 
 $(document).unbind().on('click', '.pagenation a', function(){
     pagination.page = $(this).data('num');
+    console.log(pagination.page)
 
     if(typeof(window[funcName]) == "function"){
         var execFunc = (new Function("return " + funcName))();

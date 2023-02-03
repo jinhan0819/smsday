@@ -84,11 +84,11 @@
 			<ul>
 				<li>
 					<p>가맹점 ID</p>
-					<input type="text" placeholder="" id="pt_id">
+					<input type="text" placeholder="" id="pt_id" readonly>
 				</li>
 				<li>
 					<p>대표자명</p>
-					<input type="text" placeholder="" id="pt_owner">
+					<input type="text" placeholder="" id="pt_owner" readonly>
 				</li>
 			</ul>
 			<ul>
@@ -270,7 +270,7 @@
             }
         })
 
-		// 이메일 정규식
+		// 사업자 정규식
         if($('#pt_saupja').val() !== '' && !doCheckSaupja($('#pt_saupja').val())){
             alert('사업자 형식이 올바르지 않습니다.');
             regist_bool = false;

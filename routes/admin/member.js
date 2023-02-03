@@ -11,6 +11,9 @@ module.exports = function () {
     router.post('/getMemberList', memberController.getMemberList);
     router.post('/getMemberDetail', memberController.getMemberDetail);
     router.post('/memberModify', memberController.memberModify);
+
+    router.post('/getNotPartnerMemberCount', memberController.getNotPartnerMemberCount);
+    router.post('/getNotPartnerMemberList', memberController.getNotPartnerMemberList);
     
     return router;
 

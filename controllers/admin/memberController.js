@@ -26,4 +26,14 @@ module.exports = {
         let rslt = await memberModel.memberModify(data);
         res.send(rslt);
     },
+    getNotPartnerMemberCount: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await memberModel.getNotPartnerMemberCount(data);
+        res.send(rslt);
+    },
+    getNotPartnerMemberList: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await memberModel.getNotPartnerMemberList(data);
+        res.send(rslt);
+    },
 };

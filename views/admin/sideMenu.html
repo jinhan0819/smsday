@@ -14,10 +14,10 @@
         </a>
         <div class="sub_nav subnav01">
             <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerList')">가맹점 정보관리</a>
-            <a href="#">가맹점 신규신청</a>
-            <a href="#">가맹점 사용내역</a>
-            <a href="#">가맹점 충전관리</a>
-            <a href="#">가맹점 충전내역</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerForm')">가맹점 신규신청</a>
+            <a href="javascript:void(0);">가맹점 사용내역</a>
+            <a href="javascript:void(0);">가맹점 충전관리</a>
+            <a href="javascript:void(0);">가맹점 충전내역</a>
         </div>
     </li>
     <!--
@@ -53,10 +53,14 @@
 
 <script>
     try {
+        /* 사이드 대메뉴 */
         let url = window.location.pathname;
         let urlSplit = url.split('/');
         let url_path = urlSplit[2];
         $('#'+url_path).css('display', 'block');
+
+        /* 사이드 소메뉴 */
+        $('#'+url_path+' div').addClass('atv');
     } catch (error) {
         location.href = '/error';
     }
