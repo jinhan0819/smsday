@@ -7,6 +7,7 @@ module.exports = function () {
     let router = express.Router();
 
     router.get('/memberList', memberController.memberList);
+    router.get('/memberForm', memberController.memberForm);
     router.post('/getMemberCount', memberController.getMemberCount);
     router.post('/getMemberList', memberController.getMemberList);
     router.post('/getMemberDetail', memberController.getMemberDetail);

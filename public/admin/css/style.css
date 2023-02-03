@@ -465,7 +465,8 @@ section.main {
 .tab_are ul li p {
 	font-size: 16px;
 	font-weight: 500;
-	margin-bottom: 5px
+	margin-bottom: 5px;
+	margin-right: 10px
 }
 
 .tab_are ul li select {
@@ -521,6 +522,11 @@ section.main {
 	padding: 5px 0
 }
 
+.tab_are.noflex ul.noneline {
+	border-bottom: none;
+	padding: 5px 0
+}
+
 a.btnstyle {
 	border-radius: 50px;
 	display: inline-block;
@@ -529,6 +535,20 @@ a.btnstyle {
 	border: 1px solid #dfdfdf;
 	padding: 5px 15px;
 	color: #222
+}
+
+a.btn_submit {
+	background: #F9BC20;
+	color: #000;
+	border-radius: 0;
+	padding: 12px 20px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.btn_confirm {
+    margin-top: 50px;
+    text-align: center;
 }
 
 input[type="date"] {
@@ -994,7 +1014,7 @@ input[type="text"] {
 	font-size: 16px;
 	padding: 5px;
 	border: 1px solid #dfdfdf;
-	width: 100%
+	/* width: 100% */
 }
 
 .textleft table th {

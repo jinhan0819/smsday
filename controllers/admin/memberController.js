@@ -6,6 +6,9 @@ module.exports = {
     memberList: function (req, res, next) {
         res.render('member/member_list');
     },
+    memberForm: function (req, res, next) {
+        res.render('member/member_form');
+    },
     getMemberCount: async function (req, res, next) {
         let data = req.body;
         let rslt = await memberModel.getMemberCount(data);

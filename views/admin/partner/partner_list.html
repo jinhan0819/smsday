@@ -12,63 +12,107 @@
 			</span>
 		</div>
 	</div>
-	<div class="tab_are">
-		<ul class="left" id="count_ul">
-			<li><a href="javascript:void(0);" class="on">전체(<span id="total_count">0</span>)</a></li>
+
+	<div class="tab_are mart50">
+		<ul class="left">
+			<li>
+				<select>
+					<option>ID</option>
+					<option>회원명</option>
+					<option>핸드폰번호</option>
+				</select>
+			</li>
+			<li>
+				<input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){member_search()}"> 
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="on3" onclick="member_search()">검색</a>
+				<a href="#none" class="on3">초기화</a>
+			</li>
 		</ul>
 	</div>
+
+	<div class="tab_are noflex">
+		<ul class="left noneline">
+			<li>
+				<p>등록일</p>
+			</li>
+			<li>
+				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
+			</li>
+			<li>
+				<a href="#none" class="on2">오늘</a>
+				<a href="#none" class="on2">어제</a>
+				<a href="#none" class="on2">일주일</a>
+				<a href="#none" class="on2">지난달</a>
+				<a href="#none" class="on2">1개월</a>
+				<a href="#none" class="on2">3개월</a>
+				<a href="#none" class="on2">전체</a>
+			</li>
+		</ul>
+	</div>
+
 	<div class="table_are">
 		<div class="btn_are">
-			<ul class="left">
+			<ul class="left flex">
+				<li>전체 : <b><span id="total_count">0</span></b> 건 조회</li>
 				<li>
 					<select id="search_count">
-						<option value="10">10</option>
-						<option value="5">5</option>
-						<option value="3">3</option>
+						<option value="30">30</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
 					</select> 
 					<span>개씩 보기</span>
 				</li>
-				<li>
-					<div class="search_form">
-						<input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){member_search()}"> 
-						<a href="javascript:void(0);" onclick="member_search()">
-							<img src="/admin/images/search.png">
-						</a>
-					</div>
-				</li>
 			</ul>
 		</div>
-
+		<div class="btn_are mart20">
+			<ul class="left">
+				<li class="marr5"><a href="#none" class="">선택삭제</a></li>
+			</ul>
+		</div>
 		<div class="table">
 			<table>
+				<colgroup>
+					<col class="w50">
+					<col class="w70">
+					<col class="w150">
+					<col>
+					<col class="w150">
+					<col class="w150">
+					<col class="w160">
+					<col class="w160">
+					<col class="w160">
+					<col class="w150">
+				</colgroup>
 				<thead>
-					<th>번호</th>
-					<th>가맹점 ID</th>
-					<th>회사명</th>
-					<th>대표자명</th>
-					<th>사업자번호</th>
-					<th>통신판매업신고번호</th>
-					<th>업태</th>
-					<th>종목</th>
-					<th>설정</th>
+					<th scope="col" class="cheack_are"><input type="checkbox"></th>
+					<th scope="col">번호</th>
+					<th scope="col">가맹점 ID</th>
+					<th scope="col">회사명</th>
+					<th scope="col">대표자명</th>
+					<th scope="col">사업자번호</th>
+					<th scope="col">통신판매업신고번호</th>
+					<th scope="col">업태</th>
+					<th scope="col">종목</th>
+					<th scope="col">설정</th>
 				</thead>
 				<tbody id="partnerListBody">
-					<td>1</td>
-					<td>nowandnew</td>
-					<td>문자데이</td>
-					<td>홍길동</td>
-					<td>21-551818-123</td>
-					<td>1014081215</td>
-					<td>업태?</td>
-					<td>종목1</td>
-					<td class="custom">
+					<td scope="col"><input type="checkbox"></td>
+					<td scope="col">1</td>
+					<td scope="col">nowandnew</td>
+					<td scope="col">문자데이</td>
+					<td scope="col">홍길동</td>
+					<td scope="col">21-551818-123</td>
+					<td scope="col">1014081215</td>
+					<td scope="col">업태?</td>
+					<td scope="col">종목1</td>
+					<td scope="col" class="custom">
 						<a href="javascript:void(0);" class="btn-example" onclick="openPop('partnerModifyPop');"><span><img src="/admin/images/okb.png"></span>작업 설정</a>
 					</td>
 				</tbody>
 			</table>
-
 			<div id="pagenation_view" class="pagenation"></div>
-
 		</div>
 	</div>
 </section>
@@ -207,6 +251,7 @@
 			list.forEach(item => {
 				html += `
 					<tr>
+						<td><input type="checkbox"></td>
 						<td>${item.rownum}</td>
 						<td>${item.pt_id}</td>
 						<td>${item.pt_company_name}</td>
