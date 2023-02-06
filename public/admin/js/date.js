@@ -105,3 +105,41 @@ function getCurrentMonthEndDay(){
     
     return resultDate;
 }
+
+// dayjs
+
+// 오늘
+function getTodayDayJS(){
+    let start_date = dayjs(new Date()).format('YYYY-MM-DD');
+    let end_date = dayjs(new Date()).format('YYYY-MM-DD');
+    return {start: start_date, end: end_date};
+}
+
+// 어제
+function getYesterDayJS(){
+    let start_date = dayjs(new Date()).subtract(1, "day").format('YYYY-MM-DD');
+    let end_date = dayjs(new Date()).format('YYYY-MM-DD');
+    return {start: start_date, end: end_date};
+}
+
+// 일주일
+function getWeekDayJS(){
+    let start_date = dayjs(new Date()).subtract(7, "day").format('YYYY-MM-DD');
+    let end_date = dayjs(new Date()).format('YYYY-MM-DD');
+    return {start: start_date, end: end_date};
+}
+
+// 지난달
+function getBeforeMonthDayJS(){
+    let before_month = dayjs(new Date()).subtract(1, "month");
+    let start_date = before_month.format('YYYY-MM') + '-01';
+    let end_date = before_month.format('YYYY-MM') + '-' +before_month.daysInMonth();
+    return {start: start_date, end: end_date};
+}
+
+// n개월
+function getMonthDayJS(m){
+    let start_date = dayjs(new Date()).subtract(m, "month").format('YYYY-MM-DD');
+    let end_date = dayjs(new Date()).format('YYYY-MM-DD');
+    return {start: start_date, end: end_date};
+}

@@ -5,12 +5,23 @@ let paging = require('../../modules/pagination');
 
 module.exports = {
     getMemberCount: async function(data){
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql = `AND mb_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql = `AND mb_name LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'hp') search_sql = `AND mb_hp LIKE '%${data.keyword}%'`;
+        }
+
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            search_sql += `AND DATE_FORMAT(create_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
+
         let sql = `
             SELECT
                 COUNT(index_no) AS total_count
             FROM TB_MEMBER
-            WHERE (mb_id LIKE '%${data.keyword}%' OR mb_name LIKE '%${data.keyword}%' OR mb_email LIKE '%${data.keyword}%')
-            AND mb_level = 1
+            WHERE mb_level = 1
+            ${search_sql}
         `;
         let rslt = await db.queryTransaction(sql, []);
 
@@ -18,6 +29,17 @@ module.exports = {
     },
     getMemberList: async function(data){
         let params = paging.pagingRange(data.paging);
+
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql = `AND Z.mb_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql = `AND Z.mb_name LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'hp') search_sql = `AND Z.mb_hp LIKE '%${data.keyword}%'`;
+        }
+
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            search_sql += `AND DATE_FORMAT(Z.create_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
 
         let sql = `
             SELECT
@@ -33,7 +55,8 @@ module.exports = {
                     WHEN mb_level = 1 THEN '회원'
                     WHEN mb_level = 2 THEN '가맹점'
                     WHEN mb_level = 10 THEN '관리자'
-                END AS mb_level_nm
+                END AS mb_level_nm,
+                DATE_FORMAT(Z.create_datetime, '%Y-%m-%d') AS create_date
             FROM (
                 SELECT
                     index_no,
@@ -43,11 +66,13 @@ module.exports = {
                     mb_hp, 
                     mb_email,
                     mb_point,
-                    mb_level
+                    mb_level,
+                    create_datetime
                 FROM TB_MEMBER
+                ORDER BY create_datetime
             ) Z, (SELECT @ROWNUM := 0) R
-            WHERE (mb_id LIKE '%${data.keyword}%' OR mb_name LIKE '%${data.keyword}%' OR mb_email LIKE '%${data.keyword}%')
-            AND mb_level = 1
+            WHERE mb_level = 1
+            ${search_sql}
             ORDER BY rownum DESC 
             LIMIT ?, ? 
         `;
