@@ -45,7 +45,7 @@ const err_result = {
 }
 
 // 업로드 경로
-const uploadDir = __dirname+'/public';
+const uploadDir = __dirname+'/public/upload';
 
 module.exports = {
     //exports 를 위한 설정

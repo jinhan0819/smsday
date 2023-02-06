@@ -30,6 +30,11 @@ module.exports = {
         let rslt = await partnerModel.partnerModify(data);
         res.send(rslt);
     },
+    delPartner: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await partnerModel.delPartner(data);
+        res.send(rslt);
+    },
 
     /* 가맹점 사용관리 */
     partnerFeeList: function (req, res, next) {

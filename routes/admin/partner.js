@@ -12,6 +12,7 @@ module.exports = function () {
     router.post('/getPartnerList', partnerController.getPartnerList);
     router.post('/getPartnerDetail', partnerController.getPartnerDetail);
     router.post('/partnerModify', partnerController.partnerModify);
+    router.post('/delPartner', partnerController.delPartner);
 
     /* 가맹점 신규신청 */
     router.get('/partnerForm', partnerController.partnerForm);

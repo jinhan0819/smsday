@@ -34,11 +34,28 @@ function fileUpload(req, callback){
         // console.log('[parse()] error ' + err + ', field : ' + field + ', file : ' + file);
         console.log('upload success...');
         returnField = JSON.parse(JSON.stringify(field));
-        returnFile = JSON.parse(JSON.stringify(files.file));
+        console.log(files)
+        let file = {};
+        file.file_path = files.files.path;
+        file.original_file_nm = files.files.name;
+        file.upload_file_nm = files.files.upload_file_name;
+        file.file_size = files.files.size;
+        file.file_ext = files.files.ext;
+        file.upload_datetime = new Date();
+
+        returnFile = JSON.parse(JSON.stringify(file));
     });
 
     form.on('fileBegin', (filename, file) => {
         let data = { name: 'fileBegin', filename, value: file };
+
+        let filePathLength = file.path.length;
+        let lastDot = file.path.lastIndexOf('.');
+
+        let ext = file.path.substring(lastDot+1, filePathLength);
+        file.upload_file_name = Date.now() + '_' + makeCode(20) + '.' + ext
+        file.ext = ext;
+
         console.log('fileBegin : ', data);
     });
 
@@ -51,7 +68,9 @@ function fileUpload(req, callback){
         // Formidable은 파일 전송 시 일단 임시 경로에 파일을 저장한다.
         // 그리고 parse 메소드에서 fs.rename(), fs.renameSync() 등을 통해서 원하는 위치로 이동시키면 된다.
         // console.log(file.path, file.name)
-        // fsExtra.rename(file.path, form.uploadDir+'/'+Date.now()+ '_'+file.name); // v1 버전
+        fsExtra.rename(file.path, form.uploadDir+'/'+file.upload_file_name); // v1 버전
+        // 파일 경로 변경
+        file.path = form.uploadDir+'/'+file.upload_file_name;
         // fsExtra.rename(file.filepath, form.uploadDir+'/'+Date.now()+ '_'+file.newFilename); // v2 버전
     });
 
@@ -123,6 +142,15 @@ function rmDirFile(file_path){
     }, 1000);
 }
 
+function makeCode(length) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 module.exports = {
     fileUpload: fileUpload,
     fileDownload: fileDownload,

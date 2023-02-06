@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="table table_are textleft mart50">
-		<h2>사업자정보</h2>
+		<h2>사업자 정보</h2>
 		<div class="table">
 			<table id="partner_table">
 				<tr>
@@ -26,7 +26,7 @@
 					<th>회사명</th>
 					<td><input type="text" placeholder="" id="pt_company_name" size="30"></td>
 					<th>개별도메인</th>
-					<td><input type="text" placeholder="" id="" size="30"></td>
+					<td><input type="text" placeholder="" id="pt_domain" size="30"></td>
 				<tr>
 				<tr>
 					<th>사업자번호</th>
@@ -60,31 +60,31 @@
 				<tr>
 				<tr>
 					<th>사업자등록증</th>
-					<td colspan="3"><input type="file"></td>
+					<td colspan="3"><input type="file" id="pt_company_file"></td>
 				<tr>
 			</table>
 		</div>
 	</div>
 
 	<div class="table table_are textleft">
-		<h2>사업자정보</h2>
+		<h2>담당자 정보</h2>
 		<div class="table">
-			<table id="partner_table">
+			<table id="manager_table">
 				<tr>
 					<th>담당자 이름</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_company_name" size="30"></td>
+					<td colspan="3"><input type="text" placeholder="" id="pt_manager_name" size="30"></td>
 				</tr>
 				<tr>
 					<th>담당자 핸드폰</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_company_name" size="30"></td>
+					<td colspan="3"><input type="text" placeholder="" id="pt_manager_hp" size="30" maxlength="13"></td>
 				</tr>
 				<tr>
 					<th>담당자 이메일</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_company_name" size="30"></td>
+					<td colspan="3"><input type="text" placeholder="" id="pt_manager_email" size="30" ></td>
 				</tr>
 				<tr>
 					<th>담당자 신분증</th>
-					<td colspan="3"><input type="file"></td>
+					<td colspan="3"><input type="file" id="pt_manager_file"></td>
 				<tr>
 			</table>
 		</div>
@@ -203,7 +203,7 @@
 	async function partnerModify(){
 		let regist_bool = true;
 
-        $('#partner_table').find('input').each(function(idx, el){
+        $('#partner_table').find('input[type=text]').each(function(idx, el){
             if($(el).val() == ''){
                 alert('모든 정보를 입력해주세요.');
                 regist_bool = false;
@@ -218,12 +218,59 @@
             return false;
         }
 
+		// 이메일 정규식
+        if($('#pt_manager_email').val() !== '' && !doCheckEmail($('#pt_manager_email').val())){
+            alert('이메일 형식이 올바르지 않습니다.');
+            regist_bool = false;
+            return false;
+        }
+
         if(regist_bool){
 			let data = {};
+			let rslt_ids = [];
+			await ['pt_company_file_id', 'pt_manager_file_id'].reduce(async (pre, item, index) => {
+                return pre.then(async ()=> new Promise(async (resolve) => {
+					
+					let ids = {};
+					let formData = new FormData();
+					// console.log($('input[type=file]')[index].files[0])
+					if(typeof $('input[type=file]')[index].files[0] !== 'undefined'){
+						formData.append('files', $('input[type=file]')[index].files[0]);
+						let file_res = await axios({
+							headers: {
+								"Content-Type": "multipart/form-data",
+								"Access-Control-Allow-Origin": "*",
+							},
+							url: '/fileUpload', // 파일 업로드 요청 URL
+							method: "POST",
+							data: formData,
+						});
+
+						ids[item] = file_res.data.result.insertId
+
+						if(file_res.data.code == 200){
+							rslt_ids.push(ids);
+						}
+					}
+                    resolve();
+                }));
+            }, Promise.resolve());
+			
+			if(rslt_ids.length > 0){
+				rslt_ids.forEach(item => {
+					for(let key in item){
+						data[key] = item[key];
+					}
+				});
+			}
+
 			$('#partner_table').find('input[type=text]').each(function(idx, el){
 				data[$(el).attr('id')] = $(el).val();
 			})
-			
+			$('#manager_table').find('input[type=text]').each(function(idx, el){
+				data[$(el).attr('id')] = $(el).val();
+			})
+
 			let res = await axios.post('/admin/partner/partnerModify', data);
 			if(res.data.code == 200){
 				alert('등록되었습니다.');

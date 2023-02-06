@@ -16,9 +16,9 @@
 	<div class="tab_are mart50">
 		<ul class="left">
 			<li>
-				<select>
-					<option>ID</option>
-					<option>회원명</option>
+				<select id="search_keycode">
+					<option value="id">ID</option>
+					<option value="name">회원명</option>
 				</select>
 			</li>
 			<li>
@@ -26,7 +26,7 @@
 			</li>
 			<li>
 				<a href="javascript:void(0);" class="on3" onclick="member_search()">검색</a>
-				<a href="#none" class="on3">초기화</a>
+				<a href="javascript:void(0);" class="on3" onclick="search_init()">초기화</a>
 			</li>
 		</ul>
 	</div>
@@ -37,16 +37,16 @@
 				<p>등록일</p>
 			</li>
 			<li>
-				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
+				<input type="text" class="w50" id="start_date"><span style="margin: 0 5px">~</span><input type="text" class="w50" id="end_date">
 			</li>
 			<li>
-				<a href="#none" class="on2">오늘</a>
-				<a href="#none" class="on2">어제</a>
-				<a href="#none" class="on2">일주일</a>
-				<a href="#none" class="on2">지난달</a>
-				<a href="#none" class="on2">1개월</a>
-				<a href="#none" class="on2">3개월</a>
-				<a href="#none" class="on2">전체</a>
+				<a href="javascript:void(0);" data-func="getTodayDayJS" class="on2">오늘</a>
+				<a href="javascript:void(0);" data-func="getYesterDayJS" class="on2">어제</a>
+				<a href="javascript:void(0);" data-func="getWeekDayJS" class="on2">일주일</a>
+				<a href="javascript:void(0);" data-func="getBeforeMonthDayJS" class="on2">지난달</a>
+				<a href="javascript:void(0);" data-func="getMonthDayJS" data-num="1" class="on2">1개월</a>
+				<a href="javascript:void(0);" data-func="getMonthDayJS" data-num="3" class="on2">3개월</a>
+				<a href="javascript:void(0);" class="on2">전체</a>
 			</li>
 		</ul>
 	</div>
@@ -67,7 +67,7 @@
 		</div>
 		<div class="btn_are mart20">
 			<ul class="left">
-				<li class="marr5"><a href="#none" class="">선택삭제</a></li>
+				<li class="marr5"><a href="javascript:void(0);" class="" id="partner_delete">선택삭제</a></li>
 			</ul>
 		</div>
 		<div class="table">
@@ -86,7 +86,7 @@
 					<col class="w140">
 				</colgroup>
 				<thead>
-					<th scope="col" class="cheack_are"><input type="checkbox"></th>
+					<th scope="col" class="cheack_are"><input type="checkbox" id="partner_check_all"></th>
 					<th scope="col">번호</th>
 					<th scope="col">가맹점 ID</th>
 					<th scope="col">회원명</th>
@@ -99,19 +99,7 @@
 					<th scope="col">설정</th>
 				</thead>
 				<tbody id="partnerListBody">
-					<td scope="col"><input type="checkbox"></td>
-					<td scope="col">1</td>
-					<td scope="col">nowandnew</td>
-					<td scope="col">홍길동</td>
-					<td scope="col">문자데이</td>
-					<td scope="col">smsday.kr</td>
-					<td scope="col">21-551818-123</td>
-					<td scope="col">1014081215</td>
-					<td scope="col">업태?</td>
-					<td scope="col">종목1</td>
-					<td scope="col" class="custom">
-						<a href="javascript:void(0);" class="btn-example" onclick="openPop('partnerModifyPop');"><span><img src="/admin/images/okb.png"></span>정보설정</a>
-					</td>
+					<tr><td colspan="11">데이터가 존재하지 않습니다.</td></tr>
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
@@ -128,19 +116,26 @@
 		</div>
 		<div class="pop_form_are" id="partner_table">
 			<ul>
+				<li><p>사업자 정보</p></li>
+			</ul>
+			<ul>
 				<li>
 					<p>가맹점 ID</p>
 					<input type="text" placeholder="" id="pt_id" readonly>
 				</li>
 				<li>
 					<p>대표자명</p>
-					<input type="text" placeholder="" id="pt_owner" readonly>
+					<input type="text" placeholder="" id="pt_owner">
 				</li>
 			</ul>
 			<ul>
 				<li>
 					<p>회사명</p>
 					<input type="text" placeholder="" id="pt_company_name">
+				</li>
+				<li>
+					<p>도메인</p>
+					<input type="text" placeholder="" id="pt_domain">
 				</li>
 				
 			</ul>
@@ -192,7 +187,26 @@
 					<input type="text" placeholder="" id="pt_addr_detail">
 				</li>
 			</ul>
-			
+			<br>
+			<ul>
+				<li><p>담당자 정보</p></li>
+			</ul>
+			<ul>
+				<li>
+					<p>담당자 이름</p>
+					<input type="text" placeholder="" id="pt_manager_name">
+				</li>
+				<li>
+					<p>담당자 핸드폰</p>
+					<input type="text" placeholder="" id="pt_manager_hp" maxlength="13">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>담당자 이메일</p>
+					<input type="text" placeholder="" id="pt_manager_email">
+				</li>
+			</ul>
 		</div>
 		<div class="pop_btn">
 			<a href="javascript:void(0);" class="okbtn" onclick="partnerModify()">수정</a>
@@ -202,6 +216,7 @@
 </div>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
+<script type="text/javascript" src="/admin/js/date.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
@@ -210,6 +225,8 @@
 	// 검색 파라미터 (전역변수)
 	let params = {
 		keyword : $('#keyword').val(),
+		keycode : $('#search_keycode').val(),
+		date : {},
 		paging : pagination
 	};
 
@@ -229,7 +246,12 @@
 
 	function getParams(){
 		params.keyword = $('#keyword').val();
+		params.keycode = $('#search_keycode option:selected').val();
 		params.paging = pagination;
+		params.date = {
+			start : $('#start_date').val(),
+			end : $('#end_date').val()
+		}
 		return params;
 	}
 
@@ -253,12 +275,12 @@
 			list.forEach(item => {
 				html += `
 					<tr>
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" name="partner_check" data-index=${item.index_no}></td>
 						<td>${item.rownum}</td>
 						<td>${item.pt_id}</td>
-						<td></td>
+						<td>${item.pt_owner}</td>
 						<td>${item.pt_company_name}</td>
-						<td></td>
+						<td>${item.pt_domain}</td>
 						<td>${item.pt_saupja}</td>
 						<td>${item.pt_tongsin}</td>
 						<td>${item.pt_item}</td>
@@ -272,13 +294,21 @@
 				`
 			});
 		}else{
-			html = '<tr><td colspan="7">데이터가 존재하지 않습니다.</td></tr>'
+			html = '<tr><td colspan="11">데이터가 존재하지 않습니다.</td></tr>'
 		}
 		$('#partnerListBody').html(html);
 
 		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
 		$('#pagenation_view').html(await Pagination('/admin/partner/getPartnerCount', params, pagination.page, pagination.perPage, 5, 'init'));
 
+	}
+
+	// 검색 초기화
+	function search_init(){
+		$('#search_keycode').val('id').prop('selected', true);
+		$('#keyword').val('');
+		// clearLocalStorage();
+		init();
 	}
 
 	function member_search(){
@@ -325,13 +355,20 @@
             return false;
         }
 
+		// 이메일 정규식
+        if($('#pt_manager_email').val() !== '' && !doCheckEmail($('#pt_manager_email').val())){
+            alert('이메일 형식이 올바르지 않습니다.');
+            regist_bool = false;
+            return false;
+        }
+
         if(regist_bool){
 			let data = {};
 			$('#partner_table').find('input[type=text]').each(function(idx, el){
 				data[$(el).attr('id')] = $(el).val();
 			})
 			data.index_no = index_no;
-			
+
 			let res = await axios.post('/admin/partner/partnerModify', data);
 			if(res.data.code == 200){
 				location.reload();
@@ -359,6 +396,62 @@
 	$('#search_count').change(function(){
 		pagination.perPage = $(this).val();
 		init();
+	});
+
+	// 가입 날짜 조회 이벤트
+	$('.on2').click(function(){
+		if(typeof $(this).data('func') !== 'undefined'){
+			if(typeof(window[$(this).data('func')]) == "function"){
+				let execFunc = (new Function("return " + $(this).data('func')))();
+				
+				let result;
+				if($(this).data('func') === 'getMonthDayJS'){
+					result = execFunc($(this).data('num'));
+				}else{
+					result = execFunc();
+				}
+
+				$('#start_date').val(result.start);
+				$('#end_date').val(result.end);
+			}else{
+				alert('함수가 존재하지 않습니다.');
+			}
+		}else{
+			$('#start_date').val('');
+			$('#end_date').val('');
+		}
+		init();
+	});
+
+	// 체크 박스 선택 이벤트
+	$('#partner_check_all').click(function(){
+		let checkBool = false;
+		if($(this).is(':checked')) checkBool = true;
+		$('input[name=partner_check]').prop('checked', checkBool);
+	});
+
+	// 선택 삭제 이벤트
+	$('#partner_delete').click(async function(){
+		if($('input[name=partner_check]:checked').length > 0){
+			if(confirm('정말로 삭제하시겠습니까?')){
+				let data_arr = [];
+				$('input[name=partner_check]').each(function(idx, el){
+					if($(el).is(':checked')){
+						data_arr.push($(el).data('index'));
+					}
+				});
+				let data = {del_list : data_arr};
+				let res = await axios.post('/admin/partner/delPartner', data);
+				console.log(res);
+				if(res.data.code == 200){
+					location.reload();
+				}else{
+					alert('가맹점 삭제 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+			}
+		}else{
+			alert('선택된 가맹점이 없습니다.');
+		}
 	});
 
 </script>

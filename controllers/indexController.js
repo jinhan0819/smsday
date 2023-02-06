@@ -2,6 +2,7 @@ let config = require('../config');
 let passport = require('../modules/passport')();
 let sess = require('../modules/session');
 let indexModel = require('../models/indexModel');
+let file = require('../modules/file');
 
 module.exports = {
     index: function (req, res, next) {
@@ -35,4 +36,10 @@ module.exports = {
         let result = await indexModel.getMemberInfo(data);
         res.send(result);
     },
+    fileUpload: function (req, res) {
+        file.fileUpload(req, async (result) => {
+            let rslt = await indexModel.insertAtchmFile(result);
+            res.send(rslt);
+        });
+    }
 };

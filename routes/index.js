@@ -9,6 +9,7 @@ module.exports = function () {
     router.post('/doLogin', indexController.doLogin);
     router.get('/doLogout', indexController.doLogout);
     router.post('/getMemberInfo', indexController.getMemberInfo);
+    router.post('/fileUpload', indexController.fileUpload);
     
     return router;
 
