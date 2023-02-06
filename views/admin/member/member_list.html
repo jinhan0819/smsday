@@ -154,10 +154,10 @@
 		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장 - 추가
 
 		// 회원별 count
-		// let m_count = await axios.post('/admin/member/getMemberCount', data);
-		// for(let key in m_count.data.result[0]){
-		// 	$('#'+key).text(m_count.data.result[0][key]);
-		// }
+		let m_count = await axios.post('/admin/member/getMemberCount', data);
+		for(let key in m_count.data.result[0]){
+			$('#'+key).text(m_count.data.result[0][key]);
+		}
 
 		// 회원 list
 		let member = await axios.post('/admin/member/getMemberList', data);
