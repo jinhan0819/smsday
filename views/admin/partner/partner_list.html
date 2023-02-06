@@ -19,7 +19,6 @@
 				<select>
 					<option>ID</option>
 					<option>회원명</option>
-					<option>핸드폰번호</option>
 				</select>
 			</li>
 			<li>
@@ -76,21 +75,23 @@
 				<colgroup>
 					<col class="w50">
 					<col class="w70">
-					<col class="w150">
+					<col class="w130">
+					<col class="w130">
 					<col>
+					<col class="w200">
+					<col class="w130">
 					<col class="w150">
 					<col class="w150">
-					<col class="w160">
-					<col class="w160">
-					<col class="w160">
 					<col class="w150">
+					<col class="w140">
 				</colgroup>
 				<thead>
 					<th scope="col" class="cheack_are"><input type="checkbox"></th>
 					<th scope="col">번호</th>
 					<th scope="col">가맹점 ID</th>
+					<th scope="col">회원명</th>
 					<th scope="col">회사명</th>
-					<th scope="col">대표자명</th>
+					<th scope="col">개별도메인</th>
 					<th scope="col">사업자번호</th>
 					<th scope="col">통신판매업신고번호</th>
 					<th scope="col">업태</th>
@@ -101,14 +102,15 @@
 					<td scope="col"><input type="checkbox"></td>
 					<td scope="col">1</td>
 					<td scope="col">nowandnew</td>
-					<td scope="col">문자데이</td>
 					<td scope="col">홍길동</td>
+					<td scope="col">문자데이</td>
+					<td scope="col">smsday.kr</td>
 					<td scope="col">21-551818-123</td>
 					<td scope="col">1014081215</td>
 					<td scope="col">업태?</td>
 					<td scope="col">종목1</td>
 					<td scope="col" class="custom">
-						<a href="javascript:void(0);" class="btn-example" onclick="openPop('partnerModifyPop');"><span><img src="/admin/images/okb.png"></span>작업 설정</a>
+						<a href="javascript:void(0);" class="btn-example" onclick="openPop('partnerModifyPop');"><span><img src="/admin/images/okb.png"></span>정보설정</a>
 					</td>
 				</tbody>
 			</table>
@@ -254,15 +256,16 @@
 						<td><input type="checkbox"></td>
 						<td>${item.rownum}</td>
 						<td>${item.pt_id}</td>
+						<td></td>
 						<td>${item.pt_company_name}</td>
-						<td>${item.pt_owner}</td>
+						<td></td>
 						<td>${item.pt_saupja}</td>
 						<td>${item.pt_tongsin}</td>
 						<td>${item.pt_item}</td>
 						<td>${item.pt_service}</td>
 						<td class="custom">
 							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
-								<span><img src="/admin/images/okb.png"></span> 작업 설정
+								<span><img src="/admin/images/okb.png"></span> 정보설정
 							</a>
 						</td>
 					</tr>

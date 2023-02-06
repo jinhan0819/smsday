@@ -1,6 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>충전내역 관리</h2>
+		<h2>배너 관리</h2>
 
 		<div class="time">
 			<span id="todayIs"></span>
@@ -164,14 +164,38 @@
 			<div id="pagenation_view" class="pagenation"></div>
 		</div>
 	</div>
+
+	<div class="table table_are textleft mart15">
+		<h2>포인트 지급/차감</h2>
+		<div class="table">
+			<table id="partner_table">
+				<tr>
+					<th class="w10p">회원 ID</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="15"></td>
+				<tr>
+				<tr>
+					<th class="w10p">지급/차감 내용</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="50"></td>
+				<tr>
+				<tr>
+					<th class="w10p">지급/차감 포인트</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
+				<tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="btn_confirm">
+		<a href="javascript:void(0);" class="btn_submit">지급하기</a>
+	</div>
 </section>
 
-<div id="memberModifyPop" class="pop-layer">
+<div id="" class="pop-layer">
 	<div class="dim"></div>
 	<div class="pop-container">
 		<div class="head_pop">
 			<h2 id="member_text"></h2>
-			<a href="javascript:void(0);" onclick="closeMemberPop();" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
+			<a href="javascript:void(0);" onclick="" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
 		</div>
 		<div class="pop_form_are" id="member_table">
 			<ul>
@@ -215,196 +239,13 @@
 			</ul>
 		</div>
 		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a>
-			<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();">취소</a>
+			<a href="javascript:void(0);" class="okbtn" onclick="">등록</a>
+			<a href="javascript:void(0);" class="btn-layerClose" onclick="">취소</a>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
+
 <script>
-
-	let index_no = null;
-	let params = {}; // 검색 파라미터 (전역변수)
-	pagination.perPage = $('#search_count option:selected').val(); // 페이지 갯수
-
-	function getParams(){
-		params.keyword = $('#keyword').val();
-		params.paging = pagination;
-		return params;
-	}
-
-	async function init(){
-		let data = getParams();
-		// 회원별 count
-		let m_count = await axios.post('/admin/member/getMemberCount', data);
-		for(let key in m_count.data.result[0]){
-			$('#'+key).text(m_count.data.result[0][key]);
-		}
-
-		// 회원 list
-		let member = await axios.post('/admin/member/getMemberList', data);
-
-		let list = member.data.result;
-		let html = '';
-		if(list.length > 0){
-			list.forEach(item => {
-				html += `
-					<tr>
-						<td>${item.rownum}</td>
-						<td>${item.mb_id}</td>
-						<td>${item.mb_name}</td>
-						<td>${item.mb_level_nm}</td>
-						<td>${item.mb_hp}</td>
-						<td>${item.mb_email}</td>
-						<td class="custom">
-							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
-								<span><img src="/admin/images/okb.png"></span> 작업 설정
-							</a>
-						</td>
-					</tr>
-				`
-			});
-		}else{
-			html = '<tr><td colspan="7">데이터가 존재하지 않습니다.</td></tr>'
-		}
-		// $('#pointListBody').html(html);
-
-		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
-		$('#pagenation_view').html(await Pagination('/admin/member/getMemberCount', params, pagination.page, pagination.perPage, 5, 'init'));
-
-	}
-	init();
-
-	function member_search(){
-		pagination.page = 1; // 페이징 번호 초기화
-		init();
-	}
-
-	function openMemberPop(text, type){
-		if(type === 'REGIST'){
-			index_no = null;
-			$('#mb_id').prop('readonly', false);
-		}else{
-			$('#mb_id').prop('readonly', true);
-		}
-		
-		$('#memberModifyPop').css('display', 'block');
-		$('#member_text').text(text);
-		$('#member_table').find('input').each(function(idx, el){
-			if($(el).attr('id') === 'mb_point'){
-				$(el).val(0);
-			}else{
-				$(el).val('');
-			}
-		});
-		$('#mb_level').val(1).prop('selected', true);
-	}
-
-	function closeMemberPop(){
-		$('#memberModifyPop').css('display', 'none');
-	}
-
-	async function memberModify(){
-		let regist_bool = true;
-
-        $('#member_table').find('input').each(function(idx, el){
-            if($(el).val() == '' && index_no == null){
-                alert('모든 정보를 입력해주세요.');
-                regist_bool = false;
-                return false;
-            }
-        })
-
-        // 비밀번호 정규식
-        if($('#mb_password').val() !== '' && !passwordValidationCheck($('#mb_password').val())){
-            alert('비밀번호 정규식에 맞게 입력해주세요.');
-            regist_bool = false;
-            return false;
-        }
-
-        // 이메일 정규식
-        if($('#mb_email').val() !== '' && !doCheckEmail($('#mb_email').val())){
-            alert('이메일 형식이 올바르지 않습니다.');
-            regist_bool = false;
-            return false;
-        }
-
-        if(regist_bool){
-			let id_check = true;
-			if(index_no == null) id_check = await doDuplIdCheck();
-			
-			if(id_check){
-				let data = {};
-				$('#member_table').find('input[type=text]').each(function(idx, el){
-					data[$(el).attr('id')] = $(el).val();
-				})
-				data.mb_password= $('#mb_password').val();
-				data.mb_level = $('#mb_level option:selected').val();
-				data.index_no = index_no;
-				
-				let res = await axios.post('/admin/member/memberModify', data);
-				if(res.data.code == 200){
-					location.reload();
-				}else{
-					alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
-				}
-
-			}
-        }
-	}
-
-
-    // 아이디 중복 확인
-    async function doDuplIdCheck(){
-		let id_chk_bool = false;
-
-        let regType = /^[A-Za-z0-9]*$/; 
-        if(regType.test($('#mb_id').val()) && $('#mb_id').val().length >= 6){
-            let data = {mb_id: $('#mb_id').val()};
-            let res = await axios.post('/front/join/id_check', data);
-    
-            if(!res.data.check){
-                id_chk_bool = true;
-            }else{
-                alert('중복되는 아이디가 존재합니다.\n다른 아이디를 입력해주세요.');
-                $('#mb_id').val('');
-                id_chk_bool = false;
-            }
-        }else{
-            alert('ID는 6~20자 이내의 영문, 숫자만 가능합니다.');
-			id_chk_bool = false;
-        }
-
-		return id_chk_bool;
-
-    }
-
-	// 회원 목록 - 작업 설정 클릭 이벤트
-	$(document).on('click', '.custom a', async function(){
-		let data = {index_no: $(this).data('index')};
-		let res = await axios.post('/admin/member/getMemberDetail', data);
-		let info = res.data.result[0];
-		index_no = info.index_no;
-		
-		openMemberPop('회원 수정', 'UPDATE');
-		for(let key in info){
-			$('#'+key).val(info[key]);
-		}
-	});
-
-	// 회원 count 클릭 이벤트
-	$('#count_ul li').find('a').click(function(){
-		$('#count_ul').find('a').removeClass('on');
-		$(this).addClass('on');
-		params.mb_level = $(this).data('level');
-		init();
-	});
-
-	// 회원 n개씩 보기 클릭 이벤트
-	$('#search_count').change(function(){
-		pagination.perPage = $(this).val();
-		init();
-	});
-
 </script>

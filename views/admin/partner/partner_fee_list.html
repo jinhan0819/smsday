@@ -32,51 +32,9 @@
 	</div>
 
 	<div class="tab_are noflex">
-		<ul class="left">
+		<ul class="left noneline">
 			<li>
-				<p>주문상태</p>
-			</li>
-			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>주문</span>
-				<input type="radio"><span>입금</span>
-				<input type="radio"><span>준비</span>
-				<input type="radio"><span>배송</span>
-				<input type="radio"><span>완료</span>
-				<input type="radio"><span>전체취소</span>
-				<input type="radio"><span>부분취소</span>
-			</li>
-		</ul>
-		<ul class="left padt10">
-			<li>
-				<p>결제수단</p>
-			</li>
-			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>무통장</span>
-				<input type="radio"><span>가상계좌</span>
-				<input type="radio"><span>계좌이체</span>
-				<input type="radio"><span>휴대폰</span>
-				<input type="radio"><span>신용카드</span>
-				<input type="radio"><span>간편결제</span>
-				<input type="radio"><span>KAKAOPAY</span>
-			</li>
-		</ul>
-		<ul class="left padt10">
-			<li>
-				<p>기타선택</p>
-			</li>
-			<li>
-				<input type="checkbox"><span>미수금</span>
-				<input type="checkbox"><span>반품,품절</span>
-				<input type="checkbox"><span>환불</span>
-				<input type="checkbox"><span>포인트주문</span>
-				<input type="checkbox"><span>쿠폰</span>
-			</li>
-		</ul>
-		<ul class="left">
-			<li>
-				<p>주문일자</p>
+				<p>기간</p>
 			</li>
 			<li>
 				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
@@ -90,15 +48,6 @@
 				<a href="#none" class="on2">3개월</a>
 				<a href="#none" class="on2">전체</a>
 			</li>
-		</ul>
-	</div>
-
-	<div class="tab_are">
-		<ul class="left" id="count_ul">
-			<li><a href="javascript:void(0);" class="on">전체(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="1">회원(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="2">가맹점(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="10">관리자(<span>0</span>)</a></li>
 		</ul>
 	</div>
 
@@ -116,53 +65,73 @@
 				</li>
 			</ul>
 		</div>
-		<div class="btn_are mart20">
-			<ul class="left">
-				<li class="marr5"><a href="#none" class=""> 일괄수정</a></li>
-				<li class="marr5"><a href="#none" class=""> 선택수정</a></li>
-				<li class="marr5"><a href="#none" class=""> 선택삭제</a></li>
-			</ul>
-			<ul class="right">
-				<li>
-					<a href="javascript:void(0);" onclick="openMemberPop('회원 등록', 'REGIST');" class="btn-example"> <span><img src="/admin/images/ok.png"></span>신규 등록</a>
-				</li>
-			</ul>
-		</div>
 		<div class="table">
 			<table>
 				<colgroup>
 					<col class="w50">
 					<col class="w70">
-					<col class="w150">
+					<col class="w170">
+					<col class="w170">
+					<col class="w170">
 					<col>
-					<col class="w150">
-					<col class="w150">
-					<col class="w150">
-					<col class="w150">
+					<col class="w120">
+					<col class="w120">
+					<col class="w170">
+					<col class="w170">
 				</colgroup>
 				<thead>
 					<th scope="col" class="cheack_are"><input type="checkbox"></th>
 					<th scope="col">번호</th>
+					<th scope="col">가맹점 ID</th>
 					<th scope="col">회원명</th>
-					<th scope="col">충전내용</th>
-					<th scope="col">입금금액</th>
-					<th scope="col">충전포인트</th>
-					<th scope="col">기존포인트</th>
-					<th scope="col">일시</th>
+					<th scope="col">회사명</th>
+					<th scope="col">개별도메인</th>
+					<th scope="col">이용건수</th>
+					<th scope="col">누적 이용건수</th>
+					<th scope="col">사용료 잔액</th>
+					<th scope="col">상세내역</th>
 				</thead>
 				<tbody id="pointListBody">
 					<td scope="col"><input type="checkbox"></td>
 					<td scope="col">1</td>
+					<td scope="col">test</td>
 					<td scope="col">홍길동</td>
-					<td scope="col">회원</td>
-					<td scope="col">01012345678</td>
-					<td scope="col">test@naver.com</td>
-					<td scope="col">test@naver.com</td>
-					<td scope="col">test@naver.com</td>
+					<td scope="col">문자데이</td>
+					<td scope="col">smsday.kr</td>
+					<td scope="col">1,000건</td>
+					<td scope="col">15,000건</td>
+					<td scope="col">100,000원</td>
+					<td scope="col" class="custom">
+							<a href="javascript:void(0);" class="btn-example" onclick=""><span><img src="/admin/images/okb.png"></span>상세보기</a>
+					</td>
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
 		</div>
+	</div>
+
+	<div class="table table_are textleft mart15">
+		<h2>가맹점 사용료 지급/차감</h2>
+		<div class="table">
+			<table id="partner_table">
+				<tr>
+					<th class="w10p">가맹점 ID</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="15"></td>
+				<tr>
+				<tr>
+					<th class="w10p">지급/차감 내용</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="50"></td>
+				<tr>
+				<tr>
+					<th class="w10p">지급/차감 사용료</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
+				<tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="btn_confirm">
+		<a href="javascript:void(0);" class="btn_submit">지급하기</a>
 	</div>
 </section>
 
@@ -223,188 +192,5 @@
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script>
-
-	let index_no = null;
-	let params = {}; // 검색 파라미터 (전역변수)
-	pagination.perPage = $('#search_count option:selected').val(); // 페이지 갯수
-
-	function getParams(){
-		params.keyword = $('#keyword').val();
-		params.paging = pagination;
-		return params;
-	}
-
-	async function init(){
-		let data = getParams();
-		// 회원별 count
-		let m_count = await axios.post('/admin/member/getMemberCount', data);
-		for(let key in m_count.data.result[0]){
-			$('#'+key).text(m_count.data.result[0][key]);
-		}
-
-		// 회원 list
-		let member = await axios.post('/admin/member/getMemberList', data);
-
-		let list = member.data.result;
-		let html = '';
-		if(list.length > 0){
-			list.forEach(item => {
-				html += `
-					<tr>
-						<td>${item.rownum}</td>
-						<td>${item.mb_id}</td>
-						<td>${item.mb_name}</td>
-						<td>${item.mb_level_nm}</td>
-						<td>${item.mb_hp}</td>
-						<td>${item.mb_email}</td>
-						<td class="custom">
-							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
-								<span><img src="/admin/images/okb.png"></span> 작업 설정
-							</a>
-						</td>
-					</tr>
-				`
-			});
-		}else{
-			html = '<tr><td colspan="7">데이터가 존재하지 않습니다.</td></tr>'
-		}
-		// $('#pointListBody').html(html);
-
-		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
-		$('#pagenation_view').html(await Pagination('/admin/member/getMemberCount', params, pagination.page, pagination.perPage, 5, 'init'));
-
-	}
-	init();
-
-	function member_search(){
-		pagination.page = 1; // 페이징 번호 초기화
-		init();
-	}
-
-	function openMemberPop(text, type){
-		if(type === 'REGIST'){
-			index_no = null;
-			$('#mb_id').prop('readonly', false);
-		}else{
-			$('#mb_id').prop('readonly', true);
-		}
-		
-		$('#memberModifyPop').css('display', 'block');
-		$('#member_text').text(text);
-		$('#member_table').find('input').each(function(idx, el){
-			if($(el).attr('id') === 'mb_point'){
-				$(el).val(0);
-			}else{
-				$(el).val('');
-			}
-		});
-		$('#mb_level').val(1).prop('selected', true);
-	}
-
-	function closeMemberPop(){
-		$('#memberModifyPop').css('display', 'none');
-	}
-
-	async function memberModify(){
-		let regist_bool = true;
-
-        $('#member_table').find('input').each(function(idx, el){
-            if($(el).val() == '' && index_no == null){
-                alert('모든 정보를 입력해주세요.');
-                regist_bool = false;
-                return false;
-            }
-        })
-
-        // 비밀번호 정규식
-        if($('#mb_password').val() !== '' && !passwordValidationCheck($('#mb_password').val())){
-            alert('비밀번호 정규식에 맞게 입력해주세요.');
-            regist_bool = false;
-            return false;
-        }
-
-        // 이메일 정규식
-        if($('#mb_email').val() !== '' && !doCheckEmail($('#mb_email').val())){
-            alert('이메일 형식이 올바르지 않습니다.');
-            regist_bool = false;
-            return false;
-        }
-
-        if(regist_bool){
-			let id_check = true;
-			if(index_no == null) id_check = await doDuplIdCheck();
-			
-			if(id_check){
-				let data = {};
-				$('#member_table').find('input[type=text]').each(function(idx, el){
-					data[$(el).attr('id')] = $(el).val();
-				})
-				data.mb_password= $('#mb_password').val();
-				data.mb_level = $('#mb_level option:selected').val();
-				data.index_no = index_no;
-				
-				let res = await axios.post('/admin/member/memberModify', data);
-				if(res.data.code == 200){
-					location.reload();
-				}else{
-					alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
-				}
-
-			}
-        }
-	}
-
-
-    // 아이디 중복 확인
-    async function doDuplIdCheck(){
-		let id_chk_bool = false;
-
-        let regType = /^[A-Za-z0-9]*$/; 
-        if(regType.test($('#mb_id').val()) && $('#mb_id').val().length >= 6){
-            let data = {mb_id: $('#mb_id').val()};
-            let res = await axios.post('/front/join/id_check', data);
-    
-            if(!res.data.check){
-                id_chk_bool = true;
-            }else{
-                alert('중복되는 아이디가 존재합니다.\n다른 아이디를 입력해주세요.');
-                $('#mb_id').val('');
-                id_chk_bool = false;
-            }
-        }else{
-            alert('ID는 6~20자 이내의 영문, 숫자만 가능합니다.');
-			id_chk_bool = false;
-        }
-
-		return id_chk_bool;
-
-    }
-
-	// 회원 목록 - 작업 설정 클릭 이벤트
-	$(document).on('click', '.custom a', async function(){
-		let data = {index_no: $(this).data('index')};
-		let res = await axios.post('/admin/member/getMemberDetail', data);
-		let info = res.data.result[0];
-		index_no = info.index_no;
-		
-		openMemberPop('회원 수정', 'UPDATE');
-		for(let key in info){
-			$('#'+key).val(info[key]);
-		}
-	});
-
-	// 회원 count 클릭 이벤트
-	$('#count_ul li').find('a').click(function(){
-		$('#count_ul').find('a').removeClass('on');
-		$(this).addClass('on');
-		params.mb_level = $(this).data('level');
-		init();
-	});
-
-	// 회원 n개씩 보기 클릭 이벤트
-	$('#search_count').change(function(){
-		pagination.perPage = $(this).val();
-		init();
-	});
 
 </script>

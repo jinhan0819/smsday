@@ -6,11 +6,9 @@ module.exports = {
     pointList: function (req, res, next) {
         res.render('point/point_list');
     },
-    // getMemberCount: async function (req, res, next) {
-    //     let data = req.body;
-    //     let rslt = await memberModel.getMemberCount(data);
-    //     res.send(rslt);
-    // },
+    pointChargeList: async function (req, res, next) {
+        res.render('point/point_charge_list');
+    },
     // getMemberList: async function (req, res, next) {
     //     let data = req.body;
     //     let rslt = await memberModel.getMemberList(data);

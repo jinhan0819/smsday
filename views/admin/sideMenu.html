@@ -5,7 +5,6 @@
         </a>
         <div class="sub_nav subnav">
             <a href="javascript:void(0);" onclick="route_('/admin/member/memberList')">회원 정보관리</a>
-            <a href="javascript:void(0);" onclick="route_('/admin')">회원 포인트관리</a>
         </div>
     </li>
     <li class="side_menu" id="partner" style="display:none;">
@@ -15,9 +14,8 @@
         <div class="sub_nav subnav">
             <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerList')">가맹점 정보관리</a>
             <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerForm')">가맹점 신규신청</a>
-            <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerFeeList')">가맹점 사용내역</a>
-            <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerFeeApplyList')">가맹점 충전관리</a>
-            <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerFeeHistoryList')">가맹점 충전내역</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerFeeList')">가맹점 사용료관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/partner/partnerChargeList')">가맹점 충전관리</a>
         </div>
     </li>
     <li class="side_menu" id="sms" style="display:none;">
@@ -33,11 +31,21 @@
     </li>
     <li class="side_menu" id="point" style="display:none;">
         <a href="javascript:void(0);" class="open_sub">
-            <span><img src="/admin/images/member.png"></span>충천관리
+            <span><img src="/admin/images/member.png"></span>포인트관리
         </a>
         <div class="sub_nav subnav">
-            <a href="javascript:void(0);" onclick="route_('/admin/point/pointList')">충천 내역관리</a>
-            <a href="#">충전 신청관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/point/pointList')">포인트 정보관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/point/pointChargeList')">포인트 충전관리</a>
+        </div>
+    </li>
+    <li class="side_menu" id="deign" style="display:none;">
+        <a href="javascript:void(0);" class="open_sub">
+            <span><img src="/admin/images/member.png"></span>디자인관리
+        </a>
+        <div class="sub_nav subnav">
+            <a href="javascript:void(0);" onclick="route_('/admin/deign/logoList')">로고 관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/deign/bannerList')">배너 관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/deign/popupList')">팝업 관리</a>
         </div>
     </li>
     <!--

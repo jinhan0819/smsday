@@ -31,19 +31,14 @@ module.exports = {
         res.send(rslt);
     },
 
-    /* 가맹점 사용내역 */
+    /* 가맹점 사용관리 */
     partnerFeeList: function (req, res, next) {
         res.render('partner/partner_fee_list');
     },
 
     /* 가맹점 충전관리 */
-    partnerFeeApplyList: function (req, res, next) {
-        res.render('partner/partner_feeApply_list');
-    },
-    
-    /* 가맹점 충전내역 */
-    partnerFeeHistoryList: function (req, res, next) {
-        res.render('partner/partner_feeHistory_list');
+    partnerChargeList: function (req, res, next) {
+        res.render('partner/partner_charge_list');
     },
     
 };

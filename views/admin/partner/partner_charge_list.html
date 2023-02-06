@@ -1,0 +1,140 @@
+<section class="main">
+	<div class="title">
+		<h2>충전내역 관리</h2>
+
+		<div class="time">
+			<span id="todayIs"></span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
+				</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="tab_are mart50">
+		<ul class="left">
+			<li>
+				<select>
+					<option>ID</option>
+					<option>회원명</option>
+				</select>
+			</li>
+			<li>
+				<input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){member_search()}"> 
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="on3" onclick="member_search()">검색</a>
+				<a href="#none" class="on3">초기화</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="tab_are noflex">
+		<ul class="left padt10">
+			<li>
+				<p>승인여부</p>
+			</li>
+			<li>
+				<input type="radio"><span>전체</span>
+				<input type="radio"><span>미승인</span>
+				<input type="radio"><span>승인</span>
+			</li>
+		</ul>
+		<ul class="left noneline">
+			<li>
+				<p>요청일시</p>
+			</li>
+			<li>
+				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
+			</li>
+			<li>
+				<a href="#none" class="on2">오늘</a>
+				<a href="#none" class="on2">어제</a>
+				<a href="#none" class="on2">일주일</a>
+				<a href="#none" class="on2">지난달</a>
+				<a href="#none" class="on2">1개월</a>
+				<a href="#none" class="on2">3개월</a>
+				<a href="#none" class="on2">전체</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="table_are">
+		<div class="btn_are marl10">
+			<ul class="left flex">
+				<li>전체 : <b><span id="total_count">0</span></b> 건 조회</li>
+				<li>
+					<select id="search_count">
+						<option value="30">30</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select> 
+					<span>개씩 보기</span>
+				</li>
+			</ul>
+		</div>
+		<div class="btn_are mart20">
+			<ul class="left">
+				<li class="marr5"><a href="#none" class="">선택승인</a></li>
+			</ul>
+		</div>
+		<div class="table">
+			<table>
+				<colgroup>
+					<col class="w50">
+					<col class="w60">
+					<col class="w80">
+					<col class="w100">
+					<col class="w100">
+					<col class="w120">
+					<col class="w140">
+					<col>
+					<col class="w100">
+					<col class="w100">
+					<col class="w100">
+					<col class="w150">
+					<col class="w150">
+				</colgroup>
+				<thead>
+					<th scope="col" class="cheack_are"><input type="checkbox"></th>
+					<th scope="col">번호</th>
+					<th scope="col">상태</th>
+					<th scope="col">가맹점 ID</th>
+					<th scope="col">회원명</th>
+					<th scope="col">회사명</th>
+					<th scope="col">개별도메인</th>
+					<th scope="col">내용</th>
+					<th scope="col">충천액</th>
+					<th scope="col">사용료 잔액</th>
+					<th scope="col">충천후 잔액</th>
+					<th scope="col">요청일시</th>
+					<th scope="col">승인일시</th>
+				</thead>
+				<tbody id="pointListBody">
+					<td scope="col"><input type="checkbox"></td>
+					<td scope="col">1</td>
+					<!-- <td scope="col" class="fc_084">승인</td> -->
+					<td scope="col" class="fc_red">미승인</td>
+					<td scope="col">test</td>
+					<td scope="col">홍길동</td>
+					<td scope="col">문자데이</td>
+					<td scope="col">smsday.kr</td>
+					<td scope="col">smsday.kr</td>
+					<td scope="col">10,000원</td>
+					<td scope="col">100,000원</td>
+					<td scope="col">110,000원</td>
+					<td scope="col">2023-01-01 12:00:00</td>
+					<td scope="col">2023-01-02 12:00:00</td>
+				</tbody>
+			</table>
+			<div id="pagenation_view" class="pagenation"></div>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script>
+
+</script>

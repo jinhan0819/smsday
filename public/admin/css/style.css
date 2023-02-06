@@ -1024,6 +1024,10 @@ input[type="password"] {
 	/* width: 100% */
 }
 
+input[type="file"] {
+	padding: 4px;
+}
+
 .textleft table th {
 	width: 20%;
 	text-align: left;
