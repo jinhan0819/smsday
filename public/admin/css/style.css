@@ -1017,6 +1017,13 @@ input[type="text"] {
 	/* width: 100% */
 }
 
+input[type="password"] {
+	font-size: 16px;
+	padding: 5px;
+	border: 1px solid #dfdfdf;
+	/* width: 100% */
+}
+
 .textleft table th {
 	width: 20%;
 	text-align: left;

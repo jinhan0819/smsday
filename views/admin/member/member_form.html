@@ -1,6 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>회원 신규등록</h2>
+		<h2 id="member_title"></h2>
 		<div class="time">
 			<span id="todayIs"></span>
 			<span>
@@ -11,49 +11,50 @@
 			</span>
 		</div>
 	</div>
-
-	<div class="table table_are textleft mart50">
-		<h2>ID / 비밀번호</h2>
-		<div class="table">
-			<table id="partner_table">
-				<tr>
-					<th>ID</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size=30></td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size=30></td>
-				</tr>
-				<tr>
-					<th>비밀번호 확인</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size=30></td>
-				</tr>
-			</table>
+	<div id="member_table">
+		<div class="table table_are textleft mart50">
+			<h2>ID / 비밀번호</h2>
+			<div class="table">
+				<table id="partner_table">
+					<tr>
+						<th>ID</th>
+						<td colspan="3"><input type="text" placeholder="" id="mb_id" size=30></td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td colspan="3"><input type="password" placeholder="" id="mb_password" size=30></td>
+					</tr>
+					<tr>
+						<th>비밀번호 확인</th>
+						<td colspan="3"><input type="password" placeholder="" id="mb_password_ok" size=30></td>
+					</tr>
+				</table>
+			</div>
 		</div>
-	</div>
 
-	<div class="table table_are textleft">
-		<h2>개인정보</h2>
-		<div class="table">
-			<table id="partner_table">
-				<tr>
-					<th>이름</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="30"></td>
-				</tr>
-				<tr>
-					<th>핸드폰번호</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="30"></td>
+		<div class="table table_are textleft">
+			<h2>개인정보</h2>
+			<div class="table">
+				<table id="partner_table">
+					<tr>
+						<th>이름</th>
+						<td colspan="3"><input type="text" placeholder="" id="mb_name" size="30"></td>
+					</tr>
+					<tr>
+						<th>핸드폰번호</th>
+						<td colspan="3"><input type="text" placeholder="" id="mb_hp" size="30" maxlength="13"></td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="30"></td>
+					<td colspan="3"><input type="text" placeholder="" id="mb_email" size="30"></td>
 				</tr>
 			</table>
 		</div>
 	</div>
+	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit" style="margin-top: 15px" onclick="">저장</a>
+		<a href="javascript:void(0);" class="btn_submit" style="margin-top: 15px" onclick="memberModify()">저장</a>
 		<a href="javascript:history.back();" class="btn_submit" style="margin-top: 15px">취소</a>
 	</div>
 
@@ -62,4 +63,109 @@
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	let index_no = '<%- index_no %>';
+	let title = '';
+
+	if(index_no != ''){
+		memberDetail();
+		title = '회원 정보 수정';
+	}else{
+		index_no = null;
+		title = '회원 신규 등록';
+	}
+	$('#member_title').text(title);
+	
+	async function memberModify(){
+		let regist_bool = true;
+
+        $('#member_table').find('input').each(function(idx, el){
+            if($(el).val() == '' && index_no == null){
+                alert('모든 정보를 입력해주세요.');
+                regist_bool = false;
+                return false;
+            }
+        })
+
+        // 비밀번호 정규식
+        if($('#mb_password').val() !== '' && !passwordValidationCheck($('#mb_password').val())){
+            alert('비밀번호 정규식에 맞게 입력해주세요.');
+            regist_bool = false;
+            return false;
+        }
+
+		// 비밀번호 & 비밀번호 확인
+        if($('#mb_password').val() !== $('#mb_password_ok').val()){
+            alert('비밀번호와 비밀번호 확인이 다릅니다.\n다시 입력해주세요.');
+            regist_bool = false;
+            return false;
+        }
+
+        // 이메일 정규식
+        if($('#mb_email').val() !== '' && !doCheckEmail($('#mb_email').val())){
+            alert('이메일 형식이 올바르지 않습니다.');
+            regist_bool = false;
+            return false;
+        }
+
+        if(regist_bool){
+			let id_check = true;
+			if(index_no == null) id_check = await doDuplIdCheck();
+			
+			if(id_check){
+				let data = {};
+				$('#member_table').find('input[type=text]').each(function(idx, el){
+					data[$(el).attr('id')] = $(el).val();
+				})
+				data.mb_password= $('#mb_password').val();
+				data.mb_level = 1;
+				data.mb_point = 0;
+				data.index_no = index_no;
+				
+				let res = await axios.post('/admin/member/memberModify', data);
+				if(res.data.code == 200){
+					location.href = '/admin/member/memberList';
+				}else{
+					alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+
+			}
+        }
+	}
+
+
+    // 아이디 중복 확인
+    async function doDuplIdCheck(){
+		let id_chk_bool = false;
+
+        let regType = /^[A-Za-z0-9]*$/; 
+        if(regType.test($('#mb_id').val()) && $('#mb_id').val().length >= 6){
+            let data = {mb_id: $('#mb_id').val()};
+            let res = await axios.post('/front/join/id_check', data);
+    
+            if(!res.data.check){
+                id_chk_bool = true;
+            }else{
+                alert('중복되는 아이디가 존재합니다.\n다른 아이디를 입력해주세요.');
+                $('#mb_id').val('');
+                id_chk_bool = false;
+            }
+        }else{
+            alert('ID는 6~20자 이내의 영문, 숫자만 가능합니다.');
+			id_chk_bool = false;
+        }
+
+		return id_chk_bool;
+
+    }
+
+	async function memberDetail(){
+		let data = {index_no: index_no};
+		let res = await axios.post('/admin/member/getMemberDetail', data);
+		let info = res.data.result[0];
+		index_no = info.index_no;
+		
+		for(let key in info){
+			$('#'+key).val(info[key]);
+		}
+	}
 </script>

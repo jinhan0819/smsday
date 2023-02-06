@@ -7,7 +7,7 @@ module.exports = {
         res.render('member/member_list');
     },
     memberForm: function (req, res, next) {
-        res.render('member/member_form');
+        res.render('member/member_form', {index_no : req.query.index_no});
     },
     getMemberCount: async function (req, res, next) {
         let data = req.body;
