@@ -6,7 +6,7 @@ module.exports = function () {
     let router = express.Router();
 
     /* 로고 관리 */
-    router.get('/logoList', deignController.logoList);
+    router.get('/logoForm', deignController.logoForm);
 
     /* 배너 관리 */
     router.get('/bannerList', deignController.bannerList);

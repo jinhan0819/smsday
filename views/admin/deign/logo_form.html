@@ -1,0 +1,51 @@
+<section class="main">
+	<div class="title">
+		<h2>로고 관리</h2>
+		<div class="time">
+			<span id="todayIs"></span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
+				</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="table table_are textleft mart50">
+		<!-- <h2>로고 정보</h2> -->
+		<div class="table">
+			<table id="partner_table">
+				<tr>
+					<th>대표로고</th>
+					<td colspan="3">
+						<input type="file" id="">
+						<a href="#none" class="file_del">삭제</a>
+					</td>
+				<tr>
+				<tr>
+					<th>SNS 로고</th>
+					<td colspan="3">
+						<input type="file" id="">
+						<a href="#none" class="file_del">삭제</a>
+					</td>
+				<tr>
+				<tr>
+					<th>파비콘 (favicon)</th>
+					<td colspan="3">
+						<input type="file" id="">
+						<a href="#none" class="file_del">삭제</a>
+					</td>
+				<tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="btn_confirm">
+		<a href="javascript:void(0);" class="btn_submit" onclick="partnerModify()">저장</a>
+		<a href="javascript:history.back();" class="btn_submit">취소</a>
+	</div>
+
+</section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>

@@ -16,79 +16,17 @@
 	<div class="tab_are mart50">
 		<ul class="left">
 			<li>
+				<p>노출위치</p>
+			</li>
+			<li>
 				<select>
-					<option>ID</option>
-					<option>회원명</option>
+					<option>[고정] 최상단배너</option>
+					<option>[롤링] 메인배너</option>
+					<option>[고정] 하단배너</option>
 				</select>
 			</li>
 			<li>
-				<input type="text" placeholder="검색어" id="keyword" onkeyup="if(window.event.keyCode==13){member_search()}"> 
-			</li>
-			<li>
-				<a href="javascript:void(0);" class="on3" onclick="member_search()">검색</a>
-				<a href="#none" class="on3">초기화</a>
-			</li>
-		</ul>
-	</div>
-
-	<div class="tab_are noflex">
-		<ul class="left">
-			<li>
-				<p>주문상태</p>
-			</li>
-			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>주문</span>
-				<input type="radio"><span>입금</span>
-				<input type="radio"><span>준비</span>
-				<input type="radio"><span>배송</span>
-				<input type="radio"><span>완료</span>
-				<input type="radio"><span>전체취소</span>
-				<input type="radio"><span>부분취소</span>
-			</li>
-		</ul>
-		<ul class="left padt10">
-			<li>
-				<p>결제수단</p>
-			</li>
-			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>무통장</span>
-				<input type="radio"><span>가상계좌</span>
-				<input type="radio"><span>계좌이체</span>
-				<input type="radio"><span>휴대폰</span>
-				<input type="radio"><span>신용카드</span>
-				<input type="radio"><span>간편결제</span>
-				<input type="radio"><span>KAKAOPAY</span>
-			</li>
-		</ul>
-		<ul class="left padt10">
-			<li>
-				<p>기타선택</p>
-			</li>
-			<li>
-				<input type="checkbox"><span>미수금</span>
-				<input type="checkbox"><span>반품,품절</span>
-				<input type="checkbox"><span>환불</span>
-				<input type="checkbox"><span>포인트주문</span>
-				<input type="checkbox"><span>쿠폰</span>
-			</li>
-		</ul>
-		<ul class="left">
-			<li>
-				<p>주문일자</p>
-			</li>
-			<li>
-				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
-			</li>
-			<li>
-				<a href="#none" class="on2">오늘</a>
-				<a href="#none" class="on2">어제</a>
-				<a href="#none" class="on2">일주일</a>
-				<a href="#none" class="on2">지난달</a>
-				<a href="#none" class="on2">1개월</a>
-				<a href="#none" class="on2">3개월</a>
-				<a href="#none" class="on2">전체</a>
+				<a href="javascript:void(0);" class="on3">검색</a>
 			</li>
 		</ul>
 	</div>
@@ -96,9 +34,8 @@
 	<div class="tab_are">
 		<ul class="left" id="count_ul">
 			<li><a href="javascript:void(0);" class="on">전체(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="1">회원(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="2">가맹점(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="10">관리자(<span>0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="1">노출(<span>0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="2">비노출(<span>0</span>)</a></li>
 		</ul>
 	</div>
 
@@ -106,21 +43,12 @@
 		<div class="btn_are marl10">
 			<ul class="left flex">
 				<li>전체 : <b><span id="total_count">0</span></b> 건 조회</li>
-				<li>
-					<select id="search_count">
-						<option value="30">30</option>
-						<option value="50">50</option>
-						<option value="100">100</option>
-					</select> 
-					<span>개씩 보기</span>
-				</li>
 			</ul>
 		</div>
 		<div class="btn_are mart20">
 			<ul class="left">
-				<li class="marr5"><a href="#none" class=""> 일괄수정</a></li>
-				<li class="marr5"><a href="#none" class=""> 선택수정</a></li>
-				<li class="marr5"><a href="#none" class=""> 선택삭제</a></li>
+				<li class="marr5"><a href="#none" class="">선택수정</a></li>
+				<li class="marr5"><a href="#none" class="">선택삭제</a></li>
 			</ul>
 			<ul class="right">
 				<li>
@@ -133,117 +61,57 @@
 				<colgroup>
 					<col class="w50">
 					<col class="w70">
-					<col class="w150">
+					<col class="w80">
+					<col class="w70">
 					<col>
-					<col class="w150">
-					<col class="w150">
-					<col class="w150">
-					<col class="w150">
+					<col class="w200">
+					<col class="w200">
+					<col class="w100">
+					<col class="w120">
+					<col class="w120">
+					<col class="w120">
 				</colgroup>
 				<thead>
 					<th scope="col" class="cheack_are"><input type="checkbox"></th>
 					<th scope="col">번호</th>
-					<th scope="col">회원명</th>
-					<th scope="col">충전내용</th>
-					<th scope="col">입금금액</th>
-					<th scope="col">충전포인트</th>
-					<th scope="col">기존포인트</th>
-					<th scope="col">일시</th>
+					<th scope="col">노출여부</th>
+					<th scope="col">노출순서</th>
+					<th scope="col">이미지</th>
+					<th scope="col">노출위치</th>
+					<th scope="col">링크주소</th>
+					<th scope="col">TARGET</th>
+					<th scope="col">가로사이즈</th>
+					<th scope="col">세로사이즈</th>
+					<th scope="col">설정</th>
 				</thead>
 				<tbody id="pointListBody">
 					<td scope="col"><input type="checkbox"></td>
 					<td scope="col">1</td>
-					<td scope="col">홍길동</td>
-					<td scope="col">회원</td>
-					<td scope="col">01012345678</td>
-					<td scope="col">test@naver.com</td>
-					<td scope="col">test@naver.com</td>
-					<td scope="col">test@naver.com</td>
+					<td scope="col">
+						<a href="#none" class="state_box on"><div class="state"></div></a>
+						<!-- <a href="#none" class="state_box"><div class="state"></div></a> -->
+					</td>
+					<td scope="col"><input type="text" class="w50"></td>
+					<td scope="col"><img src="/admin/images/thum.png" style="max-width: 50px"></td>
+					<td scope="col">[롤링] 메인배너</td>
+					<td scope="col"><input type="text" class="w100p"></td>
+					<td scope="col">
+						<select>
+							<option>_blank</option>
+							<option>_self</option>
+						</select>
+					</td>
+					<td scope="col"><input type="text" class="w80"></td>
+					<td scope="col"><input type="text" class="w80"></td>
+					<td scope="col" class="custom">
+						<a href="javascript:void(0);" class="btn-example"><span><img src="/admin/images/okb.png"></span> 정보수정</a>
+					</td>
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
 		</div>
 	</div>
-
-	<div class="table table_are textleft mart15">
-		<h2>포인트 지급/차감</h2>
-		<div class="table">
-			<table id="partner_table">
-				<tr>
-					<th class="w10p">회원 ID</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="15"></td>
-				<tr>
-				<tr>
-					<th class="w10p">지급/차감 내용</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="50"></td>
-				<tr>
-				<tr>
-					<th class="w10p">지급/차감 포인트</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
-				<tr>
-			</table>
-		</div>
-	</div>
-
-	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit">지급하기</a>
-	</div>
 </section>
-
-<div id="" class="pop-layer">
-	<div class="dim"></div>
-	<div class="pop-container">
-		<div class="head_pop">
-			<h2 id="member_text"></h2>
-			<a href="javascript:void(0);" onclick="" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
-		</div>
-		<div class="pop_form_are" id="member_table">
-			<ul>
-				<li>
-					<p>아이디</p>
-					<input type="text" placeholder="" id="mb_id">
-				</li>
-				<li>
-					<p>비밀번호</p>
-					<input type="text" placeholder="" id="mb_password">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>이름</p>
-					<input type="text" placeholder="" id="mb_name">
-				</li>
-				<li>
-					<p>이메일</p>
-					<input type="text" placeholder="" id="mb_email">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>연락처</p>
-					<input type="text" placeholder="" id="mb_hp" maxlength="13">
-				</li>
-				<li>
-					<p>회원 구분</p> 
-					<select id="mb_level">
-						<option value="1">회원</option>
-						<!-- <option value="10">관리자</option> -->
-					</select>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>포인트</p>
-					<input type="text" placeholder="" id="mb_point" value="0">
-				</li>
-			</ul>
-		</div>
-		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="">등록</a>
-			<a href="javascript:void(0);" class="btn-layerClose" onclick="">취소</a>
-		</div>
-	</div>
-</div>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 
