@@ -167,6 +167,7 @@
 		title = '가맹점 정보 수정';
 	}else{
 		index_no = null;
+		$('.file_del').hide();
 		title = '가맹점 신규 신청';
 	}
 	$('#partner_title').text(title);
@@ -360,7 +361,7 @@
 	});
 
 	/* 파일 관련 시작 */
-	
+
 	// 첨부파일 영역 클릭 시
 	function openSelFile(id){
 		// 파일이 존재시에는 다운로드
