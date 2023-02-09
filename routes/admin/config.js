@@ -13,9 +13,14 @@ module.exports = function () {
 
     /* SMS충전신청 */
     router.get('/ptSmsCharge', configController.ptSmsCharge);
+    router.post('/getPtSmsChargeCount', configController.getPtSmsChargeCount);
+    router.post('/getPtSmsChargeList', configController.getPtSmsChargeList);
+    router.post('/ptSmsInsert', configController.ptSmsInsert);
+    router.post('/ptSmsDelete', configController.ptSmsDelete);
 
     /* 차단IP 설정 */
     router.get('/ipAccess', configController.ipAccess);
+
 
 
     return router;

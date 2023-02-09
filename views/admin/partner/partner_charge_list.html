@@ -16,9 +16,9 @@
 	<div class="tab_are mart50">
 		<ul class="left">
 			<li>
-				<select>
-					<option>ID</option>
-					<option>회원명</option>
+				<select id="search_keycode">
+					<option value="id">ID</option>
+					<option value="name">회원명</option>
 				</select>
 			</li>
 			<li>
@@ -26,7 +26,7 @@
 			</li>
 			<li>
 				<a href="javascript:void(0);" class="on3" onclick="member_search()">검색</a>
-				<a href="#none" class="on3">초기화</a>
+				<a href="javascript:void(0);" class="on3" onclick="search_init()">초기화</a>
 			</li>
 		</ul>
 	</div>
@@ -37,9 +37,9 @@
 				<p>승인여부</p>
 			</li>
 			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>미승인</span>
-				<input type="radio"><span>승인</span>
+				<input type="radio" name="approve_input" value="" checked><span>전체</span>
+				<input type="radio" name="approve_input" value="0"><span>미승인</span>
+				<input type="radio" name="approve_input" value="1"><span>승인</span>
 			</li>
 		</ul>
 		<ul class="left noneline">
@@ -47,16 +47,16 @@
 				<p>요청일시</p>
 			</li>
 			<li>
-				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
+				<input type="text" class="w50" id="start_date"><span style="margin: 0 5px">~</span><input type="text" class="w50" id="end_date">
 			</li>
 			<li>
-				<a href="#none" class="on2">오늘</a>
-				<a href="#none" class="on2">어제</a>
-				<a href="#none" class="on2">일주일</a>
-				<a href="#none" class="on2">지난달</a>
-				<a href="#none" class="on2">1개월</a>
-				<a href="#none" class="on2">3개월</a>
-				<a href="#none" class="on2">전체</a>
+				<a href="javascript:void(0);" data-func="getTodayDayJS" class="on2">오늘</a>
+				<a href="javascript:void(0);" data-func="getYesterDayJS" class="on2">어제</a>
+				<a href="javascript:void(0);" data-func="getWeekDayJS" class="on2">일주일</a>
+				<a href="javascript:void(0);" data-func="getBeforeMonthDayJS" class="on2">지난달</a>
+				<a href="javascript:void(0);" data-func="getMonthDayJS" data-num="1" class="on2">1개월</a>
+				<a href="javascript:void(0);" data-func="getMonthDayJS" data-num="3" class="on2">3개월</a>
+				<a href="javascript:void(0);" class="on2">전체</a>
 			</li>
 		</ul>
 	</div>
@@ -77,7 +77,7 @@
 		</div>
 		<div class="btn_are mart20">
 			<ul class="left">
-				<li class="marr5"><a href="#none" class="">선택승인</a></li>
+				<li class="marr5"><a href="javascript:void(0);" class="" id="partner_approve">선택승인</a></li>
 			</ul>
 		</div>
 		<div class="table">
@@ -98,7 +98,7 @@
 					<col class="w150">
 				</colgroup>
 				<thead>
-					<th scope="col" class="cheack_are"><input type="checkbox"></th>
+					<th scope="col" class="cheack_are"><input type="checkbox" id="partner_check_all"></th>
 					<th scope="col">번호</th>
 					<th scope="col">상태</th>
 					<th scope="col">가맹점 ID</th>
@@ -112,11 +112,12 @@
 					<th scope="col">요청일시</th>
 					<th scope="col">승인일시</th>
 				</thead>
-				<tbody>
-					<tr>
+				<tbody id="partnerListBody">
+					<tr><td colspan="13">데이터가 존재하지 않습니다.</td></tr>
+					<!-- <tr>
 						<td scope="col"><input type="checkbox"></td>
 						<td scope="col">1</td>
-						<!-- <td scope="col" class="fc_084">승인</td> -->
+						<td scope="col" class="fc_084">승인</td>
 						<td scope="col" class="fc_red">미승인</td>
 						<td scope="col">test</td>
 						<td scope="col">홍길동</td>
@@ -128,7 +129,7 @@
 						<td scope="col">110,000원</td>
 						<td scope="col">2023-01-01 12:00:00</td>
 						<td scope="col">2023-01-02 12:00:00</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
@@ -136,7 +137,166 @@
 	</div>
 </section>
 
-<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script type="text/javascript" src="/admin/js/date.js"></script>
 <script>
+	console.log($('input[name=approve_input]:checked').val())
+	// 검색 파라미터 (전역변수)
+	let params = {
+		keyword : $('#keyword').val(),
+		keycode : $('#search_keycode').val(),
+		approve_yn: $('input[name=approve_input]:checked').val(),
+		date : {},
+		paging : pagination
+	};
 
+	// 현상 유지 (조건 검색 시)
+	function paramsInit(){
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params = JSON.parse(getLocalStorage('search_params'));
+			pagination = params.paging;
+			$('#search_count').val(params.paging.perPage.toString()).prop('selected', true);
+			$('#keyword').val(params.keyword);
+			
+			$('input[name=approve_input]').each(function(idx, el){
+				if($(el).val() === params.approve_yn){
+					$(el).prop('checked', true);
+				}
+			})
+		}
+		init();
+	}
+	paramsInit();
+
+	function getParams(){
+		params.keyword = $('#keyword').val();
+		params.keycode = $('#search_keycode option:selected').val();
+		params.approve_yn = $('input[name=approve_input]:checked').val();
+		params.paging = pagination;
+		params.date = {
+			start : $('#start_date').val(),
+			end : $('#end_date').val()
+		}
+		return params;
+	}
+
+	async function init(){
+		let data = getParams();
+		console.log(data)
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
+
+		// 가맹점 count
+		let m_count = await axios.post('/admin/partner/getPartnerChargeCount', data);
+		for(let key in m_count.data.result[0]){
+			$('#'+key).text(m_count.data.result[0][key]);
+		}
+
+		// 가맹점 list
+		let member = await axios.post('/admin/partner/getPartnerChargeList', data);
+
+		let list = member.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr>
+						<td scope="col"><input type="checkbox" name="partner_check" data-index=${item.index_no}></td>
+						<td scope="col">${item.rownum}</td>
+						<td scope="col" class="${item.pf_approval_yn === 1 ? 'fc_084' : 'fc_red'}">${item.pf_approval_yn === 1 ? '승인' : '미승인'}</td>
+						<td scope="col">${item.pt_id}</td>
+						<td scope="col">${item.pt_owner}</td>
+						<td scope="col">${item.pt_company_name}</td>
+						<td scope="col">${item.pt_domain}</td>
+						<td scope="col">${item.pf_contents}</td>
+						<td scope="col">${setComma(item.pf_fee)}원</td>
+						<td scope="col">${setComma(item.pf_fee)}원</td>
+						<td scope="col">${setComma(item.pf_fee)}원</td>
+						<td scope="col">${item.pf_request_datetime}/td>
+						<td scope="col">${item.pf_approval_datetime}</td>
+					</tr>
+				`
+			});
+		}else{
+			html = '<tr><td colspan="13">데이터가 존재하지 않습니다.</td></tr>'
+		}
+		$('#partnerListBody').html(html);
+
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/partner/getPartnerChargeCount', params, pagination.page, pagination.perPage, 5, 'init'));
+
+	}
+
+	// 검색 초기화
+	function search_init(){
+		$('#search_keycode').val('id').prop('selected', true);
+		$('#keyword').val('');
+		// clearLocalStorage();
+		init();
+	}
+
+	function member_search(){
+		pagination.page = 1; // 페이징 번호 초기화
+		init();
+	}
+
+	$('input[name=approve_input]').click(function(){
+		console.log($('input[name=approve_input]:checked').val())
+		init();
+	})
+
+	// 가입 날짜 조회 이벤트
+	$('.on2').click(function(){
+		if(typeof $(this).data('func') !== 'undefined'){
+			if(typeof(window[$(this).data('func')]) == "function"){
+				let execFunc = (new Function("return " + $(this).data('func')))();
+				
+				let result;
+				if($(this).data('func') === 'getMonthDayJS'){
+					result = execFunc($(this).data('num'));
+				}else{
+					result = execFunc();
+				}
+
+				$('#start_date').val(result.start);
+				$('#end_date').val(result.end);
+			}else{
+				alert('함수가 존재하지 않습니다.');
+			}
+		}else{
+			$('#start_date').val('');
+			$('#end_date').val('');
+		}
+		init();
+	});
+
+	// 체크 박스 선택 이벤트
+	$('#partner_check_all').click(function(){
+		let checkBool = false;
+		if($(this).is(':checked')) checkBool = true;
+		$('input[name=partner_check]').prop('checked', checkBool);
+	});
+
+	// 선택 승인 이벤트
+	$('#partner_approve').click(async function(){
+		if($('input[name=partner_check]:checked').length > 0){
+			if(confirm('정말로 승인하시겠습니까?')){
+				let data_arr = [];
+				$('input[name=partner_check]').each(function(idx, el){
+					if($(el).is(':checked')){
+						data_arr.push($(el).data('index'));
+					}
+				});
+				let data = {aprv_list : data_arr};
+				let res = await axios.post('/admin/partner/partnerApprove', data);
+				console.log(res);
+				if(res.data.code == 200){
+					location.reload();
+				}else{
+					alert('승인 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+			}
+		}else{
+			alert('선택된 데이터가 없습니다.');
+		}
+	});
 </script>

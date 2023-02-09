@@ -317,4 +317,104 @@ module.exports = {
 
         return result;
     },
+    getPartnerChargeCount: async function(data){
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql += `WHERE B.pt_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql += `WHERE B.pt_owner LIKE '%${data.keyword}%'`;
+        }
+        
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            if(search_sql === '') search_sql += 'WHERE'
+            else search_sql += ' AND';
+            search_sql += ` DATE_FORMAT(A.pf_request_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
+
+        if(typeof data.approve_yn !== 'undefined' && data.approve_yn !== ''){
+            if(search_sql === '') search_sql += 'WHERE'
+            else search_sql += ' AND';
+            search_sql += ` A.pf_approval_yn = ${data.approve_yn}`;
+        }
+
+        let sql = `
+            SELECT
+                COUNT(A.index_no) AS total_count
+            FROM TB_PARTNER_FEE_IMSI A
+            INNER JOIN TB_PARTNER B ON (A.pt_id = B.pt_id)
+            ${search_sql}
+        `;
+        let rslt = await db.queryTransaction(sql, []);
+
+        return rslt;
+    },
+    getPartnerChargeList: async function(data){
+        let params = paging.pagingRange(data.paging);
+
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql += `WHERE Z.pt_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql += `WHERE Z.pt_owner LIKE '%${data.keyword}%'`;
+        }
+        
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            if(search_sql === '') search_sql += 'WHERE'
+            else search_sql += 'AND';
+            search_sql += ` DATE_FORMAT(Z.pf_request_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
+
+        if(typeof data.approve_yn !== 'undefined' && data.approve_yn !== ''){
+            if(search_sql === '') search_sql += 'WHERE'
+            else search_sql += 'AND';
+            search_sql += ` Z.pf_approval_yn = ${data.approve_yn}`;
+        }
+
+        let sql = `
+            SELECT
+                @ROWNUM := @ROWNUM + 1 AS rownum,
+                Z.index_no,
+                Z.pf_approval_yn,
+                Z.pt_id,
+                Z.pt_owner,
+                Z.pt_company_name,
+                IFNULL(Z.pt_domain, '-') AS pt_domain,
+                Z.pf_contents,
+                Z.pf_fee,
+                DATE_FORMAT(Z.pf_request_datetime, '%Y-%m-%d %H:%i:%s') AS pf_request_datetime,
+                IFNULL(DATE_FORMAT(Z.pf_approval_datetime, '%Y-%m-%d %H:%i:%s'), '-') AS pf_approval_datetime
+            FROM (
+                    SELECT
+                        A.index_no,
+                        A.pf_approval_yn,
+                        B.pt_id,
+                        B.pt_owner,
+                        B.pt_company_name,
+                        B.pt_domain,
+                        A.pf_contents,
+                        A.pf_fee,
+                        A.pf_request_datetime,
+                        A.pf_approval_datetime
+                    FROM TB_PARTNER_FEE_IMSI A
+                    INNER JOIN TB_PARTNER B ON (A.pt_id = B.pt_id)
+                    ORDER BY A.pf_approval_yn DESC, pf_request_datetime DESC
+            ) Z, (SELECT @ROWNUM := 0) R
+            ${search_sql}
+            ORDER BY rownum DESC 
+            LIMIT ?, ? 
+        `;
+        let rslt = await db.queryTransaction(sql, params);
+
+        return rslt;
+    },
+    partnerApprove: async function(data){
+        let sql = `
+            UPDATE TB_PARTNER_FEE_IMSI
+            SET
+                pf_approval_yn = 1,
+                pf_approval_datetime = NOW()
+            WHERE index_no IN (?)
+        `;
+        let rslt = await db.queryTransaction(sql, [data.aprv_list]);
+
+        return rslt;
+    }
 }

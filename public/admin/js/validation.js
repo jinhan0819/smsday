@@ -8,6 +8,11 @@ $(function(){
     $(document).on("keyup", "#pt_saupja", function() { 
         $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/([0-9]{3})([0-9]{2})([0-9]{5})?/,"$1-$2-$3").replace("--", "-") ); 
     });
+
+    // 금액 keyup
+    $(document).on("keyup", "#pf_fee", function() { 
+        $(this).val($(this).val().replace(/\,/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+    });
 })
 
 // 사업자 번호 체크

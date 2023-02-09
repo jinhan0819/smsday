@@ -45,5 +45,20 @@ module.exports = {
     partnerChargeList: function (req, res, next) {
         res.render('partner/partner_charge_list');
     },
+    getPartnerChargeCount: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await partnerModel.getPartnerChargeCount(data);
+        res.send(rslt);
+    },
+    getPartnerChargeList: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await partnerModel.getPartnerChargeList(data);
+        res.send(rslt);
+    },
+    partnerApprove: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await partnerModel.partnerApprove(data);
+        res.send(rslt);
+    },
     
 };

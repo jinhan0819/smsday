@@ -22,6 +22,9 @@ module.exports = function () {
 
     /* 가맹점 충전관리: 사용료 충전신청 및 승인 데이터 */
     router.get('/partnerChargeList', partnerController.partnerChargeList);
+    router.post('/getPartnerChargeCount', partnerController.getPartnerChargeCount);
+    router.post('/getPartnerChargeList', partnerController.getPartnerChargeList);
+    router.post('/partnerApprove', partnerController.partnerApprove);
 
     return router;
 

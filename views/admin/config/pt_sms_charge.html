@@ -16,10 +16,10 @@
 	<div class="table table_are textleft mart50">
 		<h2>SMS충전</h2>
 		<div class="table">
-			<table>
+			<table id="sms_table">
 				<tr>
 					<th class="w10p">충천금액</th>
-					<td><input type="text" placeholder="" id="" size="10">&nbsp;<span>원</span></td>
+					<td><input type="text" placeholder="" id="pf_fee" size="10">&nbsp;<span>원</span></td>
 				</tr>
 				<tr>
 					<th class="w10p padt17 padb17">결제방법</th>
@@ -28,26 +28,26 @@
 				<tr>
 					<th class="w10p">입금계좌</th>
 					<td>
-						<select>
-							<option>선택하세요</option>
-							<option>신한은행 1100000000 예금주: (주)문자데이</option>
+						<select id="sel_bank_account">
+							<option value="">선택하세요</option>
+							<option value="1">신한은행 1100000000 예금주: (주)문자데이</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th class="w10p">입금자명</th>
-					<td><input type="text" placeholder="" id="" size="10"></td>
+					<td><input type="text" placeholder="" id="pf_depositor" size="10"></td>
 				</tr>
 				<tr>
 					<th class="w10p">내용</th>
-					<td><input type="text" placeholder="" id="" size="50"></td>
+					<td><input type="text" placeholder="" id="pf_contents" size="50"></td>
 				</tr>
 			</table>
 		</div>
 	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit">신청하기</a>
+		<a href="javascript:void(0);" class="btn_submit" onclick="smsInsert()">신청하기</a>
 	</div>
 
 	<div class="table_are mart50">
@@ -66,7 +66,7 @@
 		</div>
 		<div class="btn_are mart20">
 			<ul class="left">
-				<li class="marr5"><a href="#none" class=""> 선택삭제</a></li>
+				<li class="marr5"><a href="javascirpt:void(0);" class="" id="sms_delete"> 선택삭제</a></li>
 			</ul>
 		</div>
 		<div class="table">
@@ -84,7 +84,7 @@
 					<col>
 				</colgroup>
 				<thead>
-					<th scope="col" class="cheack_are"><input type="checkbox"></th>
+					<th scope="col" class="cheack_are"><input type="checkbox" id="sms_check_all"></th>
 					<th scope="col">번호</th>
 					<th scope="col">승인여부</th>
 					<th scope="col">신청일시</th>
@@ -96,10 +96,11 @@
 					<th scope="col">내용</th>
 				</thead>
 				<tbody id="pointListBody">
-					<tr>
+					<tr><td colspan="10">데이터가 존재하지 않습니다.</td></tr>
+					<!-- <tr>
 						<td scope="col"><input type="checkbox"></td>
 						<td scope="col">1</td>
-						<!-- <td scope="col" class="fc_084">승인</td> -->
+						<td scope="col" class="fc_084">승인</td>
 						<td scope="col" class="fc_red">미승인</td>
 						<td scope="col">2023.01.01 13:00:00</td>
 						<td scope="col">2023.01.04 13:00:00</td>
@@ -108,7 +109,7 @@
 						<td scope="col">홍길동</td>
 						<td scope="col">신한은행 1100000000 예금주: (주)문자데이</td>
 						<td scope="col">첫 충전입니다.</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
@@ -116,62 +117,144 @@
 	</div>
 </section>
 
-<div id="memberModifyPop" class="pop-layer">
-	<div class="dim"></div>
-	<div class="pop-container">
-		<div class="head_pop">
-			<h2 id="member_text"></h2>
-			<a href="javascript:void(0);" onclick="closeMemberPop();" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
-		</div>
-		<div class="pop_form_are" id="member_table">
-			<ul>
-				<li>
-					<p>아이디</p>
-					<input type="text" placeholder="" id="mb_id">
-				</li>
-				<li>
-					<p>비밀번호</p>
-					<input type="text" placeholder="" id="mb_password">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>이름</p>
-					<input type="text" placeholder="" id="mb_name">
-				</li>
-				<li>
-					<p>이메일</p>
-					<input type="text" placeholder="" id="mb_email">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>연락처</p>
-					<input type="text" placeholder="" id="mb_hp" maxlength="13">
-				</li>
-				<li>
-					<p>회원 구분</p> 
-					<select id="mb_level">
-						<option value="1">회원</option>
-						<!-- <option value="10">관리자</option> -->
-					</select>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>포인트</p>
-					<input type="text" placeholder="" id="mb_point" value="0">
-				</li>
-			</ul>
-		</div>
-		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a>
-			<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();">취소</a>
-		</div>
-	</div>
-</div>
-
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script>
+	// 신청하기 
+	async function smsInsert(){
+		let regist_bool = true;
 
+        $('#sms_table').find('input').each(function(idx, el){
+            if($(el).val() == ''){
+                alert('모든 정보를 입력해주세요.');
+                regist_bool = false;
+            }
+			if(!regist_bool) return false;
+        })
+
+
+        if(regist_bool){
+
+			if($('#sel_bank_account').val() === ''){
+				alert('입금 계좌를 선택해주세요.');
+				regist_bool = false;
+				return false;
+			}
+			
+			let data = {};
+			$('#sms_table').find('input[type=text]').each(function(idx, el){
+				data[$(el).attr('id')] = $(el).val();
+			})
+			let res = await axios.post('/admin/config/ptSmsInsert', data);
+			if(res.data.code == 200){
+				location.href = '/admin/config/ptSmsCharge';
+			}else{
+				alert('충전신청 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+
+        }
+	}
+</script>
+
+<!-- SMS 충전신청 리스트 -->
+<script>
+	// 검색 파라미터 (전역변수)
+	let params = {
+		paging : pagination
+	};
+
+	// 현상 유지 (조건 검색 시) - 추가
+	function paramsInit(){
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params = JSON.parse(getLocalStorage('search_params'));
+			pagination = params.paging;
+			$('#search_count').val(params.paging.perPage.toString()).prop('selected', true);
+		}
+		init();
+	}
+	paramsInit();
+
+	function getParams(){
+		params.paging = pagination;
+		return params;
+	}
+
+	async function init(){
+		let data = getParams();
+		
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장 - 추가
+
+		// SMS 신청 count
+		let m_count = await axios.post('/admin/config/getPtSmsChargeCount', data);
+		for(let key in m_count.data.result[0]){
+			$('#'+key).text(m_count.data.result[0][key]);
+		}
+
+		// SMS 신청 list
+		let smsList = await axios.post('/admin/config/getPtSmsChargeList', data);
+
+		let list = smsList.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr>
+						<td scope="col"><input type="checkbox" name="sms_check" data-index=${item.index_no}></td>
+						<td scope="col">${item.rownum}</td>
+						<td scope="col" class="${item.pf_approval_yn === 1 ? 'fc_084' : 'fc_red'}">${item.pf_approval_yn === 1 ? '승인' : '미승인'}</td>
+						<td scope="col">${item.pf_request_datetime}</td>
+						<td scope="col">${item.pf_approval_datetime}</td>
+						<td scope="col">무통장입금</td>
+						<td scope="col">${setComma(item.pf_fee)}원</td>
+						<td scope="col">${item.pf_depositor}</td>
+						<td scope="col">신한은행 1100000000 예금주: (주)문자데이</td>
+						<td scope="col">${item.pf_contents}</td>
+					</tr>
+				`
+			});
+		}else{
+			html = '<tr><td colspan="10">데이터가 존재하지 않습니다.</td></tr>'
+		}
+		$('#pointListBody').html(html);
+		
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/config/getPtSmsChargeCount', params, pagination.page, pagination.perPage, 5, 'init'));
+
+	}
+
+	// 회원 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		pagination.perPage = $(this).val();
+		init();
+	});
+
+	// 체크 박스 선택 이벤트
+	$('#sms_check_all').click(function(){
+		let checkBool = false;
+		if($(this).is(':checked')) checkBool = true;
+		$('input[name=sms_check]').prop('checked', checkBool);
+	});
+
+	// 선택 삭제 이벤트
+	$('#sms_delete').click(async function(){
+		if($('input[name=sms_check]:checked').length > 0){
+			if(confirm('정말로 삭제하시겠습니까?')){
+				let data_arr = [];
+				$('input[name=sms_check]').each(function(idx, el){
+					if($(el).is(':checked')){
+						data_arr.push($(el).data('index'));
+					}
+				});
+				let data = {del_list : data_arr};
+				let res = await axios.post('/admin/config/ptSmsDelete', data);
+				if(res.data.code == 200){
+					location.reload();
+				}else{
+					alert('SMS 충전신청 삭제 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+			}
+		}else{
+			alert('선택된 충전신청이 없습니다.');
+		}
+	});
 </script>
