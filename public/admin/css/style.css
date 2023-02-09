@@ -656,6 +656,34 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	color: #222
 }
 
+.btn_are .left a.on {
+	background: #121217;
+	color: #fff
+}
+
+.btn_are .left a:hover {
+	background: #121217;
+	color: #fff;
+	transition-duration: 0.5s
+}
+
+.btn_are .left a.on2 {
+	background: #121217;
+	color: #fff;
+	border-radius: 0;
+	padding: 8px 15px;
+	font-size: 16px;
+}
+
+.btn_are .left a.on3 {
+	background: #F9BC20;
+	color: #000;
+	border-radius: 0;
+	padding: 8px 15px;
+	font-size: 16px;
+	font-weight: 500
+}
+
 .btn_are .left a span {
 	display: inline-block;
 	margin-right: 5px;
@@ -719,9 +747,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	border-left: 0
 }
 
-.table table tr:nth-child(2n) td {
+/* .table table tr:nth-child(2n) td {
 	background: #fff
-}
+} */
 
 .table select {
 	padding: 5px 10px;
@@ -1024,10 +1052,6 @@ input[type="password"] {
 	/* width: 100% */
 }
 
-input[type="file"] {
-	padding: 4px;
-}
-
 .textleft table th {
 	width: 20%;
 	text-align: left;
@@ -1138,4 +1162,48 @@ input[type="text"].w300 {
 	cursor: pointer;
 	height: 40px;
 	margin-left: 10px;
+}
+
+.list_btnb {
+	border-radius: 50px;
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #547eec;
+	padding: 5px 15px;
+	color: #547eec;
+	background-color: #ffffff;
+}
+
+.list_btnr {
+	border-radius: 50px;
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #ec0e03;
+	padding: 5px 15px;
+	color: #ec0e03	;
+	background-color: #ffffff;
+}
+
+.list_btnb .on {
+	background: #547eec;
+	color: #fff
+}
+
+.list_btnr .on {
+	background: #ec0e03;
+	color: #fff
+}
+
+.list_btnb:hover {
+	background: #547eec;
+	color: #fff;
+	transition-duration: 0.5s
+}
+
+.list_btnr:hover {
+	background: #ec0e03;
+	color: #fff;
+	transition-duration: 0.5s
 }

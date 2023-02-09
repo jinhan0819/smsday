@@ -1,0 +1,152 @@
+<section class="main">
+	<div class="title">
+		<h2>기본환경설정</h2>
+		<div class="time">
+			<span id="todayIs"></span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
+				</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="tab_are stiky mart50">
+		<ul class="left">
+			<li><a href="#none">사업자 정보</a></li>
+			<li><a href="#none">담당자 정보</a></li>
+			<li><a href="#none">운영시간</a></li>
+		</ul>
+	</div>
+
+	<div class="table table_are textleft">
+		<h2>사업자 정보</h2>
+		<div class="table">
+			<table>
+				<tr>
+					<th>사이트명</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30"></td>
+				</tr>
+				<tr>
+					<th>회사명</th>
+					<td><input type="text" placeholder="" id="" size="30"></td>
+					<th>대표자명</th>
+					<td><input type="text" placeholder="" id="" size="30"></td>
+				</tr>
+				<tr>
+					<th>사업자번호</th>
+					<td><input type="text" placeholder="" id="" maxlength="12" size="30"></td>
+					<th>통신판매업신고번호</th>
+					<td><input type="text" placeholder="" id="" size="30"></td>
+				</tr>
+				<tr>
+					<th>업태</th>
+					<td><input type="text" placeholder="" id="" size="30"></td>
+					<th>종목</th>
+					<td><input type="text" placeholder="" id="" size="30"></td>
+				</tr>
+				<tr>
+					<th>대표 전화번호</th>
+					<td><input type="text" placeholder="" id="" size="30" maxlength="13"></td>
+					<th>Fax</th>
+					<td><input type="text" placeholder="" id="" size="30" maxlength="13"></td>
+				</tr>
+				<tr>
+					<th>우편번호</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size=20 readonly onclick="getPostCode();"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size=80></td>
+				</tr>
+				<tr>
+					<th>상세 주소</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size=80></td>
+				</tr>
+				<tr>
+					<th>사업자등록증</th>
+					<td colspan="3">
+						<input type="file" id="">
+						<a href="#none" class="file_del">삭제</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="tab_are stiky mart50">
+		<ul class="left">
+			<li><a href="#none">사업자 정보</a></li>
+			<li><a href="#none">담당자 정보</a></li>
+			<li><a href="#none">운영시간</a></li>
+		</ul>
+	</div>
+
+	<div class="table table_are textleft">
+		<h2>담당자 정보</h2>
+		<div class="table">
+			<table>
+				<tr>
+					<th>담당자 이름</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30"></td>
+				</tr>
+				<tr>
+					<th>담당자 핸드폰</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30" maxlength="13"></td>
+				</tr>
+				<tr>
+					<th>담당자 이메일</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30" ></td>
+				</tr>
+				<tr>
+					<th>담당자 신분증</th>
+					<td colspan="3">
+						<input type="file" id="pt_manager_file">
+						<a href="#none" class="file_del">삭제</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="tab_are stiky mart50">
+		<ul class="left">
+			<li><a href="#none">사업자 정보</a></li>
+			<li><a href="#none">담당자 정보</a></li>
+			<li><a href="#none">운영시간</a></li>
+		</ul>
+	</div>
+	
+	<div class="table table_are textleft">
+		<h2>운영시간</h2>
+		<div class="table">
+			<table>
+				<tr>
+					<th>상담가능시간</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30"></td>
+				</tr>
+				<tr>
+					<th>점심시간</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30" maxlength="13"></td>
+				</tr>
+				<tr>
+					<th>휴무일</th>
+					<td colspan="3"><input type="text" placeholder="" id="" size="30" ></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="btn_confirm">
+		<a href="javascript:void(0);" class="btn_submit" onclick="">저장</a>
+		<a href="javascript:history.back();" class="btn_submit">취소</a>
+	</div>
+
+</section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	
+</script>

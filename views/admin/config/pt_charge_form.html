@@ -1,6 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>포인트 정보관리</h2>
+		<h2>충전내역 관리</h2>
 
 		<div class="time">
 			<span id="todayIs"></span>
@@ -32,51 +32,9 @@
 	</div>
 
 	<div class="tab_are noflex">
-		<ul class="left">
+		<ul class="left noneline">
 			<li>
-				<p>주문상태</p>
-			</li>
-			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>주문</span>
-				<input type="radio"><span>입금</span>
-				<input type="radio"><span>준비</span>
-				<input type="radio"><span>배송</span>
-				<input type="radio"><span>완료</span>
-				<input type="radio"><span>전체취소</span>
-				<input type="radio"><span>부분취소</span>
-			</li>
-		</ul>
-		<ul class="left padt10">
-			<li>
-				<p>결제수단</p>
-			</li>
-			<li>
-				<input type="radio"><span>전체</span>
-				<input type="radio"><span>무통장</span>
-				<input type="radio"><span>가상계좌</span>
-				<input type="radio"><span>계좌이체</span>
-				<input type="radio"><span>휴대폰</span>
-				<input type="radio"><span>신용카드</span>
-				<input type="radio"><span>간편결제</span>
-				<input type="radio"><span>KAKAOPAY</span>
-			</li>
-		</ul>
-		<ul class="left padt10">
-			<li>
-				<p>기타선택</p>
-			</li>
-			<li>
-				<input type="checkbox"><span>미수금</span>
-				<input type="checkbox"><span>반품,품절</span>
-				<input type="checkbox"><span>환불</span>
-				<input type="checkbox"><span>포인트주문</span>
-				<input type="checkbox"><span>쿠폰</span>
-			</li>
-		</ul>
-		<ul class="left">
-			<li>
-				<p>주문일자</p>
+				<p>기간</p>
 			</li>
 			<li>
 				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
@@ -90,15 +48,6 @@
 				<a href="#none" class="on2">3개월</a>
 				<a href="#none" class="on2">전체</a>
 			</li>
-		</ul>
-	</div>
-
-	<div class="tab_are">
-		<ul class="left" id="count_ul">
-			<li><a href="javascript:void(0);" class="on">전체(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="1">회원(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="2">가맹점(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="10">관리자(<span>0</span>)</a></li>
 		</ul>
 	</div>
 
@@ -116,50 +65,46 @@
 				</li>
 			</ul>
 		</div>
-		<div class="btn_are mart20">
-			<ul class="left">
-				<li class="marr5"><a href="#none" class=""> 일괄수정</a></li>
-				<li class="marr5"><a href="#none" class=""> 선택수정</a></li>
-				<li class="marr5"><a href="#none" class=""> 선택삭제</a></li>
-			</ul>
-			<ul class="right">
-				<li>
-					<a href="javascript:void(0);" onclick="openMemberPop('회원 등록', 'REGIST');" class="btn-example"> <span><img src="/admin/images/ok.png"></span>신규 등록</a>
-				</li>
-			</ul>
-		</div>
 		<div class="table">
 			<table>
 				<colgroup>
 					<col class="w50">
 					<col class="w70">
-					<col class="w150">
+					<col class="w170">
+					<col class="w170">
+					<col class="w170">
 					<col>
-					<col class="w150">
-					<col class="w150">
-					<col class="w150">
-					<col class="w150">
+					<col class="w120">
+					<col class="w120">
+					<col class="w170">
+					<col class="w170">
 				</colgroup>
 				<thead>
 					<th scope="col" class="cheack_are"><input type="checkbox"></th>
 					<th scope="col">번호</th>
+					<th scope="col">가맹점 ID</th>
 					<th scope="col">회원명</th>
-					<th scope="col">충전내용</th>
-					<th scope="col">입금금액</th>
-					<th scope="col">충전포인트</th>
-					<th scope="col">기존포인트</th>
-					<th scope="col">일시</th>
+					<th scope="col">회사명</th>
+					<th scope="col">개별도메인</th>
+					<th scope="col">이용건수</th>
+					<th scope="col">누적 이용건수</th>
+					<th scope="col">사용료 잔액</th>
+					<th scope="col">상세내역</th>
 				</thead>
 				<tbody id="pointListBody">
 					<tr>
 						<td scope="col"><input type="checkbox"></td>
 						<td scope="col">1</td>
+						<td scope="col">test</td>
 						<td scope="col">홍길동</td>
-						<td scope="col">회원</td>
-						<td scope="col">01012345678</td>
-						<td scope="col">test@naver.com</td>
-						<td scope="col">test@naver.com</td>
-						<td scope="col">test@naver.com</td>
+						<td scope="col">문자데이</td>
+						<td scope="col">smsday.kr</td>
+						<td scope="col">1,000건</td>
+						<td scope="col">15,000건</td>
+						<td scope="col">100,000원</td>
+						<td scope="col" class="custom">
+								<a href="javascript:void(0);" class="btn-example" onclick=""><span><img src="/admin/images/okb.png"></span>상세보기</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -168,11 +113,11 @@
 	</div>
 
 	<div class="table table_are textleft mart15">
-		<h2>포인트 지급/차감</h2>
+		<h2>가맹점 사용료 지급/차감</h2>
 		<div class="table">
 			<table id="partner_table">
 				<tr>
-					<th class="w10p">회원 ID</th>
+					<th class="w10p">가맹점 ID</th>
 					<td colspan="3"><input type="text" placeholder="" id="" size="15"></td>
 				</tr>
 				<tr>
@@ -180,7 +125,7 @@
 					<td colspan="3"><input type="text" placeholder="" id="" size="50"></td>
 				</tr>
 				<tr>
-					<th class="w10p">지급/차감 포인트</th>
+					<th class="w10p">지급/차감 사용료</th>
 					<td colspan="3"><input type="text" placeholder="" id="" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
 				</tr>
 			</table>
@@ -192,12 +137,12 @@
 	</div>
 </section>
 
-<div id="" class="pop-layer">
+<div id="memberModifyPop" class="pop-layer">
 	<div class="dim"></div>
 	<div class="pop-container">
 		<div class="head_pop">
 			<h2 id="member_text"></h2>
-			<a href="javascript:void(0);" onclick="" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
+			<a href="javascript:void(0);" onclick="closeMemberPop();" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
 		</div>
 		<div class="pop_form_are" id="member_table">
 			<ul>
@@ -241,13 +186,13 @@
 			</ul>
 		</div>
 		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="">등록</a>
-			<a href="javascript:void(0);" class="btn-layerClose" onclick="">취소</a>
+			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a>
+			<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();">취소</a>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
-
 <script>
+
 </script>

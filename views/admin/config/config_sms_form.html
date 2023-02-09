@@ -1,0 +1,54 @@
+<section class="main">
+	<div class="title">
+		<h2>SMS환경설정</h2>
+		<div class="time">
+			<span id="todayIs"></span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
+				</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="table table_are textleft mart50">
+		<h2>사업자 정보</h2>
+		<div class="table">
+			<table>
+				<tr>
+					<th>SMS 사용</th>
+					<td>
+						<select>
+							<option>사용안함</option>
+							<option>사용</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="padt17 padb17">통신사</th>
+					<td>
+						<input type="checkbox"><span class="marl5">KT</span>
+						<input type="checkbox" class="marl10"><span class="marl5">LG U+</span>
+						<input type="checkbox" class="marl10"><span class="marl5">SKT</span>
+					</td>
+				</tr>
+				<tr>
+					<th>API KEY</th>
+					<td><input type="text" placeholder="" id="pt_saupja" maxlength="12" size="30"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="btn_confirm">
+		<a href="javascript:void(0);" class="btn_submit" onclick="partnerModify()">저장</a>
+		<a href="javascript:history.back();" class="btn_submit">취소</a>
+	</div>
+
+</section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+</script>
