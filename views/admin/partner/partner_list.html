@@ -107,7 +107,7 @@
 	</div>
 </section>
 
-<div id="partnerModifyPop" class="pop-layer">
+<!-- <div id="partnerModifyPop" class="pop-layer">
 	<div class="dim"></div>
 	<div class="pop-container">
 		<div class="head_pop">
@@ -213,9 +213,9 @@
 			<a href="javascript:void(0);" class="btn-layerClose" onclick="closePop('partnerModifyPop');">취소</a>
 		</div>
 	</div>
-</div>
+</div> -->
 
-<script type="text/javascript" src="/admin/js/validation.js"></script>
+<!-- <script type="text/javascript" src="/admin/js/validation.js"></script> -->
 <script type="text/javascript" src="/admin/js/date.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -316,80 +316,9 @@
 		init();
 	}
 
-	function getPostCode(){
-		new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = ''; // 주소 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                $('#pt_zip').val(data.zonecode);
-                $("#pt_addr").val(addr);
-                // 커서를 상세주소 필드로 이동한다.
-                $("#pt_addr_detail").focus();
-            }
-        }).open();
-	}
-
-	async function partnerModify(){
-		let regist_bool = true;
-
-        $('#partner_table').find('input').each(function(idx, el){
-            if($(el).val() == ''){
-                alert('모든 정보를 입력해주세요.');
-                regist_bool = false;
-                return false;
-            }
-        })
-
-		// 사업자 정규식
-        if($('#pt_saupja').val() !== '' && !doCheckSaupja($('#pt_saupja').val())){
-            alert('사업자 형식이 올바르지 않습니다.');
-            regist_bool = false;
-            return false;
-        }
-
-		// 이메일 정규식
-        if($('#pt_manager_email').val() !== '' && !doCheckEmail($('#pt_manager_email').val())){
-            alert('이메일 형식이 올바르지 않습니다.');
-            regist_bool = false;
-            return false;
-        }
-
-        if(regist_bool){
-			let data = {};
-			$('#partner_table').find('input[type=text]').each(function(idx, el){
-				data[$(el).attr('id')] = $(el).val();
-			})
-			data.index_no = index_no;
-
-			let res = await axios.post('/admin/partner/partnerModify', data);
-			if(res.data.code == 200){
-				location.reload();
-			}else{
-				alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
-			}
-
-        }
-	}
-
 	// 가맹점 목록 - 작업 설정 클릭 이벤트
 	$(document).on('click', '.custom a', async function(){
-		openPop('partnerModifyPop');
-		let data = {index_no: $(this).data('index')};
-		let res = await axios.post('/admin/partner/getPartnerDetail', data);
-		let info = res.data.result[0];
-		index_no = info.index_no;
-		
-		for(let key in info){
-			$('#'+key).val(info[key]);
-		}
+		location.href = '/admin/partner/partnerForm?index_no='+$(this).data('index')
 	});
 
 	// 회원 n개씩 보기 클릭 이벤트

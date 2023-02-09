@@ -1,6 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>가맹점 신규신청</h2>
+		<h2 id="partner_title"></h2>
 		<div class="time">
 			<span id="todayIs"></span>
 			<span>
@@ -21,50 +21,52 @@
 					<td><input type="text" placeholder="" id="pt_id" readonly onclick="openMemberSearchPop()" size="30"></td>
 					<th>대표자명</th>
 					<td><input type="text" placeholder="" id="pt_owner" size="30"></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>회사명</th>
 					<td><input type="text" placeholder="" id="pt_company_name" size="30"></td>
 					<th>개별도메인</th>
 					<td><input type="text" placeholder="" id="pt_domain" size="30"></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>사업자번호</th>
 					<td><input type="text" placeholder="" id="pt_saupja" maxlength="12" size="30"></td>
 					<th>통신판매업신고번호</th>
 					<td><input type="text" placeholder="" id="pt_tongsin" size="30"></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>업태</th>
 					<td><input type="text" placeholder="" id="pt_item" size="30"></td>
 					<th>종목</th>
 					<td><input type="text" placeholder="" id="pt_service" size="30"></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>대표 전화번호</th>
 					<td><input type="text" placeholder="" id="pt_tel" size="30" maxlength="13"></td>
 					<th>Fax</th>
 					<td><input type="text" placeholder="" id="pt_fax" size="30" maxlength="13"></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>우편번호</th>
 					<td colspan="3"><input type="text" placeholder="" id="pt_zip" size=20 readonly onclick="getPostCode();"></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>주소</th>
 					<td colspan="3"><input type="text" placeholder="" id="pt_addr" size=80></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>상세 주소</th>
 					<td colspan="3"><input type="text" placeholder="" id="pt_addr_detail" size=80></td>
-				<tr>
+				</tr>
 				<tr>
 					<th>사업자등록증</th>
-					<td colspan="3">
-						<input type="file" id="pt_company_file">
-						<a href="#none" class="file_del">삭제</a>
+					<td colspan="3" class="filebox">
+						<input class="upload-name" value="" placeholder="첨부파일" readonly id="pt_company_file_nm">
+						<label for="pt_company_file">파일선택</label>
+						<input type="file" id="pt_company_file" hidden>
+						<a href="javascript:void(0);" class="file_del" data-id="pt_company_file">삭제</a>
 					</td>
-				<tr>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -87,9 +89,11 @@
 				</tr>
 				<tr>
 					<th>담당자 신분증</th>
-					<td colspan="3">
-						<input type="file" id="pt_manager_file">
-						<a href="#none" class="file_del">삭제</a>
+					<td colspan="3"  class="filebox">
+						<input class="upload-name" value="" placeholder="첨부파일" readonly id="pt_manager_file_nm">
+						<label for="pt_manager_file">파일선택</label>
+						<input type="file" id="pt_manager_file" hidden>
+						<a href="javascript:void(0);" class="file_del" data-id="pt_manager_file">삭제</a>
 					</td>
 				<tr>
 			</table>
@@ -143,9 +147,40 @@
 
 </section>
 
+<style>
+	
+</style>
+
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	let index_no = '<%- index_no %>';
+
+	// 파일 삭제 여부 변수
+	let company_file_del = false;
+	let manager_file_del = false;
+	let title = '';
+
+	if(index_no != ''){
+		partnerDetail();
+		title = '가맹점 정보 수정';
+	}else{
+		index_no = null;
+		title = '가맹점 신규 신청';
+	}
+	$('#partner_title').text(title);
+
+	async function partnerDetail(){
+		let data = {index_no: index_no};
+		let res = await axios.post('/admin/partner/getPartnerDetail', data);
+		let info = res.data.result[0];
+		index_no = info.index_no;
+		
+		for(let key in info){
+			$('#'+key).val(info[key]);
+		}
+	}
+
 	function openMemberSearchPop(){
 		$('#memberSearchPop').css('display', 'block');
 		searchMember();
@@ -276,13 +311,16 @@
 			$('#manager_table').find('input[type=text]').each(function(idx, el){
 				data[$(el).attr('id')] = $(el).val();
 			})
+			data.index_no = index_no;
+			data.pt_company_file_del = company_file_del;
+			data.pt_manager_file_del = manager_file_del;
 
 			let res = await axios.post('/admin/partner/partnerModify', data);
 			if(res.data.code == 200){
 				alert('등록되었습니다.');
 				location.href = '/admin/partner/partnerList';
 			}else{
-				alert('회원 가입 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				alert('오류가 발생하였습니다.\n관리자에게 문의해주세요.');
 			}
 
         }
@@ -292,5 +330,32 @@
 		$('#pt_id').val($(this).data('id'));
 		$('#pt_owner').val($(this).data('name'));
 		closeMemberSearchPop();
+	});
+
+
+	// 첨부 파일 이벤트
+	// 첨부 파일 시에는 파일 삭제 여부 false;
+	$("#pt_company_file").on('change',function(){
+		var file = $('#pt_company_file')[0].files[0];
+		$("#pt_company_file_nm").val(file.name);
+		company_file_del = false;
+	});
+
+	$("#pt_manager_file").on('change',function(){
+		var file = $('#pt_manager_file')[0].files[0];
+		$("#pt_manager_file_nm").val(file.name);
+		manager_file_del = false;
+	});
+
+	// 파일 삭제 이벤트
+	$('.file_del').click(function(){
+		let id = $(this).data('id');
+		$('#'+id).val('');
+		$('#'+id+'_nm').val('');
+
+		// 삭제 버튼 클릭 시 파일 삭제 여부 삭제 true;
+		if(id == 'pt_company_file') company_file_del = true;
+		if(id == 'pt_manager_file') manager_file_del = true;
+		
 	});
 </script>

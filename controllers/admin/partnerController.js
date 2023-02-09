@@ -8,7 +8,7 @@ module.exports = {
         res.render('partner/partner_list');
     },
     partnerForm: function (req, res, next) {
-        res.render('partner/partner_form');
+        res.render('partner/partner_form', {index_no : req.query.index_no});
     },
     getPartnerCount: async function (req, res, next) {
         let data = req.body;
