@@ -760,6 +760,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	outline: none
 }
 
+.table tr td input[type="radio"] {
+	min-width: auto;
+	margin: 0 5px;
+}
+
+.table tr td input[type="checkbox"] {
+	min-width: auto;
+	margin: 0 5px;
+}
+
 .cheack_are {
 	text-align: center;
 }

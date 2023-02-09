@@ -9,8 +9,8 @@ module.exports = {
     configSmsForm: function (req, res, next) {
         res.render('config/config_sms_form');
     },
-    ptChargeForm: function (req, res, next) {
-        res.render('config/pt_charge_form');
+    ptSmsCharge: function (req, res, next) {
+        res.render('config/pt_sms_charge');
     },
     ipAccess: function (req, res, next) {
         res.render('config/ip_access');

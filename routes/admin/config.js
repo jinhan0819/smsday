@@ -8,11 +8,11 @@ module.exports = function () {
     /* 기본환경설정 */
     router.get('/configForm', configController.configForm);
 
-    /* sms설정 */
+    /* SMS설정 */
     router.get('/configSmsForm', configController.configSmsForm);
 
-    /* 가맹점 충전신청 */
-    router.get('/ptChargeForm', configController.ptChargeForm);
+    /* SMS충전신청 */
+    router.get('/ptSmsCharge', configController.ptSmsCharge);
 
     /* 차단IP 설정 */
     router.get('/ipAccess', configController.ipAccess);
