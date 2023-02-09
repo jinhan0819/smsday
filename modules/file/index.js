@@ -104,8 +104,9 @@ function fileUpload(req, callback){
     file.fileDownload(res, file_info)
 */
 function fileDownload(res, file_info){
-    let upload_folder = config.uploadDir;
-    let file = upload_folder + file_info.file_name; // ex) /upload/files/sample.txt
+    // let upload_folder = config.uploadDir;
+    // let file = upload_folder + file_info.file_name; // ex) /upload/files/sample.txt
+    let file = file_info.file_path;
     
     try {
         if (fs.existsSync(file)) { // 파일이 존재하는지 체크
@@ -114,7 +115,7 @@ function fileDownload(res, file_info){
             // let mimetype = 'application/x-zip-compressed';
         
             res.setHeader('Content-disposition', 'attachment; filename=' 
-                            + iconvLite.decode(iconvLite.encode(file_info.original_file_name, "UTF-8"), 'ISO-8859-1')); // 다운받아질 파일명 설정
+                            + iconvLite.decode(iconvLite.encode(file_info.original_file_nm, "UTF-8"), 'ISO-8859-1')); // 다운받아질 파일명 설정
             res.setHeader('Content-type', mimetype); // 파일 형식 지정
         
             let filestream = fs.createReadStream(file);

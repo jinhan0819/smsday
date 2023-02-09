@@ -41,5 +41,10 @@ module.exports = {
             let rslt = await indexModel.insertAtchmFile(result);
             res.send(rslt);
         });
+    },
+    fileDownload: async function (req, res) {
+        let data = req.query;
+        let rslt = await indexModel.getAtchmFile(data);
+        file.fileDownload(res, rslt.result[0]);
     }
 };

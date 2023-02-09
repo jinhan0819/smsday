@@ -17,6 +17,12 @@ module.exports = {
         let rslt = await db.queryTransaction(sql, [data.index_no]);
         return rslt;
     },
+    getAtchmFile: async function(data){
+        let sql = `SELECT * FROM TB_ATCHM_FILE WHERE index_no = ?`;
+        // 쿼리를 하나만 처리할 때 사용
+        let rslt = await db.queryTransaction(sql, data.index_no);
+        return rslt;
+    },
     insertAtchmFile: async function(data){
         let sql = `INSERT INTO TB_ATCHM_FILE SET ?`;
         // 쿼리를 하나만 처리할 때 사용
