@@ -1162,6 +1162,7 @@ input[type="text"].w300 {
     padding: 5px 15px;
     color: #222;
     background-color: #dfdfdf;
+	cursor: pointer;
 }
 
 .list_btnb {
