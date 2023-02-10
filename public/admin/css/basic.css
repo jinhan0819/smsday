@@ -345,3 +345,10 @@ ul.ofh li{float:left}
 .h100 {height:100px !important}
 .h200 {height:200px !important}
 .h300 {height:300px !important}
+
+/*min-width*/
+.mnw50{min-width: 50px !important}
+.mnw150{min-width: 150px !important}
+
+/*max-width*/
+.mxw50{max-width: 50px !important}

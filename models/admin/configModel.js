@@ -8,7 +8,7 @@ module.exports = {
         let sql = `
             SELECT
                 COUNT(index_no) AS total_count
-            FROM TB_PARTNER_FEE_IMSI
+            FROM TB_PARTNER_FEE
         `;
         let rslt = await db.queryTransaction(sql, []);
 
@@ -38,7 +38,7 @@ module.exports = {
                     pf_request_datetime,
                     pf_approval_yn,
                     pf_approval_datetime
-                FROM TB_PARTNER_FEE_IMSI
+                FROM TB_PARTNER_FEE
                 ORDER BY create_datetime
             ) Z, (SELECT @ROWNUM := 0) R
             ORDER BY rownum DESC 
@@ -51,12 +51,12 @@ module.exports = {
     ptSmsInsert: async function(data){
         data.pf_fee = parseInt(data.pf_fee.replace(/,/g, ''));
         data.pf_request_datetime = new Date();
-        let sql = 'INSERT INTO TB_PARTNER_FEE_IMSI SET ?'
+        let sql = 'INSERT INTO TB_PARTNER_FEE SET ?'
         let rslt = await db.queryTransaction(sql, data);
         return rslt;
     },
     ptSmsDelete: async function(data){
-        let sql = 'DELETE FROM TB_PARTNER_FEE_IMSI WHERE index_no IN (?)'
+        let sql = 'DELETE FROM TB_PARTNER_FEE WHERE index_no IN (?)'
         let rslt = await db.queryTransaction(sql, [data.del_list]);
         return rslt;
     },

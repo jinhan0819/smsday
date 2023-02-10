@@ -1,0 +1,582 @@
+<section class="main">
+	<div class="title">
+		<h2>목록 타이틀</h2>
+		<div class="time">
+			<span id="todayIs">2022년 10월 18일</span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
+				</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="tab_are">
+		<ul class="left flex">
+			<li>
+				<select>
+					<option>전체분류</option>
+				</select>
+			</li>
+			<li>
+				<select>
+					<option>분류명</option>
+				</select>
+			</li>
+			<li><input type="text"></li>
+			<li><a href="#none" class="on2">검색</a></li>
+		</ul>
+	</div>
+
+	<div class="tab_are noflex">
+		<ul class="left">
+			<li><p>주문상태</p></li>
+			<li>
+				<input type="radio"><span>전체</span>
+				<input type="radio"><span>주문</span>
+				<input type="radio"><span>입금</span>
+				<input type="radio"><span>준비</span>
+				<input type="radio"><span>배송</span>
+				<input type="radio"><span>완료</span>
+				<input type="radio"><span>전체취소</span>
+				<input type="radio"><span>부분취소</span>
+			</li>
+		</ul>
+		<ul class="left">
+			<li><p>결제수단</p></li>
+			<li>
+				<input type="radio"><span>전체</span>
+				<input type="radio"><span>무통장</span>
+				<input type="radio"><span>가상계좌</span>
+				<input type="radio"><span>계좌이체</span>
+				<input type="radio"><span>휴대폰</span>
+				<input type="radio"><span>신용카드</span>
+				<input type="radio"><span>간편결제</span>
+				<input type="radio"><span>KAKAOPAY</span>
+			</li>
+		</ul>
+		<ul class="left">
+			<li><p>기타선택</p></li>
+			<li>
+				<input type="checkbox"><span>미수금</span>
+				<input type="checkbox"><span>반품,품절</span>
+				<input type="checkbox"><span>환불</span>
+				<input type="checkbox"><span>포인트주문</span>
+				<input type="checkbox"><span>쿠폰</span></li>
+		</ul>
+		<ul class="left">
+			<li><p>주문일자</p></li>
+			<li>
+				<input type="text" class="w50">
+				<span style="margin: 0 5px"> ~ </span><input type="text" class="w50">
+			</li>
+			<li>
+				<a href="#none" class="on2">오늘</a>
+				<a href="#none" class="on2">어제</a>
+				<a href="#none" class="on2">이번주</a>
+				<a href="#none" class="on2">이번달</a>
+				<a href="#none" class="on2">전체</a>
+				<a href="#none" class="on3">검색</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="tab_are">
+		<ul class="left">
+			<li><a href="#none" class="on">전체(41)</a></li>
+			<li><a href="#none">사용중(40)</a></li>
+			<li><a href="#none">빈슬롯(0)</a></li>
+			<li><a href="#none">만료 예정(0)</a></li>
+			<li><a href="#none">만료(1)</a></li>
+			<li><a href="#none">테스트(0)</a></li>
+		</ul>
+		<ul class="right">
+			<li><a href="#none">선택 초기화</a></li>
+			<li><a href="#none">선택 수정</a></li>
+			<li><a href="#none">선택 삭제</a></li>
+			<li><div class="date_form"><input type="date"></div></li>
+			<li><a href="#none" class="on">선택 기간연장</a></li>
+		</ul>
+	</div>
+
+	<div class="table_are">
+		<div class="btn_are">
+			<ul class="right">
+				<li><a href="#none" class=""><span><img src="/admin/images/ok.png"></span>분류추가</a></li>
+				<li><a href="#none" class=""> 일괄수정</a></li>
+				<li><a href="#none" class=""> 선택수정</a></li>
+			</ul>
+		</div>
+		<div class="table">
+			<table>
+				<tr>
+					<th class="cheack_are"><input type="checkbox"></th>
+					<th>분류코드</th>
+					<th>분류명</th>
+					<th>상품수</th>
+					<th>판매가능</th>
+					<th>분류순서</th>
+					<th>이미지 폭/높이</th>
+					<th>1행이미지수</th>
+					<th>모바일 1행이미지수</th>
+					<th>스킨지정</th>
+					<th>관리</th>
+				</tr>
+				<tr>
+					<td class="cheack_are"><input type="checkbox"></td>
+					<td>123456</td>
+					<td><input type="text" placeholder="상패 트로피"></td>
+					<td>13</td>
+					<td class="cheack_are"><input type="checkbox"><span>가능</span></td>
+					<td class="cheack_are"><input type="text" placeholder="1" class="w50"></td>
+					<td class="mnw150">
+						<input type="text" placeholder="폭" class="w50">
+						<input type="text" placeholder="높이" class="w50">
+					</td>
+					<td class="mnw150">
+						<input type="text" placeholder="폭" class="w50">
+						<input type="text" placeholder="높이" class="w50">
+					</td>
+					<td class="mnw150">
+						<input type="text" placeholder="폭" class="w50">
+						<input type="text" placeholder="높이" class="w50">
+					</td>
+					<td class="mnw150">
+						<select>
+							<option>pc</option>
+						</select>
+						<select>
+							<option>모바일</option>
+						</select></td>
+					<td><a href="#none" class="btnstyle">추가</a><br> <a href="#none" class="btnstyle"
+							class="mart5">수정</a><br>
+						<a href="#none" class="btnstyle" class="mart5">삭제</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="cheack_are"><input type="checkbox"></td>
+					<td>123456</td>
+					<td><input type="text" placeholder="상패 트로피"></td>
+					<td>13</td>
+					<td class="cheack_are"><input type="checkbox"><span>가능</span></td>
+					<td class="cheack_are"><input type="text" placeholder="1" class="w50"></td>
+					<td class="mnw150">
+						<input type="text" placeholder="폭" class="w50">
+						<input type="text" placeholder="높이" class="w50">
+					</td>
+					<td class="mnw150">
+						<input type="text" placeholder="폭" class="w50">
+						<input type="text" placeholder="높이" class="w50">
+					</td>
+					<td class="mnw150">
+						<input type="text" placeholder="폭" class="w50">
+						<input type="text" placeholder="높이" class="w50">
+					</td>
+					<td class="mnw150">
+						<select>
+							<option>pc</option>
+						</select>
+						<select>
+							<option>모바일</option>
+						</select>
+					</td>
+					<td>
+						<a href="#none" class="btnstyle">추가</a><br>
+						<a href="#none" class="btnstyle" class="mart5">수정</a><br>
+						<a href="#none" class="btnstyle" class="mart5">삭제</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="table_are">
+		<div class="btn_are">
+			<ul class="left">
+				<li>
+					<select>
+						<option>100</option>
+						<option>50</option>
+						<option>30</option>
+					</select>
+					<span>개씩 보기</span>
+				</li>
+				<li>
+					<div class="search_form">
+						<input type="text" placeholder="검색어">
+						<a href="#none"><img src="/admin/images/search.png"></a>
+					</div>
+				</li>
+			</ul>
+			<ul class="right">
+				<li>
+					<a href="#layer1" class="btn-example"><span><img src="/admin/images/ok.png"></span> 신규 등록</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="table">
+			<table>
+				<tr>
+					<th class="cheack_are"><input type="checkbox"></th>
+					<th>번호</th>
+					<th>작업컴퓨터</th>
+					<th>상태</th>
+					<th>이용상품</th>
+					<th>고객명</th>
+					<th>등록일</th>
+					<th>잔여일</th>
+					<th>현재순위</th>
+					<th>첫순위</th>
+					<th>상품URL</th>
+					<th>순위검색어</th>
+					<th>작업검색어</th>
+					<th>설정</th>
+				</tr>
+				<tr>
+					<td class="cheack_are"><input type="checkbox"></td>
+					<td>1</td>
+					<td>A</td>
+					<td><a href="#none" class="state_box on"><div class="state"></div>
+					</a></td>
+					<td>일 300</td>
+					<td><b>nowandnew</b></td>
+					<td>22-09-02<br> 11:26</td>
+					<td><b style="color: #ff5c00">28일남음</b><br> 22-09-02<br>11:26</td>
+					<td class="lank"><b>17</b> <a href="#layer3" class="btn-example">자세히보기</a></td>
+					<td class="updown"><b>17</b> <b class="down"> [ <span> <img src="/admin/images/down.png"> </span> 1] </b></td>
+					<td class="mid"><p>상품 URL : <b>https://www.naver.com/</b></p></td>
+					<td>래시가드</td>
+					<td>레이지비, 기획전, 집업, 커플, 래쉬가드</td>
+					<td class="custom"><a href="#layer2" class="btn-example">
+							<span><img src="/admin/images/okb.png"></span> 작업 설정
+					</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="table_are">
+		<div class="table">
+			<table>
+				<tr>
+					<th>번호</th>
+					<th>ID</th>
+					<th>PW</th>
+					<th>업체명</th>
+					<th>연락처</th>
+					<th>카카오톡</th>
+					<th>메모</th>
+					<th>쿠팡</th>
+					<th>N쇼핑</th>
+					<th>테스트</th>
+					<th>등급</th>
+					<th>승인여부</th>
+					<th>설정</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>nowandnew</td>
+					<td>1234</td>
+					<td>nowandnew</td>
+					<td>01012345678</td>
+					<td>roockman</td>
+					<td>메모사항입니다.</td>
+					<td>0</td>
+					<td>40</td>
+					<td>0</td>
+					<td>
+						<select>
+							<option>일반</option>
+							<option>총판</option>
+							<option>관리자</option>
+						</select>
+					</td>
+					<td>
+						<select>
+							<option>승인</option>
+							<option>대기</option>
+							<option>탈퇴</option>
+						</select>
+					</td>
+					<td class="custom">
+						<a href="#layer4" class="btn-example"><span><img src="/admin/images/okb.png"></span> 작업 설정</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="table_are">
+		<div class="btn_are">
+			<ul class="left flex">
+				<li>총 <b>2</b>개</li>
+				<li class="lankfind"><a href="#none">순위추적</a></li>
+			</ul>
+		</div>
+		<div class="table">
+			<table>
+				<tr>
+					<th class="cheack_are"><input type="checkbox"></th>
+					<th>추적여부</th>
+					<th>상품</th>
+					<th>스토어명</th>
+					<th>키워드</th>
+					<th>순위</th>
+					<th>순위(광고제외)</th>
+				</tr>
+				<tr>
+					<td class="cheack_are"><input type="checkbox"></td>
+					<td><b style="color: blue">추적중</b></td>
+					<td>
+						<div class="thum_search">
+							<ul>
+								<li><img src="/admin/images/thum.png"></li>
+								<li>
+									다이나믹 무플보호대 헬스...<br>
+									55542114284
+								</li>
+							</ul>
+						</div>
+					</td>
+					<td>다이아믹</td>
+					<td>무플보호대</td>
+					<td><b> 8위</b><br> 1페이지 8위</td>
+					<td><b> 8위</b><br> 1페이지 8위</td>
+				</tr>
+				<tr>
+					<td class="cheack_are"><input type="checkbox"></td>
+					<td><b style="color: #000">순위 추적</b></td>
+					<td>
+						<div class="thum_search">
+							<ul>
+								<li><img src="/admin/images/thum.png"></li>
+								<li>
+									다이나믹 무플보호대 헬스...<br> 
+									55542114284
+								</li>
+							</ul>
+						</div>
+					</td>
+					<td>다이아믹</td>
+					<td>무플보호대</td>
+					<td><b> 8위</b><br> 1페이지 8위</td>
+					<td><b> 8위</b><br> 1페이지 8위</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</section>
+
+<div id="layer1" class="pop-layer">
+	<div class="dim"></div>
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>신규 등록</h2>
+			<a href="#" class="btn-layerClose"><img src="/images/close_pop.png"></a>
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>이용상품</p>
+					<select>
+						<option>일300</option>
+						<option>일200</option>
+						<option>일100</option>
+					</select>
+				</li>
+				<li>
+					<p>고객 아이디</p>
+					<input type="text" placeholder="nowandnew">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>시작일</p><input type="date">
+				</li>
+				<li>
+					<p>기간설정</p><input type="date">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>상품 URL</p><input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>순위검색어</p><input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>작업검색어</p><input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">신규 등록</a>
+			<a href="#" class="btn-layerClose">등록취소</a>
+		</div>
+	</div>
+</div>
+
+<div id="layer2" class="pop-layer">
+	<div class="dim"></div>
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>작업 설정</h2>
+			<a href="#" class="btn-layerClose"><img src="/images/close_pop.png"></a>
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>이용상품 변경</p> 
+					<select>
+						<option>일300</option>
+						<option>일200</option>
+						<option>일100</option>
+					</select>
+				</li>
+				<li>
+					<p>고객 아이디</p><span>nowandnew</span>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>등록일</p><span>22-09-02</span>
+				</li>
+				<li>
+					<p>기간설정</p><input type="date">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>상품 URL</p><input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>순위검색어</p><input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>작업검색어</p><input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">설정완료</a>
+			<a href="#" class="btn-layerClose">설정취소</a>
+		</div>
+	</div>
+</div>
+
+<div id="layer3" class="pop-layer">
+	<div class="dim"></div>
+	<div class="pop-container">
+		<div class="head_pop" style="background: darkred">
+			<h2 class="fc_wht">쿠팡 순위</h2>
+			<a href="#" class="btn-layerClose"><img src="/images/close_pop.png"></a>
+		</div>
+		<div class="pop_form_are">
+			<div class="table">
+				<table>
+					<tr>
+						<th>변동일시</th>
+						<th>검색순위</th>
+						<th>최초대비</th>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown">
+							<b>17</b>
+							<b class="down"> [ <span><img src="/images/down.png"></span> 1]</b>
+						</td>
+					</tr>
+					<tr>
+						<td>2022-10-17 18:08ㅣ13</td>
+						<td>17</td>
+						<td class="updown">
+							<b>17</b>
+							<b class="down"> [ <span><img src="/images/up.png"></span> 1]</b>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">설정완료</a> <a href="#"
+				class="btn-layerClose"> 설정취소 </a>
+		</div>
+	</div>
+</div>
+
+<div id="layer4" class="pop-layer">
+	<div class="dim"></div>
+	<div class="pop-container">
+		<div class="head_pop">
+			<h2>회원등록</h2>
+			<a href="javascript:void(0);" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
+		</div>
+		<div class="pop_form_are">
+			<ul>
+				<li>
+					<p>아이디</p>
+					<input type="text" placeholder="">
+				</li>
+				<li>
+					<p>비밀번호</p>
+					<input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>업체명</p>
+					<input type="text" placeholder="">
+				</li>
+				<li>
+					<p>연락처</p>
+					<input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>카카오톡</p>
+					<input type="text" placeholder="">
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<p>업체명</p> 
+					<select>
+						<option>일반</option>
+						<option>총판</option>
+						<option>관리자</option>
+					</select>
+				</li>
+				<li>
+					<p>승인여부</p>
+					<select>
+						<option>승인</option>
+						<option>대기</option>
+						<option>탈퇴</option>
+					</select>
+				</li>
+			</ul>
+			<ul>
+				<li class="w100">
+					<p>메모사항</p>
+					<input type="text" placeholder="">
+				</li>
+			</ul>
+		</div>
+		<div class="pop_btn">
+			<a href="#none" class="okbtn">신규 등록</a> 
+			<a href="javascript:void(0);" class="btn-layerClose"> 등록취소 </a>
+		</div>
+	</div>
+</div>

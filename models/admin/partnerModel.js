@@ -339,7 +339,7 @@ module.exports = {
         let sql = `
             SELECT
                 COUNT(A.index_no) AS total_count
-            FROM TB_PARTNER_FEE_IMSI A
+            FROM TB_PARTNER_FEE A
             INNER JOIN TB_PARTNER B ON (A.pt_id = B.pt_id)
             ${search_sql}
         `;
@@ -393,7 +393,7 @@ module.exports = {
                         A.pf_fee,
                         A.pf_request_datetime,
                         A.pf_approval_datetime
-                    FROM TB_PARTNER_FEE_IMSI A
+                    FROM TB_PARTNER_FEE A
                     INNER JOIN TB_PARTNER B ON (A.pt_id = B.pt_id)
                     ORDER BY A.pf_approval_yn DESC, pf_request_datetime DESC
             ) Z, (SELECT @ROWNUM := 0) R
@@ -407,7 +407,7 @@ module.exports = {
     },
     partnerApprove: async function(data){
         let sql = `
-            UPDATE TB_PARTNER_FEE_IMSI
+            UPDATE TB_PARTNER_FEE
             SET
                 pf_approval_yn = 1,
                 pf_approval_datetime = NOW()
