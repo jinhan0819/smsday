@@ -37,7 +37,7 @@
 				<p>기간</p>
 			</li>
 			<li>
-				<input type="text" class="w50"><span style="margin: 0 5px">~</span><input type="text" class="w50">
+				<input type="date" class="w50"><span style="margin: 0 5px"> ~ </span><input type="date" class="w50">
 			</li>
 			<li>
 				<a href="#none" class="on2">오늘</a>
@@ -63,6 +63,11 @@
 					</select> 
 					<span>개씩 보기</span>
 				</li>
+			</ul>
+		</div>
+		<div class="btn_are mart20">
+			<ul class="left">
+				<li class="marr5"><a href="#none" class=""> 선택삭제</a></li>
 			</ul>
 		</div>
 		<div class="table">
@@ -103,7 +108,7 @@
 						<td scope="col">15,000건</td>
 						<td scope="col">100,000원</td>
 						<td scope="col" class="custom">
-								<a href="javascript:void(0);" class="btn-example" onclick=""><span><img src="/admin/images/okb.png"></span>상세보기</a>
+							<a href="javascript:openPopup();" class="btn-example" onclick=""><span><img src="/admin/images/okb.png"></span>상세보기</a>
 						</td>
 					</tr>
 				</tbody>
@@ -137,62 +142,9 @@
 	</div>
 </section>
 
-<div id="memberModifyPop" class="pop-layer">
-	<div class="dim"></div>
-	<div class="pop-container">
-		<div class="head_pop">
-			<h2 id="member_text"></h2>
-			<a href="javascript:void(0);" onclick="closeMemberPop();" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
-		</div>
-		<div class="pop_form_are" id="member_table">
-			<ul>
-				<li>
-					<p>아이디</p>
-					<input type="text" placeholder="" id="mb_id">
-				</li>
-				<li>
-					<p>비밀번호</p>
-					<input type="text" placeholder="" id="mb_password">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>이름</p>
-					<input type="text" placeholder="" id="mb_name">
-				</li>
-				<li>
-					<p>이메일</p>
-					<input type="text" placeholder="" id="mb_email">
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>연락처</p>
-					<input type="text" placeholder="" id="mb_hp" maxlength="13">
-				</li>
-				<li>
-					<p>회원 구분</p> 
-					<select id="mb_level">
-						<option value="1">회원</option>
-						<!-- <option value="10">관리자</option> -->
-					</select>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<p>포인트</p>
-					<input type="text" placeholder="" id="mb_point" value="0">
-				</li>
-			</ul>
-		</div>
-		<div class="pop_btn">
-			<a href="javascript:void(0);" class="okbtn" onclick="memberModify()">등록</a>
-			<a href="javascript:void(0);" class="btn-layerClose" onclick="closeMemberPop();">취소</a>
-		</div>
-	</div>
-</div>
-
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script>
-
+function openPopup() {
+	//window.open('/admin/popup/partner_fee_popup.html', '(가맹점ID) 사용료 상세내역', 'width = 500, height = 500, top = 100, left = 200, location = no');
+}
 </script>

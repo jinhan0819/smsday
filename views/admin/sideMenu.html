@@ -5,6 +5,7 @@
         </a>
         <div class="sub_nav subnav">
             <a href="javascript:void(0);" onclick="route_('/admin/member/memberList')">회원 정보관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/member/memberForm')">회원 신규등록</a>
         </div>
     </li>
     <!-- 최고관리자만 노출 -->
@@ -24,10 +25,8 @@
             <span><img src="/admin/images/member.png"></span>문자관리
         </a>
         <div class="sub_nav subnav">
-            <a href="#">문자 내역관리</a>
-            <a href="#">단문 관리</a>
-            <a href="#">장문 관리</a>
-            <a href="#">이미지문자 관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/sms/smsTemplate')">문자 관리</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/sms/smsLog')">문자 내역관리</a>
         </div>
     </li>
     <li class="side_menu" id="point" style="display:none;">
@@ -58,7 +57,7 @@
             <a href="javascript:void(0);" onclick="route_('/admin/config/configSmsForm')">SMS환경설정</a>
             <!-- 가맹점만 노출 -->
             <a href="javascript:void(0);" onclick="route_('/admin/config/ptSmsCharge')">SMS충전신청</a>
-            <a href="javascript:void(0);" onclick="route_('/admin/config/ipAccess')">차단IP설정</a>
+            <a href="javascript:void(0);" onclick="route_('/admin/config/ipAccess')">차단 IP설정</a>
         </div>
     </li>
 </ul>

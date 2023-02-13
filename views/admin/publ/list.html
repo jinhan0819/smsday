@@ -12,26 +12,29 @@
 		</div>
 	</div>
 
-	<div class="tab_are">
-		<ul class="left flex">
+	<div class="tab_are mart50">
+		<ul class="left">
 			<li>
 				<select>
-					<option>전체분류</option>
+					<option>ID</option>
+					<option>회원명</option>
 				</select>
 			</li>
 			<li>
-				<select>
-					<option>분류명</option>
-				</select>
+				<input type="text" placeholder="검색어" id="keyword"> 
 			</li>
-			<li><input type="text"></li>
-			<li><a href="#none" class="on2">검색</a></li>
+			<li>
+				<a href="javascript:void(0);" class="on3">검색</a>
+				<a href="#none" class="on3">초기화</a>
+			</li>
 		</ul>
 	</div>
 
 	<div class="tab_are noflex">
 		<ul class="left">
-			<li><p>주문상태</p></li>
+			<li>
+				<p>주문상태</p>
+			</li>
 			<li>
 				<input type="radio"><span>전체</span>
 				<input type="radio"><span>주문</span>
@@ -43,8 +46,10 @@
 				<input type="radio"><span>부분취소</span>
 			</li>
 		</ul>
-		<ul class="left">
-			<li><p>결제수단</p></li>
+		<ul class="left padt10">
+			<li>
+				<p>결제수단</p>
+			</li>
 			<li>
 				<input type="radio"><span>전체</span>
 				<input type="radio"><span>무통장</span>
@@ -56,47 +61,43 @@
 				<input type="radio"><span>KAKAOPAY</span>
 			</li>
 		</ul>
-		<ul class="left">
-			<li><p>기타선택</p></li>
+		<ul class="left padt10">
+			<li>
+				<p>기타선택</p>
+			</li>
 			<li>
 				<input type="checkbox"><span>미수금</span>
 				<input type="checkbox"><span>반품,품절</span>
 				<input type="checkbox"><span>환불</span>
 				<input type="checkbox"><span>포인트주문</span>
-				<input type="checkbox"><span>쿠폰</span></li>
+				<input type="checkbox"><span>쿠폰</span>
+			</li>
 		</ul>
 		<ul class="left">
-			<li><p>주문일자</p></li>
 			<li>
-				<input type="text" class="w50">
-				<span style="margin: 0 5px"> ~ </span><input type="text" class="w50">
+				<p>주문일자</p>
+			</li>
+			<li>
+				<input type="date" class="w50"><span style="margin: 0 5px">~</span><input type="date" class="w50">
 			</li>
 			<li>
 				<a href="#none" class="on2">오늘</a>
 				<a href="#none" class="on2">어제</a>
-				<a href="#none" class="on2">이번주</a>
-				<a href="#none" class="on2">이번달</a>
+				<a href="#none" class="on2">일주일</a>
+				<a href="#none" class="on2">지난달</a>
+				<a href="#none" class="on2">1개월</a>
+				<a href="#none" class="on2">3개월</a>
 				<a href="#none" class="on2">전체</a>
-				<a href="#none" class="on3">검색</a>
 			</li>
 		</ul>
 	</div>
 
 	<div class="tab_are">
-		<ul class="left">
-			<li><a href="#none" class="on">전체(41)</a></li>
-			<li><a href="#none">사용중(40)</a></li>
-			<li><a href="#none">빈슬롯(0)</a></li>
-			<li><a href="#none">만료 예정(0)</a></li>
-			<li><a href="#none">만료(1)</a></li>
-			<li><a href="#none">테스트(0)</a></li>
-		</ul>
-		<ul class="right">
-			<li><a href="#none">선택 초기화</a></li>
-			<li><a href="#none">선택 수정</a></li>
-			<li><a href="#none">선택 삭제</a></li>
-			<li><div class="date_form"><input type="date"></div></li>
-			<li><a href="#none" class="on">선택 기간연장</a></li>
+		<ul class="left" id="count_ul">
+			<li><a href="javascript:void(0);" class="on">전체(<span>0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="1">회원(<span>0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="2">가맹점(<span>0</span>)</a></li>
+			<li><a href="javascript:void(0);" data-level="10">관리자(<span>0</span>)</a></li>
 		</ul>
 	</div>
 
@@ -301,7 +302,10 @@
 						</select>
 					</td>
 					<td class="custom">
-						<a href="#layer4" class="btn-example"><span><img src="/admin/images/okb.png"></span> 작업 설정</a>
+						<a href="#layer1" class="btn-example" onclick="layerPopupOpen('layer1');"><span><img src="/admin/images/okb.png"></span> 레이어1</a>
+						<a href="#layer2" class="btn-example" onclick="layerPopupOpen('layer2');"><span><img src="/admin/images/okb.png"></span> 레이어2</a>
+						<a href="#layer3" class="btn-example" onclick="layerPopupOpen('layer3');"><span><img src="/admin/images/okb.png"></span> 레이어3</a>
+						<a href="#layer4" class="btn-example" onclick="layerPopupOpen('layer4');"><span><img src="/admin/images/okb.png"></span> 레이어4</a>
 					</td>
 				</tr>
 			</table>
@@ -374,7 +378,7 @@
 	<div class="pop-container">
 		<div class="head_pop">
 			<h2>신규 등록</h2>
-			<a href="#" class="btn-layerClose"><img src="/images/close_pop.png"></a>
+			<a href="#" class="btn-layerClose" onclick="layerPopupClose('layer1')"><img src="/images/close_pop.png"></a>
 		</div>
 		<div class="pop_form_are">
 			<ul>
@@ -427,7 +431,7 @@
 	<div class="pop-container">
 		<div class="head_pop">
 			<h2>작업 설정</h2>
-			<a href="#" class="btn-layerClose"><img src="/images/close_pop.png"></a>
+			<a href="#" class="btn-layerClose" onclick="layerPopupClose('layer2')"><img src="/images/close_pop.png"></a>
 		</div>
 		<div class="pop_form_are">
 			<ul>
@@ -479,7 +483,7 @@
 	<div class="pop-container">
 		<div class="head_pop" style="background: darkred">
 			<h2 class="fc_wht">쿠팡 순위</h2>
-			<a href="#" class="btn-layerClose"><img src="/images/close_pop.png"></a>
+			<a href="#" class="btn-layerClose" onclick="layerPopupClose('layer3')"><img src="/images/close_pop.png"></a>
 		</div>
 		<div class="pop_form_are">
 			<div class="table">
@@ -520,7 +524,7 @@
 	<div class="pop-container">
 		<div class="head_pop">
 			<h2>회원등록</h2>
-			<a href="javascript:void(0);" class="btn-layerClose"><img src="/admin/images/close_pop.png"></a>
+			<a href="javascript:void(0);" class="btn-layerClose" onclick="layerPopupClose('layer4')"><img src="/admin/images/close_pop.png"></a>
 		</div>
 		<div class="pop_form_are">
 			<ul>
@@ -580,3 +584,13 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function layerPopupOpen(id) { 
+		$("#"+id).css("display", "block");
+	}
+
+	function layerPopupClose(id) { 
+		$("#"+id).css("display", "none");
+	}
+</script>

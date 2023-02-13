@@ -47,7 +47,7 @@
 				<p>요청일시</p>
 			</li>
 			<li>
-				<input type="text" class="w50" id="start_date"><span style="margin: 0 5px">~</span><input type="text" class="w50" id="end_date">
+				<input type="date" class="w50" id="start_date"><span style="margin: 0 5px"> ~ </span><input type="date" class="w50" id="end_date">
 			</li>
 			<li>
 				<a href="javascript:void(0);" data-func="getTodayDayJS" class="on2">오늘</a>
@@ -89,10 +89,8 @@
 					<col class="w100">
 					<col class="w100">
 					<col class="w120">
-					<col class="w140">
+					<col class="w150">
 					<col>
-					<col class="w100">
-					<col class="w100">
 					<col class="w100">
 					<col class="w150">
 					<col class="w150">
@@ -107,29 +105,13 @@
 					<th scope="col">개별도메인</th>
 					<th scope="col">내용</th>
 					<th scope="col">충천액</th>
-					<th scope="col">사용료 잔액</th>
-					<th scope="col">충천후 잔액</th>
 					<th scope="col">요청일시</th>
 					<th scope="col">승인일시</th>
 				</thead>
 				<tbody id="partnerListBody">
-					<tr><td colspan="13">데이터가 존재하지 않습니다.</td></tr>
-					<!-- <tr>
-						<td scope="col"><input type="checkbox"></td>
-						<td scope="col">1</td>
-						<td scope="col" class="fc_084">승인</td>
-						<td scope="col" class="fc_red">미승인</td>
-						<td scope="col">test</td>
-						<td scope="col">홍길동</td>
-						<td scope="col">문자데이</td>
-						<td scope="col">smsday.kr</td>
-						<td scope="col">smsday.kr</td>
-						<td scope="col">10,000원</td>
-						<td scope="col">100,000원</td>
-						<td scope="col">110,000원</td>
-						<td scope="col">2023-01-01 12:00:00</td>
-						<td scope="col">2023-01-02 12:00:00</td>
-					</tr> -->
+					<tr>
+						<td colspan="11">데이터가 존재하지 않습니다.</td>
+					</tr>
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
@@ -209,15 +191,13 @@
 						<td scope="col">${item.pt_domain}</td>
 						<td scope="col">${item.pf_contents}</td>
 						<td scope="col">${setComma(item.pf_fee)}원</td>
-						<td scope="col">${setComma(item.pf_fee)}원</td>
-						<td scope="col">${setComma(item.pf_fee)}원</td>
 						<td scope="col">${item.pf_request_datetime}</td>
 						<td scope="col">${item.pf_approval_datetime}</td>
 					</tr>
 				`
 			});
 		}else{
-			html = '<tr><td colspan="13">데이터가 존재하지 않습니다.</td></tr>'
+			html = '<tr><td colspan="11">데이터가 존재하지 않습니다.</td></tr>'
 		}
 		$('#partnerListBody').html(html);
 

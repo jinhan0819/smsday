@@ -537,6 +537,17 @@ a.btnstyle {
 	color: #222
 }
 
+a.btnstyle:hover {
+	background: #121217;
+	color: #fff;
+	transition-duration: 0.5s
+}
+
+.td_on a.on {
+	background: #121217;
+	color: #fff;
+}
+
 a.btn_submit {
 	background: #F9BC20;
 	color: #000;
@@ -866,9 +877,9 @@ a.state_box {
 .pop-layer {
 	display: none;
 	position: fixed;
-	top: 20%;
+	top: 30%;
 	left: 40%;
-	width: 500px;
+	width: auto;
 	height: auto;
 	background-color: #fff;
 	z-index: 2;
@@ -1219,3 +1230,14 @@ input[type="text"].w300 {
 	color: #fff;
 	transition-duration: 0.5s
 }
+
+/* 문자관리 CSS */
+.sample{margin-top: 15px;display: flex; flex-wrap: wrap}
+.sample .sample_box{width: calc(25% - 10px); margin:5px; border: 1px solid #dfdfdf; padding: 15px; border-radius: 15px; background-color: #fff;}
+.sample .sample_box p{height: 150px; font-size: 14px; line-height: 22px; overflow-y: auto}
+.sample .sample_box .sample_btn{display: flex; margin-top: 15px;}
+.sample .sample_box .sample_btn .btn{height: 30px; border: 1px solid #dfdfdf; flex: 1; margin: 0 5px; text-align: center; line-height: 30px; border-radius: 10px; color: #222}
+
+.sample .sample_box img{width: 100%}
+
+.sample .sample_box .sample_btn .btn.btn01{background:#121217; color: #fff }

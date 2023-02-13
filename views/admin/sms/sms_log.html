@@ -1,7 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>포인트 정보관리</h2>
-
+		<h2>문자 내역관리</h2>
 		<div class="time">
 			<span id="todayIs"></span>
 			<span>
@@ -19,6 +18,10 @@
 				<select>
 					<option>ID</option>
 					<option>회원명</option>
+					<option>제목</option>
+					<option>내용</option>
+					<option>발신번호</option>
+					<option>수신번호</option>
 				</select>
 			</li>
 			<li>
@@ -57,31 +60,28 @@
 				<li>전체 : <b><span id="total_count">0</span></b> 건 조회</li>
 				<li>
 					<select id="search_count">
-						<option value="30">30</option>
-						<option value="50">50</option>
 						<option value="100">100</option>
+						<option value="200">200</option>
+						<option value="500">500</option>
 					</select> 
 					<span>개씩 보기</span>
 				</li>
 			</ul>
 		</div>
-		<div class="btn_are mart20">
-			<ul class="left">
-				<li class="marr5"><a href="#none" class=""> 선택삭제</a></li>
-			</ul>
-		</div>
 		<div class="table">
 			<table>
 				<colgroup>
+					<col class="w50">
 					<col class="w70">
 					<col class="w100">
-					<col class="w180">
-					<col class="w180">
+					<col class="w100">
+					<col class="w120">
+					<col class="w200">
 					<col>
-					<col class="w180">
-					<col class="w180">
-					<col class="w180">
-					<col class="w180">
+					<col class="w140">
+					<col class="w140">
+					<col class="w150">
+					<col class="w80">
 				</colgroup>
 				<thead>
 					<th scope="col" class="cheack_are"><input type="checkbox"></th>
@@ -89,10 +89,12 @@
 					<th scope="col">ID</th>
 					<th scope="col">회원명</th>
 					<th scope="col">회원구분</th>
-					<th scope="col">이용건수</th>
-					<th scope="col">누적 이용건수</th>
-					<th scope="col">포인트 잔액</th>
-					<th scope="col">상세내역</th>
+					<th scope="col">제목</th>
+					<th scope="col">내용</th>
+					<th scope="col">발신번호</th>
+					<th scope="col">수신번호</th>
+					<th scope="col">전송시간</th>
+					<th scope="col">구분</th>
 				</thead>
 				<tbody id="pointListBody">
 					<tr>
@@ -101,41 +103,17 @@
 						<td scope="col">TEST</td>
 						<td scope="col">홍길동</td>
 						<td scope="col">일반회원</td>
-						<td scope="col">100건</td>
-						<td scope="col">1,000건</td>
-						<td scope="col">500,000원</td>
-						<td scope="col" class="custom">
-							<a href="javascript:void(0);" class="btn-example" onclick=""><span><img src="/admin/images/okb.png"></span>상세보기</a>
-						</td>
+						<td scope="col">테스트문자</td>
+						<td scope="col">문자발송 테스트 중입니다.</td>
+						<td scope="col">02-0000-0000</td>
+						<td scope="col">010-0000-0000</td>
+						<td scope="col">2023.01.01 15:00:00</td>
+						<td scope="col">단문</td>
 					</tr>
 				</tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
 		</div>
-	</div>
-
-	<div class="table table_are textleft mart15">
-		<h2>포인트 지급/차감</h2>
-		<div class="table">
-			<table id="partner_table">
-				<tr>
-					<th class="w10p">회원 ID</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="15"></td>
-				</tr>
-				<tr>
-					<th class="w10p">지급/차감 내용</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="50"></td>
-				</tr>
-				<tr>
-					<th class="w10p">지급/차감 포인트</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
-	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit">지급하기</a>
 	</div>
 </section>
 
