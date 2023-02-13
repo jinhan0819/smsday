@@ -16,9 +16,9 @@
 	<div class="tab_are mart50">
 		<ul class="left">
 			<li>
-				<select>
-					<option>ID</option>
-					<option>회원명</option>
+				<select id="search_keycode">
+					<option value="id">ID</option>
+					<option value="name">회원명</option>
 				</select>
 			</li>
 			<li>
@@ -26,7 +26,7 @@
 			</li>
 			<li>
 				<a href="javascript:void(0);" class="on3" onclick="member_search()">검색</a>
-				<a href="#none" class="on3">초기화</a>
+				<a href="javascript:void(0);" class="on3" onclick="search_init()">초기화</a>
 			</li>
 		</ul>
 	</div>
@@ -37,16 +37,16 @@
 				<p>기간</p>
 			</li>
 			<li>
-				<input type="date" class="w50"><span style="margin: 0 5px"> ~ </span><input type="date" class="w50">
+				<input type="date" class="w50" id="start_date"><span style="margin: 0 5px"> ~ </span><input type="date" class="w50" id="end_date">
 			</li>
 			<li>
-				<a href="#none" class="on2">오늘</a>
-				<a href="#none" class="on2">어제</a>
-				<a href="#none" class="on2">일주일</a>
-				<a href="#none" class="on2">지난달</a>
-				<a href="#none" class="on2">1개월</a>
-				<a href="#none" class="on2">3개월</a>
-				<a href="#none" class="on2">전체</a>
+				<a href="javascript:void(0);" data-func="getTodayDayJS" class="on2">오늘</a>
+				<a href="javascript:void(0);" data-func="getYesterDayJS" class="on2">어제</a>
+				<a href="javascript:void(0);" data-func="getWeekDayJS" class="on2">일주일</a>
+				<a href="javascript:void(0);" data-func="getBeforeMonthDayJS" class="on2">지난달</a>
+				<a href="javascript:void(0);" data-func="getMonthDayJS" data-num="1" class="on2">1개월</a>
+				<a href="javascript:void(0);" data-func="getMonthDayJS" data-num="3" class="on2">3개월</a>
+				<a href="javascript:void(0);" class="on2">전체</a>
 			</li>
 		</ul>
 	</div>
@@ -96,20 +96,9 @@
 					<th scope="col">사용료 잔액</th>
 					<th scope="col">상세내역</th>
 				</thead>
-				<tbody>
+				<tbody id="partnerListBody">
 					<tr>
-						<td scope="col"><input type="checkbox"></td>
-						<td scope="col">1</td>
-						<td scope="col">test</td>
-						<td scope="col">홍길동</td>
-						<td scope="col">문자데이</td>
-						<td scope="col">smsday.kr</td>
-						<td scope="col">1,000건</td>
-						<td scope="col">15,000건</td>
-						<td scope="col">100,000원</td>
-						<td scope="col" class="custom">
-							<a href="javascript:openPopup();" class="btn-example" onclick=""><span><img src="/admin/images/okb.png"></span>상세보기</a>
-						</td>
+						<td colspan="10">데이터가 존재하지 않습니다.</td>
 					</tr>
 				</tbody>
 			</table>
@@ -120,31 +109,208 @@
 	<div class="table table_are textleft mart15">
 		<h2>가맹점 사용료 지급/차감</h2>
 		<div class="table">
-			<table id="partner_table">
+			<table id="partner_give_table">
 				<tr>
 					<th class="w10p">가맹점 ID</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="15"></td>
+					<td colspan="3"><input type="text" placeholder="" id="pt_id" ></td>
 				<tr>
 				<tr>
 					<th class="w10p">지급/차감 내용</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="50"></td>
+					<td colspan="3"><input type="text" placeholder="" id="pf_contents" size="50"></td>
 				<tr>
 				<tr>
 					<th class="w10p">지급/차감 사용료</th>
-					<td colspan="3"><input type="text" placeholder="" id="" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
+					<td colspan="3"><input type="text" placeholder="" id="pf_fee" size="10">&nbsp;<span class="fc_999">차감시 예) -5000</span></td>
 				<tr>
 			</table>
 		</div>
 	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit">지급하기</a>
+		<a href="javascript:void(0);" class="btn_submit" onclick="ptFeeGive();">지급하기</a>
 	</div>
+
 </section>
 
+<script type="text/javascript" src="/admin/js/date.js"></script>
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script>
-function openPopup() {
-	//window.open('/admin/popup/partner_fee_popup.html', '(가맹점ID) 사용료 상세내역', 'width = 500, height = 500, top = 100, left = 200, location = no');
-}
+	function openPopup() {
+		window.open('/admin/popup/partner_fee_popup', '(가맹점ID) 사용료 상세내역', 'width = 500, height = 500, top = 100, left = 200, location = no');
+	}
+
+
+	/* 검색 및 조회 start */
+
+	// 검색 파라미터 (전역변수)
+	let params = {
+		keyword : $('#keyword').val(),
+		keycode : $('#search_keycode').val(),
+		date : {},
+		paging : pagination
+	};
+
+	// 현상 유지 (조건 검색 시)
+	function paramsInit(){
+		let getDate = getCurrentMonthDayJS();
+		$('#start_date').val(getDate.start);
+		$('#end_date').val(getDate.end);
+
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params = JSON.parse(getLocalStorage('search_params'));
+			pagination = params.paging;
+			$('#search_count').val(params.paging.perPage.toString()).prop('selected', true);
+			$('#keyword').val(params.keyword);
+			$('#start_date').val(params.date.start);
+			$('#end_date').val(params.date.end);
+		}
+		init();
+	}
+	paramsInit();
+
+	function getParams(){
+		params.keyword = $('#keyword').val();
+		params.keycode = $('#search_keycode option:selected').val();
+		params.paging = pagination;
+		params.date = {
+			start : $('#start_date').val(),
+			end : $('#end_date').val()
+		}
+		return params;
+	}
+
+	async function init(){
+		let data = getParams();
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
+
+		// 가맹점 count
+		let m_count = await axios.post('/admin/partner/getPartnerFeeCount', data);
+		for(let key in m_count.data.result[0]){
+			$('#'+key).text(m_count.data.result[0][key]);
+		}
+
+		// 가맹점 list
+		let member = await axios.post('/admin/partner/getPartnerFeeList', data);
+
+		let list = member.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr>
+						<td scope="col"><input type="checkbox" name="partner_check" data-index=${item.index_no}></td>
+						<td scope="col">${item.rownum}</td>
+						<td scope="col">${item.pt_id}</td>
+						<td scope="col">${item.pt_owner}</td>
+						<td scope="col">${item.pt_company_name}</td>
+						<td scope="col">${item.pt_domain}</td>
+						<td scope="col">${setComma(item.use_count)}건</td>
+						<td scope="col">${setComma(item.total_use_count)}건</td>
+						<td scope="col">${setComma(item.pt_fee)}원</td>
+						<td scope="col" class="custom">
+							<a href="javascript:void(0);" class="btn-example" onclick="openPopup()"><span><img src="/admin/images/okb.png"></span>상세보기</a>
+						</td>
+					</tr>
+				`
+			});
+		}else{
+			html = '<tr><td colspan="11">데이터가 존재하지 않습니다.</td></tr>'
+		}
+		$('#partnerListBody').html(html);
+
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/partner/getPartnerFeeCount', params, pagination.page, pagination.perPage, 5, 'init'));
+
+	}
+
+	// 검색 초기화
+	function search_init(){
+		$('#search_keycode').val('id').prop('selected', true);
+		$('#keyword').val('');
+		// clearLocalStorage();
+		init();
+	}
+
+	function member_search(){
+		pagination.page = 1; // 페이징 번호 초기화
+		init();
+	}
+	
+	// 데이터 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		pagination.perPage = $(this).val();
+		init();
+	});
+	/* 검색 및 조회 end */
+
+	/* 날짜 관련 start */
+
+	// 날짜 선택 이벤트
+	$('#start_date, #end_date').change(function(){
+		if(($('#start_date').val() !== '' && $(' #end_date').val() !== '') && ($('#start_date').val() > $('#end_date').val())){
+			alert('날짜 선택이 옳바르지 않습니다.');
+			$('#start_date, #end_date').val('');
+		}
+		init();
+	});
+
+	// 날짜 조회 이벤트
+	$('.on2').click(function(){
+		if(typeof $(this).data('func') !== 'undefined'){
+			if(typeof(window[$(this).data('func')]) == "function"){
+				let execFunc = (new Function("return " + $(this).data('func')))();
+				
+				let result;
+				if($(this).data('func') === 'getMonthDayJS'){
+					result = execFunc($(this).data('num'));
+				}else{
+					result = execFunc();
+				}
+
+				$('#start_date').val(result.start);
+				$('#end_date').val(result.end);
+			}else{
+				alert('함수가 존재하지 않습니다.');
+			}
+		}else{
+			$('#start_date').val('');
+			$('#end_date').val('');
+		}
+		init();
+	});
+	/* 날짜 관련 end */
+
+
+	// 가맹점 사용료 지급/차감
+	async function ptFeeGive(){
+		let check = true;
+		$('#partner_give_table').find('input').each(function(idx, el){
+			if($(el).val() === ''){
+				check = false;
+			}
+		});
+
+		if(check){
+			let data = {};
+			$('#partner_give_table').find('input').each(function(idx, el){
+				data[$(el).attr('id')] = $(el).val();
+			});
+	
+			let getPartner = await axios.post('/admin/partner/getPartnerByPtId', data);
+	
+			if(getPartner.data.result.length > 0){
+				let res = await axios.post('/admin/partner/ptFeeGiveInsert', data);
+				if(res.data.code == 200){
+					location.reload();
+				}else{
+					alert('지급 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+			}else{
+				alert('등록된 가맹점 ID가 아닙니다.\n다시 확인해주세요.');
+			}
+		}else{
+			alert('사용료 지급/차감 정보를 모두 입력해주세요.');
+		}
+	}
 </script>

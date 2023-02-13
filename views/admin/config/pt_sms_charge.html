@@ -157,6 +157,8 @@
 
 <!-- SMS 충전신청 리스트 -->
 <script>
+	/* 검색 및 조회 start */
+
 	// 검색 파라미터 (전역변수)
 	let params = {
 		paging : pagination
@@ -227,6 +229,8 @@
 		pagination.perPage = $(this).val();
 		init();
 	});
+
+	/* 검색 및 조회 end */
 
 	// 체크 박스 선택 이벤트
 	$('#sms_check_all').click(function(){

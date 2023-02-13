@@ -143,3 +143,10 @@ function getMonthDayJS(m){
     let end_date = dayjs(new Date()).format('YYYY-MM-DD');
     return {start: start_date, end: end_date};
 }
+
+// 이번 달의 1일과 현재
+function getCurrentMonthDayJS(){
+    let start_date = dayjs(new Date()).format('YYYY-MM') + '-01';
+    let end_date = dayjs(new Date()).format('YYYY-MM-DD');
+    return {start: start_date, end: end_date};
+}

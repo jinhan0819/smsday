@@ -118,6 +118,8 @@
 
 	let index_no = null;
 
+	/* 검색 및 조회 start */
+
 	// 검색 파라미터 (전역변수)
 	let params = {
 		keyword : $('#keyword').val(),
@@ -212,14 +214,27 @@
 		init();
 	}
 
+	// 회원 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		pagination.perPage = $(this).val();
+		init();
+	});
+
+	/* 검색 및 조회 end */
+
 	// 가맹점 목록 - 작업 설정 클릭 이벤트
 	$(document).on('click', '.custom a', async function(){
 		location.href = '/admin/partner/partnerForm?index_no='+$(this).data('index')
 	});
 
-	// 회원 n개씩 보기 클릭 이벤트
-	$('#search_count').change(function(){
-		pagination.perPage = $(this).val();
+	/* 날짜 관련 start */
+
+	// 날짜 선택 이벤트
+	$('#start_date, #end_date').change(function(){
+		if(($('#start_date').val() !== '' && $(' #end_date').val() !== '') && ($('#start_date').val() > $('#end_date').val())){
+			alert('날짜 선택이 옳바르지 않습니다.');
+			$('#start_date, #end_date').val('');
+		}
 		init();
 	});
 
@@ -248,6 +263,8 @@
 		init();
 	});
 
+	/* 날짜 관련 end */
+
 	// 체크 박스 선택 이벤트
 	$('#partner_check_all').click(function(){
 		let checkBool = false;
@@ -267,7 +284,6 @@
 				});
 				let data = {del_list : data_arr};
 				let res = await axios.post('/admin/partner/delPartner', data);
-				console.log(res);
 				if(res.data.code == 200){
 					location.reload();
 				}else{

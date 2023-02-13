@@ -5,6 +5,12 @@ let paging = require('../../modules/pagination');
 const file = require('../../modules/file');
 
 module.exports = {
+    getPartnerByPtId: async function(data){
+        let sql = 'SELECT * FROM TB_PARTNER WHERE pt_id = ?';
+
+        let rslt = await db.queryTransaction(sql, [data.pt_id]);
+        return rslt;
+    },
     getPartnerCount: async function(data){
         let search_sql = ``;
         if(typeof data.keycode !== 'undefined'){
@@ -121,7 +127,7 @@ module.exports = {
                 B.original_file_nm AS pt_company_file_nm,
                 C.original_file_nm AS pt_manager_file_nm
             FROM TB_PARTNER A
-            LEFT OUTER JOIN TB_ATCHM_FILE B ON (A.pt_company_file_id = B.index_no)
+            LEFT OUTER JOIN TB_ATCHM_FILE B ON (A.pt_company_file_id = B.index_no)  
             LEFT OUTER JOIN TB_ATCHM_FILE C ON (A.pt_manager_file_id = C.index_no)
             WHERE A.index_no = ?
         `;
@@ -179,11 +185,13 @@ module.exports = {
                             1. 기존 파일 아이디 조회 후 파라미터에 값을 준다.
                         */
                         }else{
-                            let file_sel_sql = `
-                                SELECT ${item+'_id'} FROM TB_PARTNER WHERE index_no = ?
-                            `;
-                            let result = await connection.query(file_sel_sql, data.index_no);
-                            data[item+'_id'] = result[0][0][item+'_id'];
+                            if(data.index_no !== null){
+                                let file_sel_sql = `
+                                    SELECT ${item+'_id'} FROM TB_PARTNER WHERE index_no = ?
+                                `;
+                                let result = await connection.query(file_sel_sql, data.index_no);
+                                data[item+'_id'] = result[0][0][item+'_id'];
+                            }
                         }
                         resolve();
                     }));
@@ -317,6 +325,120 @@ module.exports = {
 
         return result;
     },
+    getPartnerFeeCount: async function(data){
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql += `WHERE pt_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql += `WHERE pt_owner LIKE '%${data.keyword}%'`;
+        }
+        
+        let sql = `
+            SELECT
+                COUNT(index_no) AS total_count
+            FROM TB_PARTNER
+            ${search_sql}
+        `;
+        let rslt = await db.queryTransaction(sql, []);
+
+        return rslt;
+    },
+    getPartnerFeeList: async function(data){
+        let params = paging.pagingRange(data.paging);
+
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql += `WHERE Z.pt_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql += `WHERE Z.pt_owner LIKE '%${data.keyword}%'`;
+        }
+        
+        let date_search_sql = ``;
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            date_search_sql = `WHERE DATE_FORMAT(create_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
+
+        let sql = `
+            SELECT
+                @ROWNUM := @ROWNUM + 1 AS rownum,
+                Z.index_no,
+                Z.pt_id,
+                Z.pt_owner,
+                Z.pt_company_name,
+                IFNULL(Z.pt_domain, '-') AS pt_domain,
+                IFNULL(Z.pt_fee, 0) AS pt_fee,
+                Z.use_count,
+                Z.total_use_count
+            FROM (
+                    SELECT
+                        A.index_no,
+                        A.pt_id,
+                        A.pt_owner,
+                        A.pt_company_name,
+                        A.pt_domain,
+                        A.pt_fee,
+                        IFNULL(B.use_count, 0) AS use_count,
+                        IFNULL(C.total_use_count, 0) AS total_use_count
+                    FROM TB_PARTNER A
+                    LEFT OUTER JOIN (
+                            SELECT
+                                COUNT(index_no) AS use_count,
+                                pt_id
+                            FROM TB_SMS_LOG
+                            ${date_search_sql}
+                    ) B ON (A.pt_id = B.pt_id)
+                    LEFT OUTER JOIN (
+                            SELECT
+                                COUNT(index_no) AS total_use_count,
+                                pt_id
+                            FROM TB_SMS_LOG
+                    ) C ON (A.pt_id = C.pt_id)
+                    ORDER BY A.create_datetime
+            ) Z, (SELECT @ROWNUM := 0) R
+            ${search_sql}
+            ORDER BY rownum DESC 
+            LIMIT ?, ? 
+        `;
+        let rslt = await db.queryTransaction(sql, params);
+
+        return rslt;
+    },
+    ptFeeGiveInsert: async function(data){
+        const connection = await db.getConnection();
+        await connection.beginTransaction();
+        
+        try{
+            data.pf_fee = parseInt(data.pf_fee.replace(/,/g, ''));
+            data.pf_depositor = '최고관리자';
+            data.pf_request_datetime = new Date();
+            data.pf_approval_yn = 1;
+            data.pf_approval_datetime = new Date();
+
+            let sql = 'INSERT INTO TB_PARTNER_FEE SET ?';
+            await connection.query(sql, data);
+
+            let sql_2 = `
+                UPDATE TB_PARTNER
+                SET
+                    pt_fee = pt_fee + ?
+                WHERE pt_id = ?
+            `
+            await connection.query(sql_2, [data.pf_fee, data.pt_id]);
+
+            await connection.commit();
+
+            let rslt = JSON.parse(JSON.stringify(config.suc_result));
+
+            return rslt;
+        }catch(e){
+            await connection.rollback();
+            console.error('Transaction rollbacked ======>',e);
+            let rslt = JSON.parse(JSON.stringify(config.err_result));
+            rslt.message = e;
+            return rslt;
+        }finally{
+            connection.release();
+        }
+    },
+
     getPartnerChargeCount: async function(data){
         let search_sql = ``;
         if(typeof data.keycode !== 'undefined'){
@@ -406,15 +528,46 @@ module.exports = {
         return rslt;
     },
     partnerApprove: async function(data){
-        let sql = `
-            UPDATE TB_PARTNER_FEE
-            SET
-                pf_approval_yn = 1,
-                pf_approval_datetime = NOW()
-            WHERE index_no IN (?)
-        `;
-        let rslt = await db.queryTransaction(sql, [data.aprv_list]);
+        const connection = await db.getConnection();
+        await connection.beginTransaction();
+        
+        try{
+            let sql = `
+                UPDATE TB_PARTNER_FEE
+                SET
+                    pf_approval_yn = 1,
+                    pf_approval_datetime = NOW()
+                WHERE index_no IN (?)
+            `;
+    
+            await connection.query(sql, [data.aprv_list]);
 
-        return rslt;
+            await data.pt_list.reduce(async (pre, item, index) => {
+                return pre.then(async ()=> new Promise(async (resolve) => {
+                    let sql_2 = `
+                        UPDATE TB_PARTNER
+                        SET
+                            pt_fee = ?
+                        WHERE pt_id = ?
+                    `;
+                    await connection.query(sql_2, [item.pt_fee, item.pt_id]);
+                    resolve();
+                }));
+            }, Promise.resolve());
+            
+            await connection.commit();
+
+            let rslt = JSON.parse(JSON.stringify(config.suc_result));
+
+            return rslt;
+        }catch(e){
+            await connection.rollback();
+            console.error('Transaction rollbacked ======>',e);
+            let rslt = JSON.parse(JSON.stringify(config.err_result));
+            rslt.message = e;
+            return rslt;
+        }finally{
+            connection.release();
+        }
     }
 }

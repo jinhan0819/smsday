@@ -112,6 +112,8 @@
 			}
 		}
 	*/
+	
+	/* 검색 및 조회 start */
 
 	// 검색 파라미터 (전역변수)
 	let params = {
@@ -202,15 +204,29 @@
 		pagination.page = 1; // 페이징 번호 초기화
 		init();
 	}
+	
+	// 회원 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		pagination.perPage = $(this).val();
+		init();
+	});
+
+	/* 검색 및 조회 end */
+
 
 	// 회원 목록 - 작업 설정 클릭 이벤트
 	$(document).on('click', '.custom a', async function(){
 		location.href = '/admin/member/memberForm?index_no='+$(this).data('index')
 	});
 
-	// 회원 n개씩 보기 클릭 이벤트
-	$('#search_count').change(function(){
-		pagination.perPage = $(this).val();
+	/* 날짜 관련 start */
+
+	// 날짜 선택 이벤트
+	$('#start_date, #end_date').change(function(){
+		if(($('#start_date').val() !== '' && $(' #end_date').val() !== '') && ($('#start_date').val() > $('#end_date').val())){
+			alert('날짜 선택이 옳바르지 않습니다.');
+			$('#start_date, #end_date').val('');
+		}
 		init();
 	});
 
@@ -238,5 +254,6 @@
 		}
 		init();
 	});
+	/* 날짜 관련 end */
 
 </script>

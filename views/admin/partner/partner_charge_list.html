@@ -121,7 +121,9 @@
 
 <script type="text/javascript" src="/admin/js/date.js"></script>
 <script>
-	console.log($('input[name=approve_input]:checked').val())
+	
+	/* 검색 및 조회 start */
+
 	// 검색 파라미터 (전역변수)
 	let params = {
 		keyword : $('#keyword').val(),
@@ -164,7 +166,6 @@
 
 	async function init(){
 		let data = getParams();
-		console.log(data)
 		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
 
 		// 가맹점 count
@@ -182,7 +183,7 @@
 			list.forEach(item => {
 				html += `
 					<tr>
-						<td scope="col"><input type="checkbox" name="partner_check" data-index=${item.index_no}></td>
+						<td scope="col"><input type="checkbox" name="partner_check" data-index=${item.index_no} data-fee=${item.pf_fee} data-pt=${item.pt_id}></td>
 						<td scope="col">${item.rownum}</td>
 						<td scope="col" class="${item.pf_approval_yn === 1 ? 'fc_084' : 'fc_red'}">${item.pf_approval_yn === 1 ? '승인' : '미승인'}</td>
 						<td scope="col">${item.pt_id}</td>
@@ -219,12 +220,30 @@
 		init();
 	}
 
+	// 데이터 n개씩 보기 클릭 이벤트
+	$('#search_count').change(function(){
+		pagination.perPage = $(this).val();
+		init();
+	});
+
+	/* 검색 및 조회 end */
+
 	$('input[name=approve_input]').click(function(){
-		console.log($('input[name=approve_input]:checked').val())
 		init();
 	})
 
-	// 가입 날짜 조회 이벤트
+	/* 날짜 관련 start */
+
+	// 날짜 선택 이벤트
+	$('#start_date, #end_date').change(function(){
+		if(($('#start_date').val() !== '' && $(' #end_date').val() !== '') && ($('#start_date').val() > $('#end_date').val())){
+			alert('날짜 선택이 옳바르지 않습니다.');
+			$('#start_date, #end_date').val('');
+		}
+		init();
+	});
+
+	// 날짜 조회 이벤트
 	$('.on2').click(function(){
 		if(typeof $(this).data('func') !== 'undefined'){
 			if(typeof(window[$(this).data('func')]) == "function"){
@@ -248,6 +267,7 @@
 		}
 		init();
 	});
+	/* 날짜 관련 end */
 
 	// 체크 박스 선택 이벤트
 	$('#partner_check_all').click(function(){
@@ -261,14 +281,18 @@
 		if($('input[name=partner_check]:checked').length > 0){
 			if(confirm('정말로 승인하시겠습니까?')){
 				let data_arr = [];
+				let pt_arr = [];
 				$('input[name=partner_check]').each(function(idx, el){
 					if($(el).is(':checked')){
 						data_arr.push($(el).data('index'));
+						pt_arr.push({pt_id: $(el).data('pt'), pt_fee: $(el).data('fee')});
 					}
 				});
-				let data = {aprv_list : data_arr};
+				let data = {
+					aprv_list : data_arr,
+					pt_list : pt_arr
+				};
 				let res = await axios.post('/admin/partner/partnerApprove', data);
-				console.log(res);
 				if(res.data.code == 200){
 					location.reload();
 				}else{

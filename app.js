@@ -82,6 +82,12 @@ app.use('/admin/*', function (req, res, next) {
   next();
 });
 
+app.use('/admin/popup/*', function (req, res, next) {
+  app.set('layout', 'partner_fee_popup');
+  app.set('views', path.join(__dirname, 'views/admin/popup'));
+  next();
+});
+
 // 로그인 관련 처리 auth 
 let zThorizer = require('./modules/authenticate');
 app.use(function (req, res, next) {
