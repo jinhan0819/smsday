@@ -7,6 +7,7 @@ module.exports = function () {
 
     /* 문자관리 */
     router.get('/smsTemplate', smsController.smsTemplate);
+    router.post('/cateInsert', smsController.cateInsert);
 
     /* 문자내역관리 */
     router.get('/smsLog', smsController.smsLog);
