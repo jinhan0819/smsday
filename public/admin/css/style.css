@@ -1231,6 +1231,13 @@ input[type="text"].w300 {
 	transition-duration: 0.5s
 }
 
+/* 페이징 CSS */
+.pagenation{display: flex; align-items: center; justify-content: center; margin-top: 50px}
+.pagenation a{width: 30px; height: 30px; text-align: center; line-height: 30px; color: #222; border: 1px solid #dfdfdf; margin: 0 2px; border-radius: 5px }
+.pagenation a:hover, .pagenation a.atv{border-color: #222; color: #222; transition-duration: .5s}
+.pagenation a.pre{margin-right: 15px}
+.pagenation a.next{margin-left: 15px}
+
 /* 문자관리 CSS */
 .sample{margin-top: 15px;display: flex; flex-wrap: wrap}
 .sample .sample_box{width: calc(25% - 10px); margin:5px; border: 1px solid #dfdfdf; padding: 15px; border-radius: 15px; background-color: #fff;}
