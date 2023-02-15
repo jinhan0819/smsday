@@ -32,10 +32,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="td_on">
-						<a href="javascript:void(0);" class="btnstyle on">축하<span class="marl10">X</span></a>
-						<a href="javascript:void(0);" class="btnstyle">기념<span class="marl10">X</span></a>
-						<a href="javascript:void(0);" class="btnstyle">안부<span class="marl10">X</span></a>
+					<td class="td_on" id="cate_list">
 					</td>
 				</tr>
 				<tr>
@@ -43,7 +40,7 @@
 					<td>
 					<div class="sample mart0">
 						<div class="sample_box">
-							<textarea></textarea>
+							<textarea id="st_text"></textarea>
 							<!-- <p>
 								문자메세지 내용입니다.!!<br>
 								문자메세지 내용입니다.!!<br>
@@ -66,155 +63,225 @@
 	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit" onclick="memberModify()">추가</a>
-		<a href="javascript:history.back();" class="btn_submit">취소</a>
+		<a href="javascript:void(0);" class="btn_submit" onclick="smsAdd()">추가</a>
+		<a href="javascript:void(0);" onclick="clearSms()" class="btn_submit">취소</a>
 	</div>
 
 	<div class="tab_are stiky mart50">
-		<ul class="left">
-			<li><a href="javascript:void(0);" class="on">전체(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);">축하(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);">기념(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);">안부(<span>0</span>)</a></li>
+		<ul class="left" id="cate_header">
+			<li><a href="javascript:void(0);" class="on">전체(<span id="totalCount">0</span>)</a></li>
 		</ul>
 	</div>
 
-	<div class="sample">
-		<div class="sample_box">
-			<p>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!! 문자메세지 내용입니다.!!문자메세지 내용입니다.!!문자메세지 내용입니다.!!문자메세지 내용입니다.!!문자메세지 내용입니다.!!문자메세지
-				내용입니다.!!문자메세지 내용입니다.!!
-			</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
+	<div class="sample" id="sms_list">
 
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
-
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
-
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
-
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
-
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
-
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
-
-		<div class="sample_box">
-			<p>문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!<br>
-				문자메세지 내용입니다.!!</p>
-			<div class="sample_btn">
-				<a href="#" class="btn01 btn">수정</a>
-				<a href="#" class="btn02 btn">삭제</a>
-			</div>
-		</div>
 	</div>
 
-	<div class="pagenation">
-		<a href="#none" class="start">
-			<img src="/front/images/pagenation/ll.png">
-		</a>
-		<a href="#none" class="pre">
-			<img src="/front/images/pagenation/l.png">
-		</a>
-
-		<a href="#" class="atv">1</a>
-		<a href="#" class="">2</a>
-		<a href="#" class="">3</a>
-		<a href="#" class="">4</a>
-		<a href="#" class="">5</a>
-
-		<a href="#none" class="next">
-			<img src="/front/images/pagenation/r.png">
-		</a>
-		<a href="#none" class="end">
-			<img src="/front/images/pagenation/rr.png">
-		</a>
-	</div>
+	<div class="pagenation" id="pagenation_view"></div>
 
 </section>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	async function cateInsert(){
+	pagination.perPage = 8;
+
+	// 검색 파라미터 (전역변수)
+	let params = {
+		paging : pagination
+	};
+
+	function getParams(){
+		params.paging = pagination;
+		return params;
+	}
+
+	// 현상 유지 (조건 검색 시)
+	function paramsInit(){
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params = JSON.parse(getLocalStorage('search_params'));
+			pagination = params.paging;
+			
+			$('#cate_header').find('a').removeClass('on');
+			$('#cate_header').find('a').each(function(idx, el){
+				if($(el).data('id') == params.cate_index_no){
+					$(el).addClass('on');
+				}
+			});
+		}
+	}
+
+	async function init(){
+		/* 카테고리 리스트 */
+		let res = await axios.post('/admin/sms/getCateList', {});
+		
+		let cate_html = '';
+		let cate_list = res.data.result;
+		cate_list.forEach(item => {
+			cate_html += `
+				<a href="javascript:void(0);" class="btnstyle" name="cateInfo">
+					<span class="catename">${item.sc_catename}</span>
+					<span class="marl10" data-id=${item.index_no} name="delCate">X</span>
+				</a>
+			`;
+		});
+		$('#cate_list').html(cate_html);
+
+		/* 카테고리 헤더 */
+		let cateHeaderRes = await axios.post('/admin/sms/getSmsHeaderCount', {});
+		let cate_header_list = cateHeaderRes.data.result;
+
+		let totalCount = cate_header_list.reduce((acc, obj) => acc + obj.cate_count, 0);
+		$('#totalCount').text(totalCount);
+
+		cate_header_list.forEach(item => {
+			let cate_header_html = `
+				<li name="cate_header">
+					<a href="javascript:void(0);" data-id="${item.cate_index_no}">${item.sc_catename}(<span>${item.cate_count}</span>)</a>
+				</li>
+			`;
+			$('#cate_header').append(cate_header_html);
+		});
+		paramsInit();
+		getSmsInfoList();
+	}
+	init();
+
+	async function getSmsInfoList(){
+
+		/* 문자 리스트 */
+		let data = params;
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
+
+		let smsRes = await axios.post('/admin/sms/getSmsList', params);
+
+		let sms_html = '';
+		let sms_list = smsRes.data.result;
+		sms_list.forEach(item => {
+			sms_html += `
+			<div class="sample_box">
+				<textarea rows="10" id="st_text_${item.index_no}">${item.st_text}</textarea>
+				<div class="sample_btn">
+					<a href="javascript:void(0);" class="btn01 btn" data-id="${item.index_no}">수정</a>
+					<a href="javascript:void(0);" class="btn02 btn" data-id="${item.index_no}">삭제</a>
+				</div>
+			</div>
+			`
+		});
+		$('#sms_list').html(sms_html);
+
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/sms/getSmsCount', params, pagination.page, pagination.perPage, 5, 'getSmsInfoList'));
+	}
+
+	/* 카테고리(추가 단) 클릭 이벤트  */
+	$(document).on('click', '.catename', async function(){
+		if($(this).parent().hasClass('on')){
+			$(this).parent().removeClass('on');
+		}else{
+			$('.btnstyle').removeClass('on');
+			$(this).parent().addClass('on');
+		}
+	});
+
+	// 카테고리 삭제 이벤트
+	$(document).on('click', 'span[name=delCate]', async function(){
+		if(confirm('카테고리를 삭제하시면 해당 카테고리에 속한 문자들도 모두 삭제됩니다.\n삭제하시겠습니까?')){
+			let data = {index_no : $(this).data('id')};
+			let res = await axios.post('/admin/sms/cateDelete', data);
+			if(res.data.code == 200){
+				clearLocalStorage();
+				location.reload();
+			}else{
+				alert('삭제 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+		}
+	});
+
+	/* 카테고리(리스트 단) 헤더 클릭 이벤트 */
+	$(document).on('click', '#cate_header li', function(){
+		params.cate_index_no = $(this).children().data('id');
+		params.paging.page = 1;
+		$('#cate_header').find('a').removeClass('on');
+		$(this).children().addClass('on');
+		getSmsInfoList();
+	});
+
+	/* 문자 리스트 수정 및 삭제 이벤트 */
+	$(document).on('click', '.btn01.btn', async function(){
 		let data = {
-			sc_catename: $('#cate_text').val(),
-			sc_gubun: $('#cate_gubun').val()
+			index_no: $(this).data('id'),
+			st_text: $('#st_text_'+$(this).data('id')).val()
+
 		};
-		let res = await axios.post('/admin/sms/cateInsert', data);
-		console.log(res);
+		let res = await axios.post('/admin/sms/smsUpdate', data);
 		if(res.data.code == 200){
+			location.reload();
+		}else{
+			alert('수정 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+		}
+	})
+
+	$(document).on('click', '.btn02.btn', async function(){
+		if(confirm('삭제하시겠습니까?')){
+			let data = {
+				index_no: $(this).data('id')
+			};
+			let res = await axios.post('/admin/sms/smsDelete', data);
+			if(res.data.code == 200){
+				location.reload();
+			}else{
+				alert('문자 삭제 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+		}
+	})
+
+	// 문자 취소
+	function clearSms(){
+		$('.btnstyle').removeClass('on');
+		$('#st_text').val('');
+	}
+
+	// 카테고리 등록
+	async function cateInsert(){
+		if($('#cate_text').val() !== ''){
+			let data = {
+				sc_catename: $('#cate_text').val(),
+				sc_gubun: $('#cate_gubun').val()
+			};
+			let res = await axios.post('/admin/sms/cateInsert', data);
+			
+			if(res.data.code == 200){
+				location.reload();
+			}else{
+				alert('추가 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+		}else{
+			alert('카테고리 명을 입력해주세요.')
+		}
+	}
+
+	// 문자 등록
+	async function smsAdd(){
+		let data = {};
+		$('#cate_list').find('a').each(function(idx, el){
+			if($(el).hasClass('on')){
+				let selTag = $(el).children()[1];
+				data.cate_index_no = $(selTag).data('id');
+			}
+		})
+		data.st_text = $('#st_text').val();
+
+		if(typeof data.cate_index_no === 'undefined'){
+			alert('카테고리를 선택해주세요.');
+		}else if(data.st_text === ''){
+			alert('문자 내용을 입력해주세요.');
+		}
+
+		let res = await axios.post('/admin/sms/smsInsert', data);
+		if(res.data.code == 200){
+			alert('문자가 추가되었습니다.');
 			location.reload();
 		}else{
 			alert('추가 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
