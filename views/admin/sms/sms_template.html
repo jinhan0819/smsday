@@ -264,6 +264,8 @@
 
 	// 문자 등록
 	async function smsAdd(){
+		let add_bool = true;
+
 		let data = {};
 		$('#cate_list').find('a').each(function(idx, el){
 			if($(el).hasClass('on')){
@@ -275,16 +277,20 @@
 
 		if(typeof data.cate_index_no === 'undefined'){
 			alert('카테고리를 선택해주세요.');
+			add_bool = false;
 		}else if(data.st_text === ''){
 			alert('문자 내용을 입력해주세요.');
+			add_bool = false;
 		}
 
-		let res = await axios.post('/admin/sms/smsInsert', data);
-		if(res.data.code == 200){
-			alert('문자가 추가되었습니다.');
-			location.reload();
-		}else{
-			alert('추가 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+		if(add_bool){
+			let res = await axios.post('/admin/sms/smsInsert', data);
+			if(res.data.code == 200){
+				alert('문자가 추가되었습니다.');
+				location.reload();
+			}else{
+				alert('추가 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
 		}
 	}
 </script>
