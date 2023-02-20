@@ -20,6 +20,8 @@ module.exports = function () {
 
     /* 문자내역관리 */
     router.get('/smsLog', smsController.smsLog);
+    router.post('/getSmsLogCount', smsController.getSmsLogCount);
+    router.post('/getSmsLogList', smsController.getSmsLogList);
 
     return router;
 

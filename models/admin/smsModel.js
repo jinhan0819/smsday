@@ -139,4 +139,85 @@ module.exports = {
         let rslt = await db.queryTransaction(sql, params);
         return rslt;
     },
+    getSmsLogCount: async function(data){
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql = `AND B.mb_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql = `AND B.mb_name LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'hp') search_sql = `AND B.mb_hp LIKE '%${data.keyword}%'`;
+        }
+
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            search_sql += `AND DATE_FORMAT(A.create_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
+
+        let sql = `
+            SELECT
+                COUNT(A.index_no) AS total_count 
+            FROM TB_SMS_LOG A
+            LEFT OUTER JOIN TB_MEMBER B ON (A.sl_sender_id = B.mb_id)
+            WHERE A.pt_id = ?
+            ${search_sql}
+        `;
+        let rslt = await db.queryTransaction(sql, [data.pt_id]);
+        return rslt;
+    },
+    getSmsLogList: async function(data){
+        let params = paging.pagingRange(data.paging);
+
+        let search_sql = ``;
+        if(typeof data.keycode !== 'undefined'){
+            if(data.keycode == 'id') search_sql = `AND B.mb_id LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'name') search_sql = `AND B.mb_name LIKE '%${data.keyword}%'`;
+            else if(data.keycode == 'hp') search_sql = `AND B.mb_hp LIKE '%${data.keyword}%'`;
+        }
+
+        if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
+            search_sql += `AND DATE_FORMAT(A.create_datetime, '%Y-%m-%d') BETWEEN '${data.date.start}' AND '${data.date.end}'`;
+        }
+
+        let sql = `
+            SELECT
+                @ROWNUM := @ROWNUM + 1 AS rownum,
+                Z.index_no,
+                Z.pt_id,
+                Z.sl_sender_id,
+                Z.sl_receiver_hp,
+                DATE_FORMAT(Z.create_datetime, '%Y-%m-%d %H:%i:%s') AS create_datetime,
+                Z.sl_text,
+                Z.sl_gubun,
+                IF(Z.sl_gubun = TRUE, '장문', '단문') AS gubun,
+                Z.mb_id,
+                Z.mb_name,
+                Z.mb_hp,
+                CASE
+                    WHEN Z.mb_level = 1 THEN '회원'
+                    WHEN Z.mb_level = 2 THEN '가맹점'
+                    WHEN Z.mb_level = 10 THEN '관리자'
+                END AS mb_level_nm
+            FROM (
+                SELECT
+                    A.index_no,
+                    A.pt_id,
+                    A.sl_sender_id,
+                    A.sl_receiver_hp,
+                    DATE_FORMAT(A.create_datetime, '%Y-%m-%d %H:%i:%s') AS create_datetime,
+                    A.sl_text,
+                    A.sl_gubun,
+                    B.mb_id,
+                    B.mb_name,
+                    B.mb_hp,
+                    B.mb_level
+                FROM TB_SMS_LOG A
+                LEFT OUTER JOIN TB_MEMBER B ON (A.sl_sender_id = B.mb_id)
+                WHERE A.pt_id = '${data.pt_id}'
+                ${search_sql}
+                ORDER BY A.create_datetime
+            ) Z, (SELECT @ROWNUM := 0) R
+            ORDER BY rownum DESC 
+            LIMIT ?, ?
+        `;
+        let rslt = await db.queryTransaction(sql, params);
+        return rslt;
+    },
 }

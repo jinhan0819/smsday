@@ -68,4 +68,18 @@ module.exports = {
     smsLog: function (req, res, next) {
         res.render('sms/sms_log');
     },
+    getSmsLogCount: async function (req, res, next) {
+        let data = req.body;
+        let pt_id = sess.getPlain(req, 'memberInfo').mb_id;
+        data.pt_id = pt_id;
+        let rslt = await smsModel.getSmsLogCount(data);
+        res.send(rslt);
+    },
+    getSmsLogList: async function (req, res, next) {
+        let data = req.body;
+        let pt_id = sess.getPlain(req, 'memberInfo').mb_id;
+        data.pt_id = pt_id;
+        let rslt = await smsModel.getSmsLogList(data);
+        res.send(rslt);
+    },
 };
