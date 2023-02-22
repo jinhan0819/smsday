@@ -77,16 +77,22 @@ app.use('/front/*', function (req, res, next) {
 });
 
 app.use('/admin/*', function (req, res, next) {
-  app.set('layout', 'ad_layout');
-  app.set('views', path.join(__dirname, 'views/admin'));
+  let checkUrl = req.baseUrl.split('/');
+  if(checkUrl[2].indexOf('popup') > -1){
+    app.set('layout', 'pop_layout');
+    app.set('views', path.join(__dirname, 'views/admin/popup'));
+  }else{
+    app.set('layout', 'ad_layout');
+    app.set('views', path.join(__dirname, 'views/admin'));
+  }
   next();
 });
 
-app.use('/admin/popup/*', function (req, res, next) {
-  app.set('layout', 'partner_fee_popup');
-  app.set('views', path.join(__dirname, 'views/admin/popup'));
-  next();
-});
+// app.use('/admin/popup/*', function (req, res, next) {
+//   app.set('layout', 'popup_layout');
+//   app.set('views', path.join(__dirname, 'views/admin/popup'));
+//   next();
+// });
 
 // 로그인 관련 처리 auth 
 let zThorizer = require('./modules/authenticate');

@@ -3,7 +3,7 @@ let config = require('../../config');
 let file = require('../../modules/file')
 
 module.exports = {
-    partner_fee_popup: function (req, res, next) {
-        res.render('popup/partner_fee_popup');
+    partnerFeePopup: function (req, res, next) {
+        res.render('partner_fee_popup');
     },
 };

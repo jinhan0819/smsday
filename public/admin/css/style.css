@@ -915,7 +915,7 @@ a.state_box {
 }
 
 .pop_form_are {
-	background: #fff;
+	/* background: #fff; */
 	padding: 20px 15px;
 	max-height: 550px;
 	overflow-y: auto

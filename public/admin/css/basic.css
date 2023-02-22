@@ -359,3 +359,6 @@ ul.ofh li{float:left}
 
 /*textarea*/
 .tsize-none {resize:none;}
+
+/*box-shadow*/
+.no_bshadow {box-shadow:none;}

@@ -5,8 +5,8 @@ module.exports = function () {
 
     let router = express.Router();
 
-    /* 로고 관리 */
-    router.get('/partner_fee_popup', popupController.partner_fee_popup);
+    /* 가맹점사용료 상세내역 팝업 */
+    router.get('/partnerFeePopup', popupController.partnerFeePopup);
 
     return router;
 

@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<th>팝업내용</th>
-					<td id="popEditor"></td>
+					<td><div id="classic"></div></td>
 				</tr>
 				<tr>
 					<th class="padt17 padb17">노출여부</th>
@@ -58,7 +58,7 @@
 	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit" onclick="partnerModify()">저장</a>
+		<a href="javascript:void(0);" class="btn_submit" onclick="">저장</a>
 		<a href="javascript:history.back();" class="btn_submit">취소</a>
 	</div>
 
@@ -66,9 +66,22 @@
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-	async function init(){
-		$('#popEditor').html(await editor_html('pop_memo', '12345'));
+
+<!-- 넓이 높이 조절 -->
+<style>
+	.ck.ck-editor {
+		width: 100%;
 	}
-	init();
+	.ck-editor__editable {
+		min-height: 500px;
+	}
+</style>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+<script>
+	ClassicEditor
+		.create( document.querySelector( '#classic' ), {language: "ko"})
+		.catch( error => {
+			console.error( error );
+		} );
 </script>
