@@ -1244,7 +1244,8 @@ input[type="text"].w300 {
 .sample .sample_box p{height: 150px; font-size: 14px; line-height: 22px; overflow-y: auto}
 .sample .sample_box .sample_btn{display: flex; margin-top: 15px;}
 .sample .sample_box .sample_btn .btn{height: 30px; border: 1px solid #dfdfdf; flex: 1; margin: 0 5px; text-align: center; line-height: 30px; border-radius: 10px; color: #222}
-
 .sample .sample_box img{width: 100%}
-
 .sample .sample_box .sample_btn .btn.btn01{background:#121217; color: #fff }
+
+/*화면낭독기 사용자용*/
+.sound_only {display:inline-block !important;position:absolute;top:0;left:0;margin:0 !important;padding:0 !important;font-size:0;line-height:0;border:0 !important;overflow:hidden !important}

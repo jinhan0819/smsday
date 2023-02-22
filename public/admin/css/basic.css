@@ -351,5 +351,11 @@ ul.ofh li{float:left}
 .mnw50{min-width: 50px !important}
 .mnw150{min-width: 150px !important}
 
+/*min-height*/
+.mnh150{min-height: 150px !important}
+
 /*max-width*/
 .mxw50{max-width: 50px !important}
+
+/*textarea*/
+.tsize-none {resize:none;}

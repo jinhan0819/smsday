@@ -1,0 +1,82 @@
+<section class="main">
+	<div class="title">
+		<h2>배너 관리</h2>
+		<div class="time">
+			<span id="todayIs"></span>
+			<span>
+				<b>
+					<span><img src="/admin/images/time.png"></span>
+					<em id="clock" style="font-style: normal"></em>
+				</b>
+			</span>
+		</div>
+	</div>
+
+	<div class="table table_are textleft mart50">
+		<div class="table">
+			<table>
+				<tr>
+					<th>노출위치</th>
+					<td>
+						<select>
+							<option>[고정] 최상단배너</option>
+							<option>[롤링] 메인배너</option>
+							<option>[고정] 하단배너</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>배너파일</th>
+					<td class="filebox">
+						<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="banner_file_nm" onclick="openSelFile('banner_file')">
+						<label for="banner_file">파일선택</label>
+						<input type="file" class="pad4" id="banner_file" hidden>
+						<a href="javascript:void(0);" class="file_del" id="banner_file_del" data-id="banner_file">삭제</a>
+						<div class="mart20">
+							<img src="/admin/images/thum.png">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>링크주소</th>
+					<td>
+						<input type="text" size="35">
+						<select>
+							<option>현재창</option>
+							<option>새창</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>가로사이즈</th>
+					<td><input type="text" placeholder="" id="" size="5">&nbsp;<span class="fc_blk">px</span></td>
+				</tr>
+				<tr>
+					<th>세로사이즈</th>
+					<td><input type="text" placeholder="" id="" size="5">&nbsp;<span class="fc_blk">px</span></td>
+				</tr>
+				<tr>
+					<th>순서</th>
+					<td><input type="text" placeholder="" id="" size="5"></td>
+				</tr>
+				<tr>
+					<th class="padt17 padb17">노출여부</th>
+					<td>
+						<input type="checkbox"><span>노출</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="btn_confirm">
+		<a href="javascript:void(0);" class="btn_submit" onclick="partnerModify()">저장</a>
+		<a href="javascript:history.back();" class="btn_submit">취소</a>
+	</div>
+
+</section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+</script>

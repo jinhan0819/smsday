@@ -10,9 +10,11 @@ module.exports = function () {
 
     /* 배너 관리 */
     router.get('/bannerList', deignController.bannerList);
+    router.get('/bannerForm', deignController.bannerForm);
 
-    /* 배너 관리 */
+    /* 팝업 관리 */
     router.get('/popupList', deignController.popupList);
+    router.get('/popupForm', deignController.popupForm);
 
     return router;
 

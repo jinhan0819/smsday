@@ -26,7 +26,7 @@
 				<select id="search_keycode">
 					<option value="id">ID</option>
 					<option value="name">회원명</option>
-					<option value="hp">핸드폰번호</option>
+					<option value="hp">핸드폰번호?</option>
 					<option>발신번호</option>
 					<option>수신번호</option>
 				</select>
@@ -94,7 +94,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">회원명</th>
 					<th scope="col">회원구분</th>
-					<!-- <th scope="col">제목</th> -->
+					<th scope="col">제목</th>
 					<th scope="col">내용</th>
 					<th scope="col">발신번호</th>
 					<th scope="col">수신번호</th>
@@ -184,6 +184,7 @@
 						<td scope="col">${item.mb_id}</td>
 						<td scope="col">${item.mb_name}</td>
 						<td scope="col">${item.mb_level_nm}</td>
+						<td scope="col">-</td>
 						<td scope="col">${item.sl_text}</td>
 						<td scope="col">${item.mb_hp}</td>
 						<td scope="col">${item.sl_receiver_hp}</td>
