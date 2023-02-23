@@ -44,6 +44,31 @@ module.exports = {
     //         userEmail : this.getDec(req, 'userEmail')
     //     };
     // },
+    newSessionPlain: async function(req, key, data){
+        // 현재 세션을 삭제합니다.
+        // req.session.destroy(async (err) => {
+        //     if (err) {
+        //         console.error(err);
+        //         return res.status(500).send('세션 삭제에 실패했습니다.');
+        //     }
+
+        //     // 새로운 세션을 발급받습니다.
+        //     req.session.regenerate((err) => {
+        //     if (err) {
+        //         console.error(err);
+        //         return res.status(500).send('세션 발급에 실패했습니다.');
+        //     }
+
+        //     // 새로운 세션 데이터를 설정합니다.
+        //     req.session[key] = data;
+
+        //     // 회원정보 수정 후 메인 페이지로 리다이렉트합니다.
+        //     });
+        // });
+        // req.session.destroy();
+        req.session.regenerate();
+        req.session[key] = data;
+    },
     Clear: function (req, res) {
         req.session.destroy();
         res.clearCookie('S_DATA');

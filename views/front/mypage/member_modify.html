@@ -9,13 +9,14 @@
             <li>
                 <div class="flex_my">
                     <span>이름</span>
-                    <input type="text" value="홍길동">
+                    <span><%= memberInfo.mb_name %></span>
                 </div>
             </li>
             <li>
+                <form id="frm" method="POST" action="/front/mypage/memberCheck" onsubmit="return memberCheckFunc();">
                 <div class="flex_my">
                     <span>비밀번호</span>
-                    <input type="password" value="">
+                    <input type="password" id="mb_password" name="mb_password" value="">
                 </div>
             </li>
         </ul>
@@ -26,6 +27,21 @@
     </div>
     <div class="btn_pry">
         <!--a href="#" class="btn01 btn">취소</a-->
-        <a href="#" class="btn02 btn">확인</a>
+        <a href="javascript:void(0)" class="btn02 btn" onclick="onSubmit()">확인</a>
     </div>
 </section>
+
+<script>
+    function onSubmit(){
+        $('#frm').submit();
+    }
+
+    function memberCheckFunc(){
+        if($('#mb_password').val() == ''){
+            alert('비밀번호를 입력해주세요.');
+            return false;
+        }
+
+        return true;
+    }
+</script>

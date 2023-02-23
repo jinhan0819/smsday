@@ -5,32 +5,75 @@
 
     <div class="mybox">
         <h2>"회원님의 개인정보 보호를 위해 쉬운 비밀번호는 자제해 주세요."</h2>
+        <form id="frm" method="POST" action="/front/mypage/passwordUpdate" onsubmit="return passwordCheckFunc();">
         <ul>
             <li>
                 <div class="flex_my">
                     <span>현재 비밀번호</span>
-                    <input type="password" value="">
+                    <input type="password" value="" name="mb_password" id="mb_password">
                 </div>
             </li>
             <li>
                 <div class="flex_my">
                     <span>새 비밀번호</span>
-                    <input type="password" value="" placeholder="">
+                    <input type="password" value="" placeholder="" name="mb_new_password" id="mb_new_password">
                 </div>
                 <p>* 영문, 숫자, 특수문자를 조합하여 8~20자로 입력해 주세요.</p>
             </li>
             <li>
                 <div class="flex_my">
                     <span>비밀번호 확인</span>
-                    <input type="password" value="">
+                    <input type="password" value="" id="mb_new_password_ok">
                 </div>
             </li>
         </ul>
+        </form>
     </div>
 
 
     <div class="btn_pry">
         <!--a href="#" class="btn01 btn">취소</a-->
-        <a href="#" class="btn02 btn">변경하기</a>
+        <a href="javascript:void(0)" class="btn02 btn" onclick="onSubmit()">변경하기</a>
     </div>
 </section>
+
+<script type="text/javascript" src="/front/js/validation.js"></script>
+<script>
+    function onSubmit(){
+        $('#frm').submit();
+    }
+
+    function passwordCheckFunc(){
+        if($('#mb_password').val() == ''){
+            alert('비밀번호를 입력해주세요.');
+            return false;
+        }
+        if($('#mb_new_password').val() == ''){
+            alert('새 비밀번호를 입력해주세요.');
+            return false;
+        }
+        if($('#mb_new_password_ok').val() == ''){
+            alert('새 비밀번호 확인을 입력해주세요.');
+            return false;
+        }
+
+        if($('#mb_password').val() == $('#mb_new_password').val()){
+            alert('현재 비밀번호와 새 비밀번호가 같습니다. 다르게 입력해주세요.');
+            return false;
+        }
+
+        // 비밀번호 정규식
+        if($('#mb_new_password').val() !== '' && !passwordValidationCheck($('#mb_new_password').val())){
+            alert('비밀번호 정규식에 맞게 입력해주세요.');
+            return false;
+        }
+
+        // 비밀번호 & 비밀번호 확인 체크
+        if($('#mb_new_password').val() !== $('#mb_new_password_ok').val()){
+            alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            return false;
+        }
+
+        return true;
+    }
+</script>

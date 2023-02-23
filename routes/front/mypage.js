@@ -12,6 +12,14 @@ module.exports = function () {
     router.get('/tel_modify', mypageController.tel_modify);
     router.get('/member_delete', mypageController.member_delete);
 
+    /* 내정보변경 */
+    router.post('/memberCheck', mypageController.memberCheck);
+    router.post('/memberUpdate', mypageController.memberUpdate);
+    
+    /* 패스워드 변경 */
+    router.post('/passwordUpdate', mypageController.passwordUpdate);
+
+
     return router;
 
 };

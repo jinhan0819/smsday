@@ -55,12 +55,21 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+let indexModel = require('./models/indexModel');
+let sess = require('./modules/session');
 // 세션을 담아놓는다.
-app.use(function (req, res, next) {
+app.use(async function (req, res, next) {
+  if (!req.session) {
+    req.session = {};
+  }
+
   if (typeof req.session.auth !== 'undefined'){
       res.locals.isLogin = (req.session.auth > 0);
       res.locals.auth = req.session.auth;
-      res.locals.memberInfo = req.session.memberInfo; 
+      // res.locals.memberInfo = req.session.memberInfo; 
+      let memberInfo = await indexModel.getMemberAllInfo(req.session.memberInfo);
+      res.locals.memberInfo = memberInfo.result[0];
+      sess.setPlain(req, 'memberInfo', res.locals.memberInfo);
   } else {
       res.locals.isLogin = false;
       res.locals.auth = req.session.auth;

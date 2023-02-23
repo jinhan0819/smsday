@@ -3,42 +3,68 @@
         <h2>환경설정</h2>
     </div>
     <div class="mybox">
-        <ul>
-            <li>
-                <div class="flex_my">
-                    <span>이름</span>
-                    <input type="text" value="" placeholder="홍길동">
-                </div>
-            </li>
-            <li>
-                <div class="flex_my">
-                    <span>핸드폰번호</span>
-                    <input type="text" value="" placeholder="01011111111">
-                </div>
-            </li>
-            <li>
-                <div class="flex_my">
-                    <span>비밀번호</span>
-                    <input type="text" value="아이디">
-                </div>
-            </li>
-            <li>
-                <div class="flex_my">
-                    <span>이메일</span>
-                    <input type="text" value="" placeholder="00@naver.com">
-                </div>
-            </li>
-            <li>
-                <div class="flex_my">
-                    <span>전화번호</span>
-                    <input type="text" value="" placeholder="020000000">
-                </div>
-            </li>
-        </ul>
+        <form id="frm" method="POST" action="/front/mypage/memberUpdate" onsubmit="return memberCheckFunc();">
+            <ul>
+                <li>
+                    <div class="flex_my">
+                        <span>이름</span>
+                        <input type="text" value="<%= memberInfo.mb_name %>" name="mb_name" id="mb_name" placeholder="">
+                    </div>
+                </li>
+                <li>
+                    <div class="flex_my">
+                        <span>핸드폰번호</span>
+                        <input type="text" value="<%= memberInfo.mb_hp %>" name="mb_hp" id="mb_hp" placeholder="" maxlength="13">
+                    </div>
+                </li>
+                <!-- <li>
+                    <div class="flex_my">
+                        <span>비밀번호</span>
+                        <input type="text" value="아이디">
+                    </div>
+                </li> -->
+                <li>
+                    <div class="flex_my">
+                        <span>이메일</span>
+                        <input type="text" value="<%= memberInfo.mb_email %>" name="mb_email" id="mb_email" placeholder="">
+                    </div>
+                </li>
+                <!-- <li>
+                    <div class="flex_my">
+                        <span>전화번호</span>
+                        <input type="text" value="<%= memberInfo.mb_name %>" placeholder="020000000">
+                    </div>
+                </li> -->
+            </ul>
+        </form>
     </div>
 
     <div class="btn_pry">
-        <!--a href="#" class="btn01 btn">취소</a-->
-        <a href="#" class="btn02 btn">변경하기</a>
+        <a href="javascript:void(0)" class="btn02 btn" onclick="onSubmit()">변경하기</a>
     </div>
 </section>
+
+<script type="text/javascript" src="/front/js/validation.js"></script>
+<script>
+    function onSubmit(){
+        $('#frm').submit();
+    }
+
+    function memberCheckFunc(){
+        if($('#mb_name').val() == ''){
+            alert('이름을 입력해주세요.');
+            return false;
+        }
+        if($('#mb_hp').val() == ''){
+            alert('전화번호를 입력해주세요.');
+            return false;
+        }
+        // 이메일 정규식
+        if($('#mb_email').val() !== '' && !doCheckEmail($('#mb_email').val())){
+            alert('이메일 형식이 올바르지 않습니다.');
+            return false;
+        }
+
+        return true;
+    }
+</script>

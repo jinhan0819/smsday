@@ -36,6 +36,11 @@ module.exports = {
         let result = await indexModel.getMemberInfo(data);
         res.send(result);
     },
+    getMemberAllInfo: async function (req, res, next) {
+        let data = req.body;
+        let result = await indexModel.getMemberAllInfo(data);
+        res.send(result);
+    },
     fileUpload: function (req, res) {
         file.fileUpload(req, async (result) => {
             let rslt = await indexModel.insertAtchmFile(result);
