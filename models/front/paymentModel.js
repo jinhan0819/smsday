@@ -3,6 +3,7 @@ let config = require('../../config');
 
 module.exports = {
     chargeRequest: async function(data){
+        // 가맹점별 수정 부분
         data.pt_id = 'admin'
         data.pf_contents = '충전 요청';
         data.pf_request_datetime = new Date();
