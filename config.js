@@ -62,7 +62,8 @@ module.exports = {
     //특정 권한이 필요한 경우에만 정책으로 등록
     policy: [
         // {pathway: '/notice/list', authority: guest},
-        {pathway: '/front/*', authority: guest},
+        {pathway: '/front/', authority: guest},
+        {pathway: '/front/*', authority: user},
         {pathway: '/admin/*', authority: admin},
     ], 
 

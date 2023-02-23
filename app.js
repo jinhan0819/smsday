@@ -110,7 +110,10 @@ app.use(function (req, res, next) {
             break;
         case -1 :
             //로그인필요
-            res.redirect('/');
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.write("<script>alert('서비스를 이용하시려면 로그인해주세요.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            // res.redirect('/');
             break;
     }
 });
