@@ -38,11 +38,21 @@ function clearLocalStorage() {
 }
 
 // URL Parameter 만들기 
+// async function makeParamsUrl(data){
+//     let url_params = '';
+//     await Object.keys(data).reduce(async (pre, key, index) => {
+//         return pre.then(async ()=> new Promise(async (resolve) => {
+//             url_params += (index === 0 ? "?" : "&") + key + "=" + String(data[key]);
+//             resolve();
+//         }));
+//     }, Promise.resolve());
+//     return url_params;
+// }
 async function makeParamsUrl(data){
     let url_params = '';
     await Object.keys(data).reduce(async (pre, key, index) => {
         return pre.then(async ()=> new Promise(async (resolve) => {
-            url_params += (index === 0 ? "?" : "&") + key + "=" + String(data[key]);
+            url_params += (index === 0 ? "?" : "&") + key + "=" + String(Base64.encode(data[key]));
             resolve();
         }));
     }, Promise.resolve());

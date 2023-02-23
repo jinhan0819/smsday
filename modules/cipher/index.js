@@ -123,6 +123,21 @@ module.exports = {
         decrypted = Buffer.concat([decrypted, decipher.final()]);
         return decrypted.toString();
     },
+
+    encBase64: function (text) {
+        if(typeof text != 'undefined'){
+            return Buffer.from(text).toString('base64');
+        }else{
+            return '';
+        }
+    },
+    decBase64: function (text) {
+        if(typeof text != 'undefined'){
+            return Buffer.from(text, "base64").toString('utf8');
+        }else{
+            return '';
+        }
+    }
 };
 
 
