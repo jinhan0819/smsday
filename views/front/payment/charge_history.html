@@ -48,32 +48,6 @@
                 <td>30,000</td>
                 <td>LMS</td>
                 <td></td>
-            </tr>
-
-            <tr>
-                <td>2023.01.10</td>
-                <td>30,000</td>
-                <td>LMS</td>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td>2023.01.10</td>
-                <td>30,000</td>
-                <td>LMS</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2023.01.10</td>
-                <td>30,000</td>
-                <td>MMS</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2023.01.10</td>
-                <td>30,000</td>
-                <td>SMS</td>
-                <td></td>
             </tr> -->
         </table>
     </div>
@@ -122,7 +96,6 @@
         data.startDate = $('#start_date').val();
         data.endDate = $('#end_date').val();
         let makeParams = await makeParamsUrl(data);
-        console.log(makeParams)
         location.href = '/front/payment/charge_history'+makeParams; 
     }
 
