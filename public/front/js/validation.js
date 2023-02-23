@@ -1,10 +1,19 @@
 $(function(){
     // 전화번호 keyup
-    $(document).on("keyup", "#mb_hp", function() { 
+    $(document).on("keyup", "#mb_hp,#pt_tel,#pt_fax,#pt_manager_hp", function() { 
         $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
     });
-})
 
+    // 사업자번호 keyup
+    $(document).on("keyup", "#pt_saupja", function() { 
+        $(this).val($(this).val().replace(/[^0-9]/g, "").replace(/([0-9]{3})([0-9]{2})([0-9]{5})?/,"$1-$2-$3").replace("--", "-") ); 
+    });
+
+    // 금액 keyup
+    $(document).on("keyup", "#pf_fee", function() { 
+        $(this).val($(this).val().replace(/\,/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+    });
+})
 // 이메일 형식 체크
 function doCheckEmail(email){
     let emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9_-]+[A-Za-z0-9_-]*[.]{1}[A-Za-z]{1,3}$/;

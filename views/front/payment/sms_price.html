@@ -28,20 +28,46 @@
                 <h2>예금주 : 송병욱</h2>
             </li>
             <li>
-                <div class="tlb_flex_sms">
-                    <span>결제금액 :</span>
-                    <input type="text" class="half"><span>최저금액은 10,000원 입니다.</span>
-
-                </div>
-                <div class="tlb_flex_sms">
-                    <span>입금자명 :</span>
-                    <input type="text" class="half"><span>무통장 입금 시 입금자명에 아이디를 적으시면 충전과정이 빠르게 처리됩니다.</span>
-
-                </div>
+                <form id="frm" method="POST" action="/front/payment/chargeRequest" onsubmit="return chargeCheckFunc();">
+                    <div class="tlb_flex_sms">
+                        <span>결제금액 :</span>
+                        <input type="text" class="half" name="pf_fee" id="pf_fee"><span>최저금액은 10,000원 입니다.</span>
+    
+                    </div>
+                    <div class="tlb_flex_sms">
+                        <span>입금자명 :</span>
+                        <input type="text" class="half" name="pf_depositor" id="pf_depositor"><span>무통장 입금 시 입금자명에 아이디를 적으시면 충전과정이 빠르게 처리됩니다.</span>
+                    </div>
+                </form>
             </li>
         </ul>
     </div>
     <div class="btn_pry">
-        <a href="#" class="btn02 btn">충전요청하기</a>
+        <a href="javascript:void(0)" onclick="chargeSubmit();" class="btn02 btn">충전요청하기</a>
     </div>
 </section>
+
+<script type="text/javascript" src="/admin/js/validation.js"></script>
+<script>
+    function chargeCheckFunc(){
+        if($('#pf_fee').val() == ''){
+            alert('결제 금액을 입력해주세요.');
+            return false;
+        }else if(parseInt($('#pf_fee').val().replace(/,/g, '')) < 10000){
+            alert('10,000원 이상부터 충전 요청이 가능합니다');
+            return false;
+        }
+
+        if($('#pf_depositor').val() == ''){
+            alert('입금자명을 입력해주세요.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function chargeSubmit(){
+        $('#frm').submit();
+    }
+</script>
+
