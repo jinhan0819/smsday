@@ -83,3 +83,11 @@ function doCheckPassword(){
 
     return true;
 }
+
+// 숫자만 입력 onKeyup
+function docheckNumber(element) {
+    $(element).val(Number($(element).val().replace(/[^0-9]/g,"")));
+    return false;
+}
+
+

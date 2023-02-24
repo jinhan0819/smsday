@@ -11,12 +11,17 @@ module.exports = function () {
     /* 배너 관리 */
     router.get('/bannerList', deignController.bannerList);
     router.get('/bannerForm', deignController.bannerForm);
+    router.post('/bannerSave', deignController.bannerSave);
+    router.post('/getBannerDetail', deignController.getBannerDetail);
+    router.post('/getBannerCount', deignController.getBannerCount);
+    router.post('/getBannerList', deignController.getBannerList);
 
     /* 팝업 관리 */
     router.get('/popupList', deignController.popupList);
     router.get('/popupForm', deignController.popupForm);
 
     return router;
+
 
 };
 

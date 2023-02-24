@@ -19,10 +19,14 @@
 				<p>노출위치</p>
 			</li>
 			<li>
-				<select>
-					<option>[고정] 최상단배너</option>
-					<option>[롤링] 메인배너</option>
-					<option>[고정] 하단배너</option>
+				<select id="search_bncode">
+					<option value="001">[롤링] 메인배너</option>
+					<option value="002">[고정] 하단배너 상단(좌측)</option>
+					<option value="003">[고정] 하단배너 상단(중간)</option>
+					<option value="004">[고정] 하단배너 상단(우측)</option>
+					<option value="005">[고정] 하단배너 하단(좌측)</option>
+					<option value="006">[고정] 하단배너 하단(중간)</option>
+					<option value="007">[고정] 하단배너 하단(우측)</option>
 				</select>
 			</li>
 			<li>
@@ -116,7 +120,7 @@
 							<a href="javascript:void(0);" class="btn-example"><span><img src="/admin/images/okb.png"></span> 정보수정</a>
 						</td>
 					</tr>
-					<tr>
+					<tr style="display:none;">
 						<td scope="col" class="bl" colspan="7">
 							<img src="/admin/images/thum.png">
 						</td>
@@ -129,6 +133,123 @@
 </section>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
-
 <script>
+
+	let index_no = null;
+
+	/****************************** 검색 및 조회 START ******************************/
+
+	// 검색 파라미터 (전역변수)
+	let params = {
+		bncode : $('#search_bncode').val(),
+		paging : pagination
+	};
+
+	// 현상 유지 (조건 검색 시)
+	paramsInit();
+
+	function paramsInit(){
+		if(getLocalStorage('search_params') != null){
+			// 저장된 파라미터를 불러와 데이터 삽입
+			params 		= JSON.parse(getLocalStorage('search_params'));
+			pagination  = params.paging;
+			$("#bncode").val(params.bncode).prop("selected", true);
+		}
+		init();
+	}
+
+	async function init(){
+		let data = getParams();
+		
+		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
+
+		// 배너 count
+		let cnt = await axios.post('/admin/deign/getBannerCount', data);
+		for(let key in cnt.data.result[0]){
+			$('#'+key).text(cnt.data.result[0][key]);
+		}
+
+		// 배너 list
+		let banner = await axios.post('/admin/deign/getBannerList', data);
+
+		let list = banner.data.result;
+		let html = '';
+		if(list.length > 0){
+			list.forEach(item => {
+				html += `
+					<tr>
+						<td><input type="checkbox" name="banner_check" data-index=${item.index_no}></td>
+						<td scope="col" rowspan="2">${item.rownum}</td>
+						<td scope="col" rowspan="2">
+							<a href="#none" class="state_box ${!item.bn_use ? '' : 'on'}"><div class="state"></div></a>
+						</td>
+						<td scope="col" rowspan="2"><input type="text" class="w50" value="${item.bn_order}"></td>
+						<td scope="col">
+							<img src="${item.bn_file_id}">
+						</td>
+						<td scope="col">
+							<a href="#none" class="list_btnb">이미지보기</a>
+							<a href="#none" class="list_btnr">전체보기</a>
+							<a href="#none" class="list_btnr">전체닫기</a>
+						</td>
+						<td scope="col">[롤링] 메인배너</td>
+						<td scope="col"><input type="text" class="w100p"></td>
+						<td scope="col">
+							<select>
+								<option>새창</option>
+								<option>현재창</option>
+							</select>
+						</td>
+						<td scope="col"><input type="text" class="w80"></td>
+						<td scope="col"><input type="text" class="w80"></td>
+						<td scope="col" class="custom" rowspan="2">
+							<a href="javascript:void(0);" class="btn-example"><span><img src="/admin/images/okb.png"></span> 정보수정</a>
+						</td>
+					</tr>
+					<tr style="display:none;">
+						<td scope="col" class="bl" colspan="7">
+							<img src="/admin/images/thum.png">
+						</td>
+					</tr>
+					
+
+
+
+
+					<tr>
+						<td><input type="checkbox" name="partner_check" data-index=${item.index_no}></td>
+						<td>${item.rownum}</td>
+						<td>${item.pt_id}</td>
+						<td>${item.pt_owner}</td>
+						<td>${item.pt_company_name}</td>
+						<td>${item.pt_domain}</td>
+						<td>${item.pt_saupja}</td>
+						<td>${item.pt_tongsin}</td>
+						<td>${item.pt_item}</td>
+						<td>${item.pt_service}</td>
+						<td class="custom">
+							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
+								<span><img src="/admin/images/okb.png"></span> 정보수정
+							</a>
+						</td>
+					</tr>
+				`
+			});
+		}else{
+			html = '<tr><td colspan="11">데이터가 존재하지 않습니다.</td></tr>'
+		}
+		$('#BannerListBody').html(html);
+
+		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
+		$('#pagenation_view').html(await Pagination('/admin/partner/getPartnerCount', params, pagination.page, pagination.perPage, 5, 'init'));
+
+	}
+
+	function getParams(){
+		params.bncode = $('#search_keycode').val();
+		params.paging = pagination;
+		return params;
+	}
+	
+
 </script>

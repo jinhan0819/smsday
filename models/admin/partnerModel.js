@@ -43,7 +43,6 @@ module.exports = {
             if(data.keycode == 'id') search_sql += `WHERE Z.pt_id LIKE '%${data.keyword}%'`;
             else if(data.keycode == 'name') search_sql += `WHERE Z.pt_owner LIKE '%${data.keyword}%'`;
         }
-
         
         if(typeof data.date !== 'undefined' && (data.date.start !== '' && data.date.end !== '')){
             if(search_sql === '') search_sql += 'WHERE'
@@ -156,7 +155,7 @@ module.exports = {
                             1. 기존 파일 삭제
                             2. 기존 file table row 삭제 (새로 등록되었기 때문에)
                         */
-                        if(typeof data[item+'_id'] !== 'undefined' || data[item+'_del']){
+                        if((typeof data[item+'_id'] !== 'undefined' || data[item+'_del']) && data.index_no != null){
                             let file_sql = `
                                 SELECT
                                     index_no,

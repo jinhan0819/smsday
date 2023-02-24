@@ -1,6 +1,6 @@
 <section class="main">
 	<div class="title">
-		<h2>배너 관리</h2>
+		<h2 id="bn_title"></h2>
 		<div class="time">
 			<span id="todayIs"></span>
 			<span>
@@ -14,24 +14,28 @@
 
 	<div class="table table_are textleft mart50">
 		<div class="table">
-			<table>
+			<table id="bn_table">
 				<tr>
 					<th>노출위치</th>
 					<td>
-						<select>
-							<option>[고정] 최상단배너</option>
-							<option>[롤링] 메인배너</option>
-							<option>[고정] 하단배너</option>
+						<select id="bn_code">
+							<option value="001">[롤링] 메인배너</option>
+							<option value="002">[고정] 하단배너 상단(좌측)</option>
+							<option value="003">[고정] 하단배너 상단(중간)</option>
+							<option value="004">[고정] 하단배너 상단(우측)</option>
+							<option value="005">[고정] 하단배너 하단(좌측)</option>
+							<option value="006">[고정] 하단배너 하단(중간)</option>
+							<option value="007">[고정] 하단배너 하단(우측)</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>배너파일</th>
 					<td class="filebox">
-						<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="banner_file_nm" onclick="openSelFile('banner_file')">
-						<label for="banner_file">파일선택</label>
-						<input type="file" class="pad4" id="banner_file" hidden>
-						<a href="javascript:void(0);" class="file_del" id="banner_file_del" data-id="banner_file">삭제</a>
+						<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="bn_file_nm" onclick="openSelFile('bn_file')">
+						<label for="bn_file">파일선택</label>
+						<input type="file" class="pad4" id="bn_file" hidden>
+						<a href="javascript:void(0);" class="file_del" id="bn_file_del" data-id="bn_file">삭제</a>
 						<div class="mart20">
 							<img src="/admin/images/thum.png">
 						</div>
@@ -40,29 +44,37 @@
 				<tr>
 					<th>링크주소</th>
 					<td>
-						<input type="text" size="35">
-						<select>
-							<option>현재창</option>
-							<option>새창</option>
+						<input type="text" id="bn_link" size="35">
+						<select id="bn_target">
+							<option value="_self">현재창</option>
+							<option value="_blank">새창</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>가로사이즈</th>
-					<td><input type="text" placeholder="" id="" size="5">&nbsp;<span class="fc_blk">px</span></td>
+					<td><input type="text" placeholder="0" id="bn_width" size="5" maxlength="4" onKeyup="return docheckNumber(this)">&nbsp;<span class="fc_blk">px</span></td>
 				</tr>
 				<tr>
 					<th>세로사이즈</th>
-					<td><input type="text" placeholder="" id="" size="5">&nbsp;<span class="fc_blk">px</span></td>
+					<td><input type="text" placeholder="0" id="bn_height" size="5" maxlength="4" onKeyup="return docheckNumber(this)">&nbsp;<span class="fc_blk">px</span></td>
 				</tr>
 				<tr>
 					<th>순서</th>
-					<td><input type="text" placeholder="" id="" size="5"></td>
+					<td><input type="text" placeholder="0" id="bn_order" size="5" maxlength="2"></td>
+				</tr>
+				<tr>
+					<th>백그라운드 색상</th>
+					<td><input type="text" id="bn_bg" size="20"></td>
+				</tr>
+				<tr>
+					<th>배너문구</th>
+					<td><textarea class="mnh100" id="bn_text"></textarea></td>
 				</tr>
 				<tr>
 					<th class="padt17 padb17">노출여부</th>
 					<td>
-						<input type="checkbox"><span>노출</span>
+						<input type="checkbox" id="bn_use" value="1"><span>노출</span>
 					</td>
 				</tr>
 			</table>
@@ -70,7 +82,7 @@
 	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit" onclick="partnerModify()">저장</a>
+		<a href="javascript:void(0);" class="btn_submit" onclick="bannerSave()">저장</a>
 		<a href="javascript:history.back();" class="btn_submit">취소</a>
 	</div>
 
@@ -79,4 +91,151 @@
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-</script>
+	let index_no = '<%- index_no %>';
+
+	// 파일 삭제 여부 변수
+	// let bn_file_del = false;
+	
+	// 등록/수정 구분
+	let title = '';
+	if(index_no != '') {
+		title = '배너 정보 수정';
+		bannerDetail();
+	} else {
+		index_no = null;
+		title 	 = '배너 신규 등록';
+		$('.file_del').hide();
+	}
+	$('#bn_title').text(title);
+
+	// 배너 상세정보
+	async function bannerDetail() {
+		let data = {index_no: index_no};
+		let res  = await axios.post('/admin/deign/getBannerDetail', data);
+		let info = res.data.result[0];
+		index_no = info.index_no;
+		
+		for(let key in info) {
+			$('#'+key).val(info[key]);
+		}
+
+		/* 파일 관련 */
+		// 파일 존재시
+		if(info.bn_file_id !== null) {
+			$('#bn_file_del').show();
+			$('#bn_file').data('id', info.bn_file_id);
+		} else {
+			$('#bn_file_del').hide();
+		}
+	}
+
+	// 배너 등록/수정
+	async function bannerSave() {
+		let save_bool = true;
+
+        $('#bn_table').find('input[type=text]').each(function(idx, el){
+            if($(el).val() == ''){
+                alert('모든 정보를 입력해주세요.');
+                save_bool = false;
+                return false;
+            }
+        })
+
+        if(save_bool) {
+			let data 	 = {};
+			let rslt_ids = [];
+			let ids 	 = {};
+			let formData = new FormData();
+
+			if(typeof $('input[type=file]')[0].files[0] !== 'undefined'){ 
+				formData.append('files', $('input[type=file]')[0].files[0]);
+				let file_res = await axios({
+					headers: {
+						"Content-Type": "multipart/form-data",
+						"Access-Control-Allow-Origin": "*",
+					},
+					url: '/fileUpload', // 파일 업로드 요청 URL
+					method: "POST",
+					data: formData,
+				});
+
+				ids['bn_file_id'] = file_res.data.result.insertId
+
+				if(file_res.data.code == 200) {
+					rslt_ids.push(ids);
+				}
+			}
+			
+			if(rslt_ids.length > 0) {
+				rslt_ids.forEach(item => {
+					for(let key in item) {
+						data[key] = item[key];
+					}
+				});
+			}
+
+			$('#bn_table').find('input[type=text]').each(function(idx, el) {
+				data[$(el).attr('id')] = $(el).val();
+			});
+
+			$('#bn_table').find('select').each(function(idx, el) {
+				data[$(el).attr('id')] = $(el).val();
+			});
+
+			data[$('#bn_use').attr('id')] = 0;
+			if($('#bn_use').is(":checked")) { 
+				data[$('#bn_use').attr('id')] = $('#bn_use').val();
+			}
+
+			data.index_no = index_no;
+			// data.bn_file_del = bn_file_del;
+
+			let res = await axios.post('/admin/deign/bannerSave', data);
+			if(res.data.code == 200) {
+				alert('등록되었습니다.');
+				location.href = '/admin/deign/BannerList';
+
+			} else {
+				alert('오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+
+        }
+	}
+
+	/****************************** 파일 관련 START ******************************/
+	
+	// 첨부파일 영역 클릭 시
+	function openSelFile(id){
+		// 파일이 존재시에는 다운로드
+		if($('#'+id+'_nm').val() !== ''){
+			location.href = '/fileDownload?index_no='+$('#'+id).data('id');
+		} else {
+			// 파일이 없을 시 파일 선택 창 열기
+			$('#'+id).click();
+		}
+	}
+
+	// 첨부 파일 이벤트
+	// 첨부 파일 시에는 파일 삭제 여부 false
+	$("#bn_file").on('change',function() {
+		var file = $('#bn_file')[0].files[0];
+		$("#bn_file_nm").val(file.name);
+		$('#bn_file_del').show();
+		// bn_file_del = false;
+	});
+
+	// 파일 삭제 이벤트
+	$('.file_del').click(function() {
+		let id = $(this).data('id');
+		$('#'+id).val('');
+		$('#'+id+'_nm').val('');
+		$('#'+id+'_del').hide();
+
+		// 삭제 버튼 클릭 시 파일 삭제 여부 삭제 true
+		//if(id == 'bn_file') bn_file_del = true;
+		
+	});
+	
+	/****************************** 파일 관련 END ******************************/
+
+</script>	

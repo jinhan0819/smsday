@@ -93,7 +93,7 @@
 						<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="pt_manager_file_nm" onclick="openSelFile('pt_manager_file')">
 						<label for="pt_manager_file">파일선택</label>
 						<input type="file" class="pad4" id="pt_manager_file" hidden>
-						<a href="javascript:void(0);" class="file_del" id="pt_manager_file_del_btn" data-id="pt_manager_file">삭제</a>
+						<a href="javascript:void(0);" class="file_del" id="pt_manager_file_del" data-id="pt_manager_file">삭제</a>
 					</td>
 				<tr>
 			</table>
@@ -192,10 +192,10 @@
 		}
 
 		if(info.pt_manager_file_id !== null){
-			$('#pt_manager_file_del_btn').show();
+			$('#pt_manager_file_del').show();
 			$('#pt_manager_file').data('id', info.pt_manager_file_id);
 		}else{
-			$('#pt_manager_file_del_btn').hide();
+			$('#pt_manager_file_del').hide();
 		}
 	}
 
@@ -222,7 +222,7 @@
 		if(list.length > 0){
 			list.forEach(item => {
 				html += `
-					<tr class="memberTr" style="cursor:pointer;" data-id="${item.mb_id}" data-name="${item.mb_name}">
+					<tr class="memberTr curp" data-id="${item.mb_id}" data-name="${item.mb_name}">
 						<td>${item.mb_id}</td>
 						<td>${item.mb_name}</td>
 						<td>${item.mb_email}</td>
@@ -385,7 +385,7 @@
 	$("#pt_manager_file").on('change',function(){
 		var file = $('#pt_manager_file')[0].files[0];
 		$("#pt_manager_file_nm").val(file.name);
-		$('#pt_manager_file_del_btn').show();
+		$('#pt_manager_file_del').show();
 		manager_file_del = false;
 	});
 
@@ -394,7 +394,7 @@
 		let id = $(this).data('id');
 		$('#'+id).val('');
 		$('#'+id+'_nm').val('');
-		$('#'+id+'_del_btn').hide();
+		$('#'+id+'_del').hide();
 
 		// 삭제 버튼 클릭 시 파일 삭제 여부 삭제 true;
 		if(id == 'pt_company_file') company_file_del = true;
