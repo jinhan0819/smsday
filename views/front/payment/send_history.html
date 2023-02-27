@@ -27,8 +27,6 @@
             <tr>
                 <th>날짜</th>
                 <th>금액</th>
-                <th>결제방식</th>
-                <th>승인여부</th>
                 <th>내용</th>
             </tr>
             <% if(list.length > 0 ) { %>
@@ -36,13 +34,11 @@
                     <tr>
                         <td><%= item.po_approval_date %></td>
                         <td><%= item.po_point %></td>
-                        <td>무통장</td>
-                        <td>Y</td>
                         <td><%= item.po_contents %></td>
                     </tr>
                 <% }); %>
             <% } else { %>
-                <tr><td colspan="6">조회된 결과가 없습니다.</td></tr>
+                <tr><td colspan="3">조회된 결과가 없습니다.</td></tr>
             <% } %>
             <!-- <tr>
 

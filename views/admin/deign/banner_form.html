@@ -36,8 +36,8 @@
 						<label for="bn_file">파일선택</label>
 						<input type="file" class="pad4" id="bn_file" hidden>
 						<a href="javascript:void(0);" class="file_del" id="bn_file_del" data-id="bn_file">삭제</a>
-						<div class="mart20">
-							<img src="/admin/images/thum.png">
+						<div class="mart20" id="img_view">
+							<img src="">
 						</div>
 					</td>
 				</tr>
@@ -46,8 +46,8 @@
 					<td>
 						<input type="text" id="bn_link" size="35">
 						<select id="bn_target">
-							<option value="_self">현재창</option>
-							<option value="_blank">새창</option>
+							<option value="0">현재창</option>
+							<option value="1">새창</option>
 						</select>
 					</td>
 				</tr>
@@ -74,7 +74,7 @@
 				<tr>
 					<th class="padt17 padb17">노출여부</th>
 					<td>
-						<input type="checkbox" id="bn_use" value="1"><span>노출</span>
+						<input type="checkbox" id="bn_use"><span>노출</span>
 					</td>
 				</tr>
 			</table>
@@ -105,6 +105,7 @@
 		index_no = null;
 		title 	 = '배너 신규 등록';
 		$('.file_del').hide();
+		$('#img_view').hide();
 	}
 	$('#bn_title').text(title);
 
@@ -119,13 +120,20 @@
 			$('#'+key).val(info[key]);
 		}
 
-		/* 파일 관련 */
-		// 파일 존재시
+		// 체크박스 관련
+		if(info.bn_use !== null) {
+			info.bn_use ? $('#bn_use').prop('checked', true) : $('#bn_use').prop('checked', false);
+		}
+
+		// 파일 관련
 		if(info.bn_file_id !== null) {
 			$('#bn_file_del').show();
 			$('#bn_file').data('id', info.bn_file_id);
+			$('#img_view').show();
+			$('#img_view').find('img').attr('src', info.bn_file_path);
 		} else {
 			$('#bn_file_del').hide();
+			$('#img_view').hide();
 		}
 	}
 
@@ -174,17 +182,23 @@
 				});
 			}
 
+			// input[type=text]
 			$('#bn_table').find('input[type=text]').each(function(idx, el) {
 				data[$(el).attr('id')] = $(el).val();
 			});
 
+			// select
 			$('#bn_table').find('select').each(function(idx, el) {
 				data[$(el).attr('id')] = $(el).val();
 			});
 
+			// textarea
+			data[$('#bn_text').attr('id')] = $('#bn_text').val();
+
+			// input[type=checkbox]
 			data[$('#bn_use').attr('id')] = 0;
 			if($('#bn_use').is(":checked")) { 
-				data[$('#bn_use').attr('id')] = $('#bn_use').val();
+				data[$('#bn_use').attr('id')] = 1;
 			}
 
 			data.index_no = index_no;
@@ -192,7 +206,7 @@
 
 			let res = await axios.post('/admin/deign/bannerSave', data);
 			if(res.data.code == 200) {
-				alert('등록되었습니다.');
+				alert('저장되었습니다.');
 				location.href = '/admin/deign/BannerList';
 
 			} else {

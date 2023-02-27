@@ -37,22 +37,22 @@
 
 	<div class="tab_are">
 		<ul class="left" id="count_ul">
-			<li><a href="javascript:void(0);" class="on">전체(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="1">노출(<span>0</span>)</a></li>
-			<li><a href="javascript:void(0);" data-level="2">비노출(<span>0</span>)</a></li>
+			<li><a href="javascript:void(0);" id="tot_btn" data-use="2">전체(<span class="tot_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" id="vi_btn" data-use="1">노출(<span class="vi_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" id="nvi_btn" data-use="0">비노출(<span class="nvi_count">0</span>)</a></li>
 		</ul>
 	</div>
 
 	<div class="table_are">
 		<div class="btn_are marl10">
 			<ul class="left flex">
-				<li>전체 : <b><span id="total_count">0</span></b> 건 조회</li>
+				<li>전체 : <b><span class="tot_count">0</span></b> 건 조회</li>
 			</ul>
 		</div>
 		<div class="btn_are mart20">
 			<ul class="left">
-				<li class="marr5"><a href="#none" class="">선택수정</a></li>
-				<li class="marr5"><a href="#none" class="">선택삭제</a></li>
+				<li class="marr5"><a href="#none" id="banner_update">선택수정</a></li>
+				<li class="marr5"><a href="#none" id="banner_delete">선택삭제</a></li>
 			</ul>
 			<ul class="right">
 				<li>
@@ -65,7 +65,7 @@
 				<colgroup>
 					<col class="w50">
 					<col class="w70">
-					<col class="w80">
+					<col class="w60">
 					<col class="w70">
 					<col class="w80">
 					<col>
@@ -89,43 +89,7 @@
 					<th scope="col">세로사이즈</th>
 					<th scope="col">설정</th>
 				</thead>
-				<tbody>
-					<tr>
-						<td scope="col" rowspan="2"><input type="checkbox"></td>
-						<td scope="col" rowspan="2">1</td>
-						<td scope="col" rowspan="2">
-							<a href="#none" class="state_box on"><div class="state"></div></a>
-							<!-- <a href="#none" class="state_box"><div class="state"></div></a> -->
-						</td>
-						<td scope="col" rowspan="2"><input type="text" class="w50"></td>
-						<td scope="col">
-							<img src="/admin/images/thum.png">
-						</td>
-						<td scope="col">
-							<a href="#none" class="list_btnb">이미지보기</a>
-							<a href="#none" class="list_btnr">전체보기</a>
-							<a href="#none" class="list_btnr">전체닫기</a>
-						</td>
-						<td scope="col">[롤링] 메인배너</td>
-						<td scope="col"><input type="text" class="w100p"></td>
-						<td scope="col">
-							<select>
-								<option>새창</option>
-								<option>현재창</option>
-							</select>
-						</td>
-						<td scope="col"><input type="text" class="w80"></td>
-						<td scope="col"><input type="text" class="w80"></td>
-						<td scope="col" class="custom" rowspan="2">
-							<a href="javascript:void(0);" class="btn-example"><span><img src="/admin/images/okb.png"></span> 정보수정</a>
-						</td>
-					</tr>
-					<tr style="display:none;">
-						<td scope="col" class="bl" colspan="7">
-							<img src="/admin/images/thum.png">
-						</td>
-					</tr>
-				</tbody>
+				<tbody id="bannerListBody"></tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
 		</div>
@@ -146,8 +110,6 @@
 	};
 
 	// 현상 유지 (조건 검색 시)
-	paramsInit();
-
 	function paramsInit(){
 		if(getLocalStorage('search_params') != null){
 			// 저장된 파라미터를 불러와 데이터 삽입
@@ -157,16 +119,17 @@
 		}
 		init();
 	}
+	paramsInit();
 
 	async function init(){
 		let data = getParams();
 		
 		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
 
-		// 배너 count
+		// 배너 count(전체)
 		let cnt = await axios.post('/admin/deign/getBannerCount', data);
 		for(let key in cnt.data.result[0]){
-			$('#'+key).text(cnt.data.result[0][key]);
+			$('.'+key).text(cnt.data.result[0][key]);
 		}
 
 		// 배너 list
@@ -174,74 +137,73 @@
 
 		let list = banner.data.result;
 		let html = '';
-		if(list.length > 0){
+		if(list.length > 0) {
 			list.forEach(item => {
+				
+				let bn_code_nm = '';
+				if(item.bn_code == "001") {
+					bn_code_nm = '[롤링] 메인배너';
+				} else if(item.bn_code == "002") {
+					bn_code_nm = '[고정] 하단배너 상단(좌측)';
+				} else if(item.bn_code == "003") {
+					bn_code_nm = '[고정] 하단배너 상단(중간)';
+				} else if(item.bn_code == "004") {
+					bn_code_nm = '[고정] 하단배너 상단(우측)';
+				} else if(item.bn_code == "005") {
+					bn_code_nm = '[고정] 하단배너 하단(좌측)';
+				} else if(item.bn_code == "006") {
+					bn_code_nm = '[고정] 하단배너 하단(중간)';
+				} else if(item.bn_code == "007") {
+					bn_code_nm = '[고정] 하단배너 하단(우측)';
+				} 
+
 				html += `
 					<tr>
-						<td><input type="checkbox" name="banner_check" data-index=${item.index_no}></td>
+						<td scope="col" rowspan="2"><input type="checkbox" name="bn_check" data-index=${item.index_no}></td>
 						<td scope="col" rowspan="2">${item.rownum}</td>
 						<td scope="col" rowspan="2">
-							<a href="#none" class="state_box ${!item.bn_use ? '' : 'on'}"><div class="state"></div></a>
+							<input type="checkbox" name="bn_use" ${item.bn_use ? 'checked' : ''}>
 						</td>
-						<td scope="col" rowspan="2"><input type="text" class="w50" value="${item.bn_order}"></td>
+						<td scope="col" rowspan="2"><input type="text" name="bn_order" class="w50" value="${item.bn_order}"></td>
 						<td scope="col">
-							<img src="${item.bn_file_id}">
+							<img src="${item.bn_file_path}">
 						</td>
 						<td scope="col">
-							<a href="#none" class="list_btnb">이미지보기</a>
-							<a href="#none" class="list_btnr">전체보기</a>
-							<a href="#none" class="list_btnr">전체닫기</a>
+							<a href="#none" class="list_btnb img_view" data-idx=${item.index_no}>이미지보기</a>
+							<a href="#none" class="list_btnr all_view">전체보기</a>
+							<a href="#none" class="list_btnr close_view">전체닫기</a>
 						</td>
-						<td scope="col">[롤링] 메인배너</td>
-						<td scope="col"><input type="text" class="w100p"></td>
+						<td scope="col">${bn_code_nm}</td>
+						<td scope="col"><input type="text" name="bn_link" class="w100p" value="${item.bn_link}"></td>
 						<td scope="col">
-							<select>
-								<option>새창</option>
-								<option>현재창</option>
+							<select name="bn_target">
+								<option value=0 ${!item.bn_target ? 'selected' : ''}>새창</option>
+								<option value=1 ${item.bn_target ? 'selected' : ''}>현재창</option>
 							</select>
 						</td>
-						<td scope="col"><input type="text" class="w80"></td>
-						<td scope="col"><input type="text" class="w80"></td>
+						<td scope="col"><input type="text" name="bn_width" class="w80" value="${item.bn_width}"></td>
+						<td scope="col"><input type="text" name="bn_height" class="w80" value="${item.bn_height}"></td>
 						<td scope="col" class="custom" rowspan="2">
-							<a href="javascript:void(0);" class="btn-example"><span><img src="/admin/images/okb.png"></span> 정보수정</a>
-						</td>
-					</tr>
-					<tr style="display:none;">
-						<td scope="col" class="bl" colspan="7">
-							<img src="/admin/images/thum.png">
-						</td>
-					</tr>
-					
-
-
-
-
-					<tr>
-						<td><input type="checkbox" name="partner_check" data-index=${item.index_no}></td>
-						<td>${item.rownum}</td>
-						<td>${item.pt_id}</td>
-						<td>${item.pt_owner}</td>
-						<td>${item.pt_company_name}</td>
-						<td>${item.pt_domain}</td>
-						<td>${item.pt_saupja}</td>
-						<td>${item.pt_tongsin}</td>
-						<td>${item.pt_item}</td>
-						<td>${item.pt_service}</td>
-						<td class="custom">
 							<a href="javascript:void(0);" class="btn-example" data-index=${item.index_no}>
 								<span><img src="/admin/images/okb.png"></span> 정보수정
 							</a>
 						</td>
 					</tr>
+					<tr>
+						<td scope="col" class="bl img_detail img_dt${item.index_no}" colspan="7" style="display:none">
+							<img src="${item.bn_file_path}">
+						</td>
+					</tr>
 				`
 			});
-		}else{
-			html = '<tr><td colspan="11">데이터가 존재하지 않습니다.</td></tr>'
+
+		} else {
+			html = '<tr><td colspan="12">데이터가 존재하지 않습니다.</td></tr>'
 		}
-		$('#BannerListBody').html(html);
+		$('#bannerListBody').html(html);
 
 		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
-		$('#pagenation_view').html(await Pagination('/admin/partner/getPartnerCount', params, pagination.page, pagination.perPage, 5, 'init'));
+		$('#pagenation_view').html(await Pagination('/admin/deign/getBannerCount', params, pagination.page, pagination.perPage, 5, 'init'));
 
 	}
 
@@ -250,6 +212,58 @@
 		params.paging = pagination;
 		return params;
 	}
+
+	/****************************** 검색 및 조회 END ******************************/
+
+	// 이미지보기
+	$(document).on('click', '.img_view', async function(){
+		let idx   = $(this).data('idx');
+		let state = $('.img_dt'+idx).css('display');
+
+		if(state == 'none') { 
+			$('.img_dt'+idx).css('display', '');
+		} else { 
+			$('.img_dt'+idx).css('display', 'none');
+		}
+	});
+	
+	// 전체보기
+	$(document).on('click', '.all_view', async function(){
+		$('.img_detail').css('display', '');
+	});
+
+	// 전체닫기
+	$(document).on('click', '.close_view', async function(){
+		$('.img_detail').css('display', 'none');
+	});
+
+	// 배너목록 - 정보 수정 클릭 이벤트
+	$(document).on('click', '.custom a', async function(){
+		location.href = '/admin/deign/bannerForm?index_no='+$(this).data('index');
+	});
+
+	// 선택 삭제 이벤트
+	$('#banner_delete').click(async function(){
+		if($('input[name=bn_check]:checked').length > 0){
+			if(confirm('정말로 삭제하시겠습니까?')){
+				let data_arr = [];
+				$('input[name=bn_check]').each(function(idx, el){
+					if($(el).is(':checked')){
+						data_arr.push($(el).data('index'));
+					}
+				});
+				let data = {del_list : data_arr};
+				let res = await axios.post('/admin/deign/bannerDelete', data);
+				if(res.data.code == 200){
+					location.reload();
+				}else{
+					alert('배너 삭제 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+				}
+			}
+		}else{
+			alert('삭제하실 데이터를 선택해주세요.');
+		}
+	});
 	
 
 </script>

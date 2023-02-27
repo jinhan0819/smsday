@@ -12,6 +12,7 @@ module.exports = function () {
     router.get('/bannerList', deignController.bannerList);
     router.get('/bannerForm', deignController.bannerForm);
     router.post('/bannerSave', deignController.bannerSave);
+    // router.post('/bannerDelete', partnerController.bannerDelete);
     router.post('/getBannerDetail', deignController.getBannerDetail);
     router.post('/getBannerCount', deignController.getBannerCount);
     router.post('/getBannerList', deignController.getBannerList);

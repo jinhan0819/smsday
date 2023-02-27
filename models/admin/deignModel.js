@@ -65,7 +65,7 @@ module.exports = {
                 data.index_no, data.pt_id, data.bn_code, data.bn_file_id, data.bn_link, data.bn_target,
                 data.bn_width, data.bn_height, data.bn_bg, data.bn_text, data.bn_use, data.bn_order,
                 // UPDATE
-                data.index_no, data.pt_id, data.bn_code, data.bn_file_id, data.bn_link, data.bn_target,
+                data.pt_id, data.bn_code, data.bn_file_id, data.bn_link, data.bn_target,
                 data.bn_width, data.bn_height, data.bn_bg, data.bn_text, data.bn_use, data.bn_order,
             ]
             let sql = `
@@ -118,11 +118,12 @@ module.exports = {
 
         
     },
-    getPartnerDetail: async function(data){
+    getBannerDetail: async function(data) {
         let sql = `
             SELECT
-                A.*
+                A.*,
                 B.original_file_nm AS bn_file_nm,
+                B.file_path AS bn_file_path
             FROM TB_BANNER A
             LEFT OUTER JOIN TB_ATCHM_FILE B ON (A.bn_file_id = B.index_no)  
             WHERE A.index_no = ?
@@ -131,7 +132,7 @@ module.exports = {
 
         return rslt;
     },
-    getBannerCount: async function(data){
+    getBannerCount: async function(data) {
         let search_sql = ``;
         if(typeof data.bncode !== 'undefined'){
             search_sql += ` WHERE bn_code = '${data.bncode}' `;
@@ -139,7 +140,9 @@ module.exports = {
 
         let sql = `
             SELECT
-                COUNT(index_no) AS total_count
+                COUNT(index_no) AS tot_count,
+                (SELECT COUNT(*) FROM TB_BANNER WHERE bn_use = 1) AS vi_count,
+                (SELECT COUNT(*) FROM TB_BANNER WHERE bn_use = 0) AS nvi_count
             FROM TB_BANNER
             ${search_sql}
         `;
@@ -147,7 +150,7 @@ module.exports = {
 
         return rslt;
     },
-    getBannerList: async function(data){
+    getBannerList: async function(data) {
         let params = paging.pagingRange(data.paging);
 
         let search_sql = ``;
@@ -167,20 +170,23 @@ module.exports = {
                 Z.bn_height,
                 Z.bn_use,
                 Z.bn_order,
-                DATE_FORMAT(Z.create_datetime, '%Y-%m-%d') AS create_date
+                DATE_FORMAT(Z.create_datetime, '%Y-%m-%d') AS create_date,
+                Z.file_path AS bn_file_path
             FROM (
                 SELECT
-                    index_no,
-                    bn_code,
-                    bn_file_id,
-                    bn_link,
-                    bn_target,
-                    bn_width,
-                    bn_height,
-                    bn_use,
-                    bn_order,
-                    create_datetime
-                FROM TB_BANNER
+                    A.index_no,
+                    A.bn_code,
+                    A.bn_file_id,
+                    A.bn_link,
+                    A.bn_target,
+                    A.bn_width,
+                    A.bn_height,
+                    A.bn_use,
+                    A.bn_order,
+                    A.create_datetime,
+                    B.file_path
+                FROM TB_BANNER A
+                LEFT OUTER JOIN TB_ATCHM_FILE B ON (A.bn_file_id = B.index_no)  
             ) Z, (SELECT @ROWNUM := 0) R
             ${search_sql}
             ORDER BY rownum DESC 

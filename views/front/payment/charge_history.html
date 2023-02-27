@@ -27,16 +27,16 @@
             <tr>
                 <th>날짜</th>
                 <th>금액</th>
-                <th>내용</th>
-                <th>비고</th>
+                <th>결제방식</th>
+                <th>승인여부</th>
             </tr>
             <% if(list.length > 0 ) { %>
                 <% list.forEach((item, i) => { %>
                     <tr>
                         <td><%= item.po_approval_date %></td>
                         <td><%= item.po_point %></td>
-                        <td><%= item.po_contents %></td>
-                        <td></td>
+                        <td>무통장</td>
+                        <td>Y</td>
                     </tr>
                 <% }); %>
             <% } else { %>
