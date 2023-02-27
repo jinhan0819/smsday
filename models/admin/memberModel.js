@@ -21,6 +21,7 @@ module.exports = {
                 COUNT(index_no) AS total_count
             FROM TB_MEMBER
             WHERE mb_level = 1
+            AND mb_del_yn = 0
             ${search_sql}
         `;
         let rslt = await db.queryTransaction(sql, []);
@@ -67,11 +68,13 @@ module.exports = {
                     mb_email,
                     mb_point,
                     mb_level,
+                    mb_del_yn,
                     create_datetime
                 FROM TB_MEMBER
                 ORDER BY create_datetime
             ) Z, (SELECT @ROWNUM := 0) R
             WHERE mb_level = 1
+            AND mb_del_yn = 0
             ${search_sql}
             ORDER BY rownum DESC 
             LIMIT ?, ? 

@@ -34,5 +34,20 @@ module.exports = {
 
         return rslt;
     },
+
+    /* 회원 탈퇴 */
+    memberWithdrawal: async function(data){
+
+        let sql = `
+            UPDATE TB_MEMBER
+            SET
+                mb_del_yn = 1
+            WHERE mb_id = ?
+        `;
+        // 쿼리를 하나만 처리할 때 사용
+        let rslt = await db.queryTransaction(sql, [data.mb_id]);
+
+        return rslt;
+    },
     
 }

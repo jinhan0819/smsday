@@ -10,7 +10,7 @@ $(function(){
     });
 
     // 금액 keyup
-    $(document).on("keyup", "#pf_fee", function() { 
+    $(document).on("keyup", "#pf_fee, #po_point", function() { 
         $(this).val($(this).val().replace(/\,/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
     });
 })

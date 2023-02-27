@@ -5,19 +5,20 @@
 
     <div class="adress_btn"></div>
     <div class="tab_btn_are">
+
         <div class="input_tab">
-            <input type="text">
-            <a href="#none">
+            <input type="text" id="search_word" value="<%= param.searchWord%>" onkeyup="if(window.event.keyCode==13){getList()}">
+            <a href="javascript:void(0)" onclick="getList()">
                 <img src="/front/images/search.png">
             </a>
         </div>
 
         <div class="btn">
             <span>기간선택 </span>
-            <input type="date">
+            <input type="date" id="start_date" value="<%= param.startDate %>">
             <span> ~ </span>
-            <input type="date">
-            <a href="#" class="blue">조회</a>
+            <input type="date" id="end_date" value="<%= param.endDate %>">
+            <a href="javascript:void(0)" class="blue"  onclick="getList()">조회</a>
         </div>
     </div>
 
@@ -28,38 +29,50 @@
                 <th>금액</th>
                 <th>결제방식</th>
                 <th>승인여부</th>
-                <th>비고</th>
+                <th>내용</th>
             </tr>
-            <tr>
+            <% if(list.length > 0 ) { %>
+                <% list.forEach((item, i) => { %>
+                    <tr>
+                        <td><%= item.po_approval_date %></td>
+                        <td><%= item.po_point %></td>
+                        <td>무통장</td>
+                        <td>Y</td>
+                        <td><%= item.po_contents %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr><td colspan="6">조회된 결과가 없습니다.</td></tr>
+            <% } %>
+            <!-- <tr>
+
                 <td>2023.01.10</td>
                 <td>30,000</td>
-                <td>무통장</td>
-                <td>승인</td>
+                <td>LMS</td>
                 <td></td>
-            </tr>
+            </tr> -->
         </table>
     </div>
-
+    <% if(pagination.totalPage > 0) { %>
     <div class="pagenation">
-        <a href="#none" class="start">
+        <a href="javascript:void(0)" class="start" onclick="getList('1')">
             <img src="/front/images/pagenation/ll.png">
         </a>
-        <a href="#none" class="pre">
+        <a href="javascript:void(0)" class="pre" onclick="getList('<%= pagination.prevPage %>')">
             <img src="/front/images/pagenation/l.png">
         </a>
-        <a href="#" class="atv">1</a>
-        <a href="#" class="">2</a>
-        <a href="#" class="">3</a>
-        <a href="#" class="">4</a>
-        <a href="#" class="">5</a>
-
-        <a href="#none" class="next">
+        <% for(var i=pagination.startPage; i <= pagination.endPage; i++){ %>
+            <a href="javascript:void(0)" class="<%- i == pagination.curPage ? 'atv' : '' %>" onclick="getList('<%= i %>')"><%= i %></a>
+        <% } %>
+        <a href="javascript:void(0)" class="next" onclick="getList('<%= pagination.nextPage  %>')">
             <img src="/front/images/pagenation/r.png">
         </a>
-        <a href="#none" class="end">
-            <img src="/front/images/pagenation/rr.png">
+        <a href="javascript:void(0)" class="end">
+            <img src="/front/images/pagenation/rr.png" onclick="getList('<%= pagination.totalPage %>')">
         </a>
     </div>
+    <% } %>
+
     <div class="point_pop">
         <h2>
             <span><img src="/front/images/popup/point.svg"></span>
@@ -72,3 +85,26 @@
         </ul>
     </div>
 </section>
+
+<script>
+
+    async function getList(page){
+        let data = {};
+        if(typeof page !== 'undefined'){
+            data.curPage = page;
+        }
+
+        data.searchWord = $('#search_word').val();
+        data.startDate = $('#start_date').val();
+        data.endDate = $('#end_date').val();
+        let makeParams = await makeParamsUrl(data);
+        location.href = '/front/payment/charge_history'+makeParams; 
+    }
+
+    $('#start_date, #end_date').change(function(){
+		if(($('#start_date').val() !== '' && $(' #end_date').val() !== '') && ($('#start_date').val() > $('#end_date').val())){
+			alert('날짜 선택이 옳바르지 않습니다.');
+			$('#start_date, #end_date').val('');
+		}
+	});
+</script>

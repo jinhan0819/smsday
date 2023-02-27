@@ -83,4 +83,30 @@ module.exports = {
 
         }
     },
+    memberWithdrawal: async function(req, res){
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+        let data = req.body;
+        let memberInfo = sess.getPlain(req, 'memberInfo');
+        data.mb_id = memberInfo.mb_id;
+        data.index_no = memberInfo.index_no;
+
+        let checkPassword = await cipher.chkBcryptPassAsync(data.mb_password, memberInfo.mb_password);
+
+        if(!checkPassword){
+            res.write("<script>alert('비밀번호가 틀립니다.');</script>");
+            res.write("<script>window.location=\"/front/mypage/member_delete\"</script>");
+        }else{
+            let rslt = await mypageModel.memberWithdrawal(data);
+            if(rslt.code == 200){
+                res.write("<script>alert('회원 탈퇴가 완료되었습니다.');</script>");
+            }else{
+                res.write("<script>alert('회원 탈퇴 중 오류가 발생하였습니다.');</script>");
+            }
+            
+            // sess.Clear();
+            res.write("<script>window.location=\"/doLogout/\"</script>");
+
+        }
+    },
 };

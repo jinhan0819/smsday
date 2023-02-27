@@ -19,6 +19,8 @@ module.exports = function () {
     /* 패스워드 변경 */
     router.post('/passwordUpdate', mypageController.passwordUpdate);
 
+    /* 회원탈퇴 */
+    router.post('/memberWithdrawal', mypageController.memberWithdrawal);
 
     return router;
 

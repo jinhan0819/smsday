@@ -31,12 +31,12 @@
                 <form id="frm" method="POST" action="/front/payment/chargeRequest" onsubmit="return chargeCheckFunc();">
                     <div class="tlb_flex_sms">
                         <span>결제금액 :</span>
-                        <input type="text" class="half" name="pf_fee" id="pf_fee"><span>최저금액은 10,000원 입니다.</span>
+                        <input type="text" class="half" name="po_point" id="po_point"><span>최저금액은 10,000원 입니다.</span>
     
                     </div>
                     <div class="tlb_flex_sms">
                         <span>입금자명 :</span>
-                        <input type="text" class="half" name="pf_depositor" id="pf_depositor"><span>무통장 입금 시 입금자명에 아이디를 적으시면 충전과정이 빠르게 처리됩니다.</span>
+                        <input type="text" class="half" name="po_depositor" id="po_depositor"><span>무통장 입금 시 입금자명에 아이디를 적으시면 충전과정이 빠르게 처리됩니다.</span>
                     </div>
                 </form>
             </li>
@@ -50,15 +50,15 @@
 <script type="text/javascript" src="/front/js/validation.js"></script>
 <script>
     function chargeCheckFunc(){
-        if($('#pf_fee').val() == ''){
+        if($('#po_point').val() == ''){
             alert('결제 금액을 입력해주세요.');
             return false;
-        }else if(parseInt($('#pf_fee').val().replace(/,/g, '')) < 10000){
+        }else if(parseInt($('#po_point').val().replace(/,/g, '')) < 10000){
             alert('10,000원 이상부터 충전 요청이 가능합니다');
             return false;
         }
 
-        if($('#pf_depositor').val() == ''){
+        if($('#po_depositor').val() == ''){
             alert('입금자명을 입력해주세요.');
             return false;
         }
