@@ -24,6 +24,11 @@ module.exports = {
         let rslt = await memberModel.getMemberDetail(data);
         res.send(rslt);
     },
+    getMemberCallNum: async function (req, res, next) {
+        let data = req.body;
+        let rslt = await memberModel.getMemberCallNum(data);
+        res.send(rslt);
+    },
     memberModify: async function (req, res, next) {
         let data = req.body;
         let rslt = await memberModel.memberModify(data);

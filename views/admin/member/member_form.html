@@ -59,25 +59,25 @@
 					<tr>
 						<th>통신가입증명원</th>
 						<td class="filebox">
-							<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="" onclick="openSelFile('')">
-							<label for="">파일선택</label>
-							<input type="file" class="pad4" id="" hidden>
-							<a href="javascript:void(0);" class="file_del" id="" data-id="">삭제</a>
+							<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="mb_tlcm_file_nm" onclick="openSelFile('mb_tlcm_file')">
+							<label for="mb_tlcm_file">파일선택</label>
+							<input type="file" class="pad4" id="mb_tlcm_file" hidden>
+							<a href="javascript:void(0);" class="file_del" id="mb_tlcm_file_del" data-id="mb_tlcm_file">삭제</a>
 						</td>
-					<tr>
+					</tr>
 					<tr>
 						<th>발신정보</th>
-						<td>
+						<td id="call_info">
 							<div>
 								<span class="marr5 mnw50 dib">발신번호 : </span>
-								<input type="text" placeholder="" id="" size="15">
+								<input type="text" placeholder="" name="call_num" maxlength="13">
 								<span class="marr5 marl20">메모 : </span>
-								<input type="text" placeholder="" id="" size="50">
+								<input type="text" placeholder="" id="call_memo" size="50">
 								<span class="marr5 marl20">상태 : </span>
-								<input type="radio" name="" value=""><span>사용불가</span>
-								<input type="radio" name="" value="" checked><span>사용가능</span>
-								<a href="javascript:void(0);" class="btnstyle marl5 marr70 fr" onclick="">삭제</a>
-								<a href="javascript:void(0);" class="btnstyle fr" onclick="">추가</a>
+								<input type="radio" name="use_yn" value="0"><span>사용불가</span>
+								<input type="radio" name="use_yn" value="1" checked><span>사용가능</span>
+								<a href="javascript:void(0);" class="btnstyle marl5 marr70 fr" name="delCallInfo">삭제</a>
+								<a href="javascript:void(0);" class="btnstyle fr" name="addCallInfo">추가</a>
 							</div>
 						</td>
 					</tr>
@@ -146,6 +146,28 @@
 			
 			if(id_check){
 				let data = {};
+
+				// 발신 정보
+				let callInfo = getCallInfo();
+				data.callnum = callInfo;
+
+				let formData = new FormData();
+				if(typeof $('input[type=file]')[0].files[0] !== 'undefined'){
+					formData.append('files', $('input[type=file]')[0].files[0]);
+					let file_res = await axios({
+						headers: {
+							"Content-Type": "multipart/form-data",
+							"Access-Control-Allow-Origin": "*",
+						},
+						url: '/fileUpload', // 파일 업로드 요청 URL
+						method: "POST",
+						data: formData,
+					});
+					if(file_res.data.code == 200){
+						data.mb_tlcm_file_id= file_res.data.result.insertId;
+					}
+				}
+
 				$('#member_table').find('input[type=text]').each(function(idx, el){
 					data[$(el).attr('id')] = $(el).val();
 				})
@@ -153,7 +175,8 @@
 				data.mb_level = 1;
 				data.mb_point = 0;
 				data.index_no = index_no;
-				
+				data.tlc_file_del = tlc_file_del;
+
 				let res = await axios.post('/admin/member/memberModify', data);
 				if(res.data.code == 200){
 					location.href = '/admin/member/memberList';
@@ -191,14 +214,137 @@
 
     }
 
+	// 발신 정보
+	function getCallInfo(){
+		let datas = [];
+		$('#call_info').find('div').each(function(idx, el){
+			let data = {};
+			data.cn_send_num = $(el).children().eq(1).val();
+			data.cn_send_memo = $(el).children().eq(3).val();
+			if($(el).children().eq(5).is(':checked')){
+				data.cn_send_state = 0
+			}else{
+				data.cn_send_state = 1
+			}
+			if(data.cn_send_num !== ''){
+				datas.push(data);
+			}
+		});
+		return datas;
+
+	}
+
 	async function memberDetail(){
 		let data = {index_no: index_no};
 		let res = await axios.post('/admin/member/getMemberDetail', data);
 		let info = res.data.result[0];
+		let call_res = await axios.post('/admin/member/getMemberCallNum', info);
+		let call_list = call_res.data.result;
+		
 		index_no = info.index_no;
 		
 		for(let key in info){
 			$('#'+key).val(info[key]);
 		}
+
+		let html = '';
+		call_list.forEach(item => {
+			let random = (Math.random() + 1).toString(36).substring(7);
+			html += `
+				<div>
+					<span class="marr5 mnw50 dib">발신번호 : </span>
+					<input type="text" placeholder="" name="call_num" maxlength="13" value=${item.cn_send_num}>
+					<span class="marr5 marl20">메모 : </span>
+					<input type="text" placeholder="" id="call_memo" size="50" value=${item.cn_send_memo}>
+					<span class="marr5 marl20">상태 : </span>
+					<input type="radio" class="use_yn" name="${random}" value="0" ${item.cn_send_state == 0 ? 'checked': ''}><span>사용불가</span>
+					<input type="radio" class="use_yn" name="${random}" value="1" ${item.cn_send_state == 1 ? 'checked': ''}><span>사용가능</span>
+					<a href="javascript:void(0);" class="btnstyle marl5 marr70 fr" name="delCallInfo">삭제</a>
+					<a href="javascript:void(0);" class="btnstyle fr" name="addCallInfo">추가</a>
+				</div>
+			`;
+			$('#call_info').html(html);
+		});
+		$('a[name=addCallInfo]').hide();
+		$('#call_info').find('a[name=addCallInfo]').eq($('#call_info').find('div').last().index()).show();
+
+		/* 파일 관련 */
+		// 파일 존재시
+		if(info.mb_tlcm_file_id !== null){
+			$('#mb_tlcm_file_del').show();
+			$('#mb_tlcm_file').data('id', info.mb_tlcm_file_id);
+		}else{
+			$('#mb_tlcm_file_del').hide();
+		}
 	}
+
+	/* 파일 관련 시작 */
+
+	// 파일 삭제 여부 변수
+	let tlc_file_del = false;
+
+	// 첨부파일 영역 클릭 시
+	function openSelFile(id){
+		// 파일이 존재시에는 다운로드
+		if($('#'+id+'_nm').val() !== ''){
+			location.href = '/fileDownload?index_no='+$('#'+id).data('id');
+		}else{
+			// 파일이 없을 시 파일 선택 창 열기
+			$('#'+id).click();
+		}
+	}
+
+	// 첨부 파일 이벤트
+	// 첨부 파일 시에는 파일 삭제 여부 false;
+	$("#mb_tlcm_file").on('change',function(){
+		var file = $('#mb_tlcm_file')[0].files[0];
+		$("#mb_tlcm_file_nm").val(file.name);
+		$('#mb_tlcm_file_del').show();
+		tlc_file_del = false;
+	});
+
+	// 파일 삭제 이벤트
+	$('.file_del').click(function(){
+		let id = $(this).data('id');
+		$('#'+id).val('');
+		$('#'+id+'_nm').val('');
+		$('#'+id+'_del').hide();
+
+		// 삭제 버튼 클릭 시 파일 삭제 여부 삭제 true;
+		if(id == 'mb_tlcm_file') tlc_file_del = true;
+		
+	});
+	/* 파일 관련 끝 */
+
+	/* 발신 정보 이벤트 */
+	$(document).on('click', 'a[name=addCallInfo]', function(){
+		let tag_index = $('#call_info').find('a[name=addCallInfo]').index(this);
+		let random = (Math.random() + 1).toString(36).substring(7);
+		let html = `
+			<div>
+				<span class="marr5 mnw50 dib">발신번호 : </span>
+				<input type="text" placeholder="" name="call_num" maxlength="13">
+				<span class="marr5 marl20">메모 : </span>
+				<input type="text" placeholder="" id="call_memo" size="50">
+				<span class="marr5 marl20">상태 : </span>
+				<input type="radio" class="use_yn" name="${random}" value="0"><span>사용불가</span>
+				<input type="radio" class="use_yn" name="${random}" value="1" checked><span>사용가능</span>
+				<a href="javascript:void(0);" class="btnstyle marl5 marr70 fr" name="delCallInfo">삭제</a>
+				<a href="javascript:void(0);" class="btnstyle fr" name="addCallInfo">추가</a>
+			</div>
+		`;
+		$('#call_info').append(html);
+
+		$('a[name=addCallInfo]').hide();
+		$('#call_info').find('a[name=addCallInfo]').eq($('#call_info').find('div').last().index()).show();
+	});
+
+	$(document).on('click', 'a[name=delCallInfo]', function(){
+		let tag_index = $('#call_info').find('a[name=delCallInfo]').index(this);
+		$('#call_info').find('div').eq(tag_index).remove();
+		
+		$('a[name=addCallInfo]').hide();
+		$('#call_info').find('a[name=addCallInfo]').eq($('#call_info').find('div').last().index()).show();
+	});
+
 </script>
