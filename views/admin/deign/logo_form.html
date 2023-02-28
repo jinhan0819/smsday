@@ -13,7 +13,6 @@
 	</div>
 
 	<div class="table table_are textleft mart50">
-		<!-- <h2>로고 정보</h2> -->
 		<div class="table">
 			<table>
 				<tr>
@@ -23,8 +22,8 @@
 						<label for="logo_file">파일선택</label>
 						<input type="file" class="pad4" id="logo_file" hidden>
 						<a href="javascript:void(0);" class="file_del" id="logo_file_del" data-id="logo_file">삭제</a>
-						<div class="mart20">
-							<img src="/admin/images/thum.png">
+						<div class="mart20 img_vi" id="logo_vi">
+							<img src="">
 						</div>
 					</td>
 				</tr>
@@ -35,8 +34,8 @@
 						<label for="sns_logo_file">파일선택</label>
 						<input type="file" class="pad4" id="sns_logo_file" hidden>
 						<a href="javascript:void(0);" class="file_del" id="sns_logo_file_del" data-id="sns_logo_file">삭제</a>
-						<div class="mart20">
-							<img src="/admin/images/thum.png">
+						<div class="mart20 img_vi" id="sns_logo_vi">
+							<img src="">
 						</div>
 					</td>
 				</tr>
@@ -47,8 +46,8 @@
 						<label for="favicon_file">파일선택</label>
 						<input type="file" class="pad4" id="favicon_file" hidden>
 						<a href="javascript:void(0);" class="file_del" id="favicon_file_del" data-id="favicon_file">삭제</a>
-						<div class="mart20">
-							<img src="/admin/images/thum.png">
+						<div class="mart20 img_vi" id="favicon_vi">
+							<img src="">
 						</div>
 					</td>
 				</tr>
@@ -57,10 +56,193 @@
 	</div>
 
 	<div class="btn_confirm">
-		<a href="javascript:void(0);" class="btn_submit" onclick="partnerModify()">저장</a>
+		<a href="javascript:void(0);" class="btn_submit" onclick="logoSave()">저장</a>
 		<a href="javascript:history.back();" class="btn_submit">취소</a>
 	</div>
 
 </section>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
+<script>
+
+	// 전역변수
+	let index_no		  = '';
+	let pt_id 		 	  = '<%- pt_id %>';
+	let logo_file_del 	  = false;
+	let sns_logo_file_del = false;
+	let favicon_file_del  = false;
+
+	// 로고 상세정보
+	logoDetail();
+
+	async function logoDetail() {
+		let data = {pt_id: pt_id};
+		let res  = await axios.post('/admin/deign/getLogoDetail', data);
+		let info = res.data.result[0];
+		index_no = typeof info !== 'undefined' ? info.index_no : null;
+
+		if(index_no == null) { // 로고 최초상태..(최초상태일때 삭제버튼 또는 이미지 태그를 가려주기 위함)
+			$('.file_del').hide();
+			$('.img_vi').hide();
+		
+		} else {
+
+			for(let key in info) {
+				$('#'+key).val(info[key]);
+			}
+
+			// 대표로고
+			if(info.logo_file_id !== null) {
+				$('#logo_file_del').show();
+				$('#logo_file').data('id', info.logo_file_id);
+				$('#logo_vi').show();
+				$('#logo_vi').find('img').attr('src', info.logo_file_path);
+			} else {
+				$('#logo_file_del').hide();
+				$('#logo_vi').hide();
+			}
+
+			// SNS로고
+			if(info.sns_logo_file_id !== null) {
+				$('#sns_logo_file_del').show();
+				$('#sns_logo_file').data('id', info.sns_logo_file_id);
+				$('#sns_logo_vi').show();
+				$('#sns_logo_vi').find('img').attr('src', info.sns_logo_file_path);
+			} else {
+				$('#sns_logo_file_del').hide();
+				$('#sns_logo_vi').hide();
+			}
+
+			// 파비콘
+			if(info.favicon_file_id !== null) {
+				$('#favicon_file_del').show();
+				$('#favicon_file').data('id', info.favicon_file_id);
+				$('#favicon_vi').show();
+				$('#favicon_vi').find('img').attr('src', info.favicon_file_path);
+			} else {
+				$('#favicon_file_del').hide();
+				$('#favicon_vi').hide();
+			}
+		}
+	}
+
+	// 로고 등록/수정
+	async function logoSave() {
+		let data 	 = {};
+		let rslt_ids = [];
+
+		/* 
+			파일 업로드 부분
+			1. 첨부 파일을 업로드 후 insert id return 받음
+			2. return 받은 아이디를 배열에 담음.
+		*/
+		await ['logo_file_id', 'sns_logo_file_id', 'favicon_file_id'].reduce(async (pre, item, index) => {
+			return pre.then(async ()=> new Promise(async (resolve) => {
+				
+				let ids = {};
+				let formData = new FormData();
+				// console.log($('input[type=file]')[index].files[0])
+				if(typeof $('input[type=file]')[index].files[0] !== 'undefined') {
+					formData.append('files', $('input[type=file]')[index].files[0]);
+					let file_res = await axios({
+						headers: {
+							"Content-Type": "multipart/form-data",
+							"Access-Control-Allow-Origin": "*",
+						},
+						url: '/fileUpload', // 파일 업로드 요청 URL
+						method: "POST",
+						data: formData,
+					});
+
+					ids[item] = file_res.data.result.insertId;
+
+					if(file_res.data.code == 200){
+						rslt_ids.push(ids);
+					}
+				}
+				resolve();
+			}));
+		}, Promise.resolve());
+		
+		/* 
+			파일 업로드 부분
+			3. 아이디를 담은 배열을 data(파라미터에 파일 index_no 값을 담아줌)에 set
+		*/
+		if(rslt_ids.length > 0) {
+			rslt_ids.forEach(item => {
+				for(let key in item) {
+					data[key] = item[key];
+				}
+			});
+		}
+
+		data.index_no 	   	   = index_no;
+		data.logo_file_del	   = logo_file_del;
+		data.sns_logo_file_del = sns_logo_file_del;
+		data.favicon_file_del  = favicon_file_del;
+
+		let res = await axios.post('/admin/deign/logoSave', data);
+		if(res.data.code == 200){
+			alert('등록되었습니다.');
+			location.href = '/admin/deign/logoForm';
+		}else{
+			alert('오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+		}
+	}
+
+	/****************************** 파일 관련 START ******************************/
+	
+	// 첨부파일 영역 클릭 시
+	function openSelFile(id){
+		// 파일이 존재시에는 다운로드
+		if($('#'+id+'_nm').val() !== '') {
+			location.href = '/fileDownload?index_no='+$('#'+id).data('id');
+		} else {
+			// 파일이 없을 시 파일 선택 창 열기
+			$('#'+id).click();
+		}
+	}
+
+	// 첨부 파일 이벤트
+	// 첨부 파일 시에는 파일 삭제 여부 false
+	$("#logo_file").on('change',function() {
+		var file = $('#logo_file')[0].files[0];
+		$("#logo_file_nm").val(file.name);
+		$('#logo_file_del').show();
+		logo_file_del = false;
+	});
+
+	$("#sns_logo_file").on('change',function() {
+		var file = $('#sns_logo_file')[0].files[0];
+		$("#sns_logo_file_nm").val(file.name);
+		$('#sns_logo_file_del').show();
+		sns_logo_file_del = false;
+	});
+
+	$("#favicon_file").on('change',function() {
+		var file = $('#favicon_file')[0].files[0];
+		$("#favicon_file_nm").val(file.name);
+		$('#favicon_file_del').show();
+		favicon_file_del = false;
+	});
+
+	// 파일 삭제 이벤트
+	$('.file_del').click(function() {
+		let id = $(this).data('id');
+		$('#'+id).val('');
+		$('#'+id+'_nm').val('');
+		$('#'+id+'_del').hide();
+		$(this).next().hide();
+
+		// 삭제 버튼 클릭 시 파일 삭제 여부 true
+		if(id == 'logo_file') logo_file_del = true;
+		if(id == 'sns_logo_file') sns_logo_file_del = true;
+		if(id == 'favicon_file') favicon_file_del = true;
+		
+	});
+	
+	/****************************** 파일 관련 END ******************************/
+
+
+
+</script>

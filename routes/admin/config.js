@@ -7,6 +7,8 @@ module.exports = function () {
 
     /* 기본환경설정 */
     router.get('/configForm', configController.configForm);
+    // router.post('/configSave', configController.configSave);
+    router.post('/getConfigDetail', configController.getConfigDetail);
 
     /* SMS설정 */
     router.get('/configSmsForm', configController.configSmsForm);

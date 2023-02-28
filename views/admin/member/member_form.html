@@ -18,15 +18,15 @@
 				<table id="partner_table">
 					<tr>
 						<th>ID</th>
-						<td colspan="3"><input type="text" placeholder="" id="mb_id" size=30></td>
+						<td><input type="text" placeholder="" id="mb_id" size=30></td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td colspan="3"><input type="password" placeholder="" id="mb_password" size=30></td>
+						<td><input type="password" placeholder="" id="mb_password" size=30></td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
-						<td colspan="3"><input type="password" placeholder="" id="mb_password_ok" size=30></td>
+						<td><input type="password" placeholder="" id="mb_password_ok" size=30></td>
 					</tr>
 				</table>
 			</div>
@@ -38,19 +38,52 @@
 				<table id="partner_table">
 					<tr>
 						<th>이름</th>
-						<td colspan="3"><input type="text" placeholder="" id="mb_name" size="30"></td>
+						<td><input type="text" placeholder="" id="mb_name" size="30"></td>
 					</tr>
 					<tr>
 						<th>핸드폰번호</th>
-						<td colspan="3"><input type="text" placeholder="" id="mb_hp" size="30" maxlength="13"></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td colspan="3"><input type="text" placeholder="" id="mb_email" size="30"></td>
-				</tr>
-			</table>
+						<td><input type="text" placeholder="" id="mb_hp" size="30" maxlength="13"></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td><input type="text" placeholder="" id="mb_email" size="30"></td>
+					</tr>
+				</table>
+			</div>
 		</div>
-	</div>
+
+		<div class="table table_are textleft">
+			<h2>추가정보</h2>
+			<div class="table">
+				<table>
+					<tr>
+						<th>통신가입증명원</th>
+						<td class="filebox">
+							<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="" onclick="openSelFile('')">
+							<label for="">파일선택</label>
+							<input type="file" class="pad4" id="" hidden>
+							<a href="javascript:void(0);" class="file_del" id="" data-id="">삭제</a>
+						</td>
+					<tr>
+					<tr>
+						<th>발신정보</th>
+						<td>
+							<div>
+								<span class="marr5 mnw50 dib">발신번호 : </span>
+								<input type="text" placeholder="" id="" size="15">
+								<span class="marr5 marl20">메모 : </span>
+								<input type="text" placeholder="" id="" size="50">
+								<span class="marr5 marl20">상태 : </span>
+								<input type="radio" name="" value=""><span>사용불가</span>
+								<input type="radio" name="" value="" checked><span>사용가능</span>
+								<a href="javascript:void(0);" class="btnstyle marl5 marr70 fr" onclick="">삭제</a>
+								<a href="javascript:void(0);" class="btnstyle fr" onclick="">추가</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
 
 	<div class="btn_confirm">

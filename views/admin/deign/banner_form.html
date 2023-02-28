@@ -36,7 +36,7 @@
 						<label for="bn_file">파일선택</label>
 						<input type="file" class="pad4" id="bn_file" hidden>
 						<a href="javascript:void(0);" class="file_del" id="bn_file_del" data-id="bn_file">삭제</a>
-						<div class="mart20" id="img_view">
+						<div class="mart20" id="img_vi">
 							<img src="">
 						</div>
 					</td>
@@ -53,11 +53,11 @@
 				</tr>
 				<tr>
 					<th>가로사이즈</th>
-					<td><input type="text" placeholder="0" id="bn_width" size="5" maxlength="4" onKeyup="return docheckNumber(this)">&nbsp;<span class="fc_blk">px</span></td>
+					<td><input type="text" placeholder="0" id="bn_width" size="5" maxlength="4">&nbsp;<span class="fc_blk">px</span></td>
 				</tr>
 				<tr>
 					<th>세로사이즈</th>
-					<td><input type="text" placeholder="0" id="bn_height" size="5" maxlength="4" onKeyup="return docheckNumber(this)">&nbsp;<span class="fc_blk">px</span></td>
+					<td><input type="text" placeholder="0" id="bn_height" size="5" maxlength="4">&nbsp;<span class="fc_blk">px</span></td>
 				</tr>
 				<tr>
 					<th>순서</th>
@@ -89,12 +89,11 @@
 </section>
 
 <script type="text/javascript" src="/admin/js/validation.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	let index_no = '<%- index_no %>';
-
-	// 파일 삭제 여부 변수
-	// let bn_file_del = false;
+	
+	// 전역변수
+	let index_no 	= '<%- index_no %>';
+	let bn_file_del = false;
 	
 	// 등록/수정 구분
 	let title = '';
@@ -105,7 +104,7 @@
 		index_no = null;
 		title 	 = '배너 신규 등록';
 		$('.file_del').hide();
-		$('#img_view').hide();
+		$('#img_vi').hide();
 	}
 	$('#bn_title').text(title);
 
@@ -129,11 +128,11 @@
 		if(info.bn_file_id !== null) {
 			$('#bn_file_del').show();
 			$('#bn_file').data('id', info.bn_file_id);
-			$('#img_view').show();
-			$('#img_view').find('img').attr('src', info.bn_file_path);
+			$('#img_vi').show();
+			$('#img_vi').find('img').attr('src', info.bn_file_path);
 		} else {
 			$('#bn_file_del').hide();
-			$('#img_view').hide();
+			$('#img_vi').hide();
 		}
 	}
 
@@ -141,7 +140,7 @@
 	async function bannerSave() {
 		let save_bool = true;
 
-        $('#bn_table').find('input[type=text]').each(function(idx, el){
+        $('#bn_table').find('input[type=text]').each(function(idx, el) {
             if($(el).val() == ''){
                 alert('모든 정보를 입력해주세요.');
                 save_bool = false;
@@ -155,7 +154,7 @@
 			let ids 	 = {};
 			let formData = new FormData();
 
-			if(typeof $('input[type=file]')[0].files[0] !== 'undefined'){ 
+			if(typeof $('input[type=file]')[0].files[0] !== 'undefined') {
 				formData.append('files', $('input[type=file]')[0].files[0]);
 				let file_res = await axios({
 					headers: {
@@ -167,7 +166,7 @@
 					data: formData,
 				});
 
-				ids['bn_file_id'] = file_res.data.result.insertId
+				ids['bn_file_id'] = file_res.data.result.insertId;
 
 				if(file_res.data.code == 200) {
 					rslt_ids.push(ids);
@@ -201,8 +200,8 @@
 				data[$('#bn_use').attr('id')] = 1;
 			}
 
-			data.index_no = index_no;
-			// data.bn_file_del = bn_file_del;
+			data.index_no	 = index_no;
+			data.bn_file_del = bn_file_del;
 
 			let res = await axios.post('/admin/deign/bannerSave', data);
 			if(res.data.code == 200) {
@@ -221,7 +220,7 @@
 	// 첨부파일 영역 클릭 시
 	function openSelFile(id){
 		// 파일이 존재시에는 다운로드
-		if($('#'+id+'_nm').val() !== ''){
+		if($('#'+id+'_nm').val() !== '') {
 			location.href = '/fileDownload?index_no='+$('#'+id).data('id');
 		} else {
 			// 파일이 없을 시 파일 선택 창 열기
@@ -235,7 +234,7 @@
 		var file = $('#bn_file')[0].files[0];
 		$("#bn_file_nm").val(file.name);
 		$('#bn_file_del').show();
-		// bn_file_del = false;
+		bn_file_del = false;
 	});
 
 	// 파일 삭제 이벤트
@@ -244,9 +243,10 @@
 		$('#'+id).val('');
 		$('#'+id+'_nm').val('');
 		$('#'+id+'_del').hide();
+		$(this).next().hide();
 
-		// 삭제 버튼 클릭 시 파일 삭제 여부 삭제 true
-		//if(id == 'bn_file') bn_file_del = true;
+		// 삭제 버튼 클릭 시 파일 삭제 여부 true
+		if(id == 'bn_file') bn_file_del = true;
 		
 	});
 	

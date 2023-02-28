@@ -48,7 +48,7 @@
 				</tr>
 				<tr>
 					<th>우편번호</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_zip" size=20 readonly onclick="getPostCode();"></td>
+					<td colspan="3"><input type="text" placeholder="" id="pt_zip" size=7 readonly onclick="getPostCode();"></td>
 				</tr>
 				<tr>
 					<th>주소</th>
@@ -77,19 +77,19 @@
 			<table id="manager_table">
 				<tr>
 					<th>담당자 이름</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_manager_name" size="30"></td>
+					<td><input type="text" placeholder="" id="pt_manager_name" size="30"></td>
 				</tr>
 				<tr>
 					<th>담당자 핸드폰</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_manager_hp" size="30" maxlength="13"></td>
+					<td><input type="text" placeholder="" id="pt_manager_hp" size="30" maxlength="13"></td>
 				</tr>
 				<tr>
 					<th>담당자 이메일</th>
-					<td colspan="3"><input type="text" placeholder="" id="pt_manager_email" size="30" ></td>
+					<td><input type="text" placeholder="" id="pt_manager_email" size="30" ></td>
 				</tr>
 				<tr>
 					<th>담당자 신분증</th>
-					<td colspan="3"  class="filebox">
+					<td class="filebox">
 						<input class="upload-name" value="" placeholder="등록된 파일이 없습니다." readonly id="pt_manager_file_nm" onclick="openSelFile('pt_manager_file')">
 						<label for="pt_manager_file">파일선택</label>
 						<input type="file" class="pad4" id="pt_manager_file" hidden>

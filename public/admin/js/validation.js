@@ -13,6 +13,11 @@ $(function(){
     $(document).on("keyup", "#pf_fee, #po_point", function() { 
         $(this).val($(this).val().replace(/\,/g, '').replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
     });
+
+    // 숫자만입력 keyup
+    $(document).on("keyup", "#bn_width, #bn_height, #bn_order", function() { 
+        $(this).val(Number($(this).val().replace(/[^0-9]/g,"")));
+    });
 })
 
 // 사업자 번호 체크
@@ -82,12 +87,6 @@ function doCheckPassword(){
     }
 
     return true;
-}
-
-// 숫자만 입력 onKeyup
-function docheckNumber(element) {
-    $(element).val(Number($(element).val().replace(/[^0-9]/g,"")));
-    return false;
 }
 
 

@@ -14,13 +14,13 @@
 
 	<div class="tab_are stiky mart50">
 		<ul class="left">
-			<li><a href="#none">사업자 정보</a></li>
-			<li><a href="#none">담당자 정보</a></li>
-			<li><a href="#none">운영시간</a></li>
+			<li><a href="#company_info">사업자 정보</a></li>
+			<li><a href="#manager_info">담당자 정보</a></li>
+			<li><a href="#cscenter">운영시간</a></li>
 		</ul>
 	</div>
 
-	<div class="table table_are textleft">
+	<div class="table table_are textleft" id="company_info">
 		<h2>사업자 정보</h2>
 		<div class="table">
 			<table>
@@ -64,18 +64,11 @@
 					<th>상세 주소</th>
 					<td colspan="3"><input type="text" placeholder="" id="" size=80></td>
 				</tr>
-				<tr>
-					<th>사업자등록증</th>
-					<td colspan="3">
-						<input type="file" id="">
-						<a href="#none" class="file_del">삭제</a>
-					</td>
-				</tr>
 			</table>
 		</div>
 	</div>
 
-	<div class="table table_are textleft">
+	<div class="table table_are textleft" id="manager_info">
 		<h2>담당자 정보</h2>
 		<div class="table">
 			<table>
@@ -91,18 +84,11 @@
 					<th>담당자 이메일</th>
 					<td colspan="3"><input type="text" placeholder="" id="" size="30" ></td>
 				</tr>
-				<tr>
-					<th>담당자 신분증</th>
-					<td colspan="3">
-						<input type="file" id="pt_manager_file">
-						<a href="#none" class="file_del">삭제</a>
-					</td>
-				</tr>
 			</table>
 		</div>
 	</div>
 
-	<div class="table table_are textleft">
+	<div class="table table_are textleft" id="cscenter">
 		<h2>운영시간</h2>
 		<div class="table">
 			<table>
@@ -132,5 +118,28 @@
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+	// 전역변수
+	let index_no		  = '';
+	let pt_id 		 	  = '<%- pt_id %>';
+	let logo_file_del 	  = false;
+	let sns_logo_file_del = false;
+	let favicon_file_del  = false;
+
+	// 기본환경설정 상세정보
+	configDetail();
+
+	async function configDetail() {
+		let data = {pt_id: pt_id};
+		let res  = await axios.post('/admin/config/getConfigDetail', data);
+		let info = res.data.result[0];
+		index_no = typeof info !== 'undefined' ? info.index_no : null;
+
+		if(index_no != null) {
+			for(let key in info) {
+				$('#'+key).val(info[key]);
+			}
+		}
+	}
 	
 </script>

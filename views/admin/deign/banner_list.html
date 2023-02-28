@@ -19,7 +19,8 @@
 				<p>노출위치</p>
 			</li>
 			<li>
-				<select id="search_bncode">
+				<select id="srch_bnCode">
+					<option value="">전체</option>
 					<option value="001">[롤링] 메인배너</option>
 					<option value="002">[고정] 하단배너 상단(좌측)</option>
 					<option value="003">[고정] 하단배너 상단(중간)</option>
@@ -37,22 +38,22 @@
 
 	<div class="tab_are">
 		<ul class="left" id="count_ul">
-			<li><a href="javascript:void(0);" id="tot_btn" data-use="2">전체(<span class="tot_count">0</span>)</a></li>
-			<li><a href="javascript:void(0);" id="vi_btn" data-use="1">노출(<span class="vi_count">0</span>)</a></li>
-			<li><a href="javascript:void(0);" id="nvi_btn" data-use="0">비노출(<span class="nvi_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" id="btn_all" class="btn_srch on" data-use="2">전체(<span class="total_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" id="btn_vi" class="btn_srch" data-use="1">노출(<span class="vi_count">0</span>)</a></li>
+			<li><a href="javascript:void(0);" id="btn_nvi" class="btn_srch" data-use="0">비노출(<span class="nvi_count">0</span>)</a></li>
 		</ul>
 	</div>
 
 	<div class="table_are">
 		<div class="btn_are marl10">
 			<ul class="left flex">
-				<li>전체 : <b><span class="tot_count">0</span></b> 건 조회</li>
+				<li>전체 : <b><span class="srch_cnt">0</span></b> 건 조회</li>
 			</ul>
 		</div>
 		<div class="btn_are mart20">
 			<ul class="left">
-				<li class="marr5"><a href="#none" id="banner_update">선택수정</a></li>
-				<li class="marr5"><a href="#none" id="banner_delete">선택삭제</a></li>
+				<li class="marr5"><a href="#none" id="bn_update">선택수정</a></li>
+				<li class="marr5"><a href="#none" id="bn_delete">선택삭제</a></li>
 			</ul>
 			<ul class="right">
 				<li>
@@ -77,7 +78,7 @@
 					<col class="w120">
 				</colgroup>
 				<thead>
-					<th scope="col" class="cheack_are"><input type="checkbox"></th>
+					<th scope="col" class="cheack_are"><input type="checkbox" id="bn_check_all"></th>
 					<th scope="col">번호</th>
 					<th scope="col">노출여부</th>
 					<th scope="col">노출순서</th>
@@ -89,7 +90,7 @@
 					<th scope="col">세로사이즈</th>
 					<th scope="col">설정</th>
 				</thead>
-				<tbody id="bannerListBody"></tbody>
+				<tbody id="bnListBody"></tbody>
 			</table>
 			<div id="pagenation_view" class="pagenation"></div>
 		</div>
@@ -99,38 +100,51 @@
 <script type="text/javascript" src="/admin/js/validation.js"></script>
 <script>
 
+	// 전역변수
 	let index_no = null;
-
-	/****************************** 검색 및 조회 START ******************************/
-
-	// 검색 파라미터 (전역변수)
 	let params = {
-		bncode : $('#search_bncode').val(),
+		bnCode : $('#srch_bnCode').val(),
+		bnUse  : 2,
+		addCls : 'all',
 		paging : pagination
 	};
-
+	
 	// 현상 유지 (조건 검색 시)
+	paramsInit();
+
 	function paramsInit(){
-		if(getLocalStorage('search_params') != null){
+		if(getLocalStorage('srch_params') != null){
 			// 저장된 파라미터를 불러와 데이터 삽입
-			params 		= JSON.parse(getLocalStorage('search_params'));
+			params 		= JSON.parse(getLocalStorage('srch_params'));
 			pagination  = params.paging;
-			$("#bncode").val(params.bncode).prop("selected", true);
+			$("#srch_bnCode").val(params.bnCode).prop("selected", true);
+			$(".btn_srch").removeClass('on');
+			$("#btn_"+params.addCls).addClass('on');
 		}
 		init();
 	}
-	paramsInit();
-
+	
+	// getParams
+	function getParams() {
+		params.bnCode = $('#srch_bnCode').val();
+		params.paging = pagination;
+		return params;
+	}
+	
+	/****************************** 검색 및 조회 init() START ******************************/
 	async function init(){
 		let data = getParams();
 		
-		setLocalStorage('search_params', JSON.stringify(data)); // params 데이터 저장
+		setLocalStorage('srch_params', JSON.stringify(data)); // params 데이터 저장
 
-		// 배너 count(전체)
+		// 배너 count
 		let cnt = await axios.post('/admin/deign/getBannerCount', data);
-		for(let key in cnt.data.result[0]){
+		for(let key in cnt.data.result[0]) {
 			$('.'+key).text(cnt.data.result[0][key]);
 		}
+
+		let srch_cnt = await axios.post('/admin/deign/getBannerCountBySrch', data);
+		$('.srch_cnt').text(srch_cnt.data.result[0]['total_count']);
 
 		// 배너 list
 		let banner = await axios.post('/admin/deign/getBannerList', data);
@@ -140,6 +154,7 @@
 		if(list.length > 0) {
 			list.forEach(item => {
 				
+				/* 전역상수로 선언 후 함수로 별도 분리 필요 */
 				let bn_code_nm = '';
 				if(item.bn_code == "001") {
 					bn_code_nm = '[롤링] 메인배너';
@@ -155,7 +170,8 @@
 					bn_code_nm = '[고정] 하단배너 하단(중간)';
 				} else if(item.bn_code == "007") {
 					bn_code_nm = '[고정] 하단배너 하단(우측)';
-				} 
+				}
+				/* 전역상수로 선언 후 함수로 별도 분리 필요 */
 
 				html += `
 					<tr>
@@ -200,23 +216,16 @@
 		} else {
 			html = '<tr><td colspan="12">데이터가 존재하지 않습니다.</td></tr>'
 		}
-		$('#bannerListBody').html(html);
+		$('#bnListBody').html(html);
 
 		// await pagination(URL, DATA, 현재 페이지, 페이지 갯수, 페이징 갯수, 실행시킬 함수명);
-		$('#pagenation_view').html(await Pagination('/admin/deign/getBannerCount', params, pagination.page, pagination.perPage, 5, 'init'));
+		$('#pagenation_view').html(await Pagination('/admin/deign/getBannerCountBySrch', params, pagination.page, pagination.perPage, 5, 'init'));
 
 	}
-
-	function getParams(){
-		params.bncode = $('#search_keycode').val();
-		params.paging = pagination;
-		return params;
-	}
-
-	/****************************** 검색 및 조회 END ******************************/
+	/****************************** 검색 및 조회 init() END ******************************/
 
 	// 이미지보기
-	$(document).on('click', '.img_view', async function(){
+	$(document).on('click', '.img_view', async function() {
 		let idx   = $(this).data('idx');
 		let state = $('.img_dt'+idx).css('display');
 
@@ -228,40 +237,100 @@
 	});
 	
 	// 전체보기
-	$(document).on('click', '.all_view', async function(){
+	$(document).on('click', '.all_view', async function() {
 		$('.img_detail').css('display', '');
 	});
 
 	// 전체닫기
-	$(document).on('click', '.close_view', async function(){
+	$(document).on('click', '.close_view', async function() {
 		$('.img_detail').css('display', 'none');
 	});
 
 	// 배너목록 - 정보 수정 클릭 이벤트
-	$(document).on('click', '.custom a', async function(){
+	$(document).on('click', '.custom a', async function() {
 		location.href = '/admin/deign/bannerForm?index_no='+$(this).data('index');
 	});
 
+	// 노출위치조건 검색 이벤트
+	$('#srch_bnCode').change(function() {
+		init();
+	});
+
+	// 노출여부조건 클릭 이벤트
+	$('.btn_srch').click(function() { 
+		let use 	  = $(this).data('use');
+		params.bnUse  = use;
+		params.addCls = !use ? 'nvi' : (use == 1 ? 'vi' : 'all');
+
+		$(".btn_srch").removeClass('on');
+		$(this).addClass('on');
+		init();
+	})
+
+	// 체크박스 전체 선택 이벤트
+	$('#bn_check_all').click(function(){
+		let chkBool = false;
+		if($(this).is(':checked')) chkBool = true;
+		$('input[name=bn_check]').prop('checked', chkBool);
+	});
+
+	// 선택 수정 이벤트
+	$('#bn_update').click(async function() {
+		if($('input[name=bn_check]:checked').length > 0) {
+			let data_arr = [];
+			$('input[name=bn_check]').each(function(idx, el) {
+				if($(el).is(':checked')) {
+					let chk_data = {
+						index_no  : $(el).data('index'),
+						bn_link	  : $('input[name=bn_link]').eq(idx).val(),
+						bn_target : $('select[name=bn_target]').eq(idx).val(),
+						bn_width  : $('input[name=bn_width]').eq(idx).val(),
+						bn_height : $('input[name=bn_height]').eq(idx).val(),
+						bn_use 	  : $('input[name=bn_use]').eq(idx).is(':checked') ? 1 : 0,
+						bn_order  : $('input[name=bn_order]').eq(idx).val()
+					};
+					data_arr.push(chk_data);
+				}
+			});
+
+			let data = {update_list : data_arr};
+			let res = await axios.post('/admin/deign/bannerUpdate', data);
+			if(res.data.code == 200) {
+				alert('배너가 수정되었습니다.');
+				location.reload();
+			} else {
+				alert('배너 수정 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
+			}
+
+		} else {
+			alert('수정하실 배너를 선택해주세요.');
+		}
+
+	});
+
 	// 선택 삭제 이벤트
-	$('#banner_delete').click(async function(){
-		if($('input[name=bn_check]:checked').length > 0){
-			if(confirm('정말로 삭제하시겠습니까?')){
+	$('#bn_delete').click(async function() {
+		if($('input[name=bn_check]:checked').length > 0) {
+			if(confirm('정말로 삭제하시겠습니까?')) {
 				let data_arr = [];
-				$('input[name=bn_check]').each(function(idx, el){
-					if($(el).is(':checked')){
+				$('input[name=bn_check]').each(function(idx, el) {
+					if($(el).is(':checked')) {
 						data_arr.push($(el).data('index'));
 					}
 				});
-				let data = {del_list : data_arr};
+
+				let data = {delte_list : data_arr};
 				let res = await axios.post('/admin/deign/bannerDelete', data);
-				if(res.data.code == 200){
+				if(res.data.code == 200) {
+					alert('배너가 삭제되었습니다.');
 					location.reload();
-				}else{
+				} else {
 					alert('배너 삭제 중 오류가 발생하였습니다.\n관리자에게 문의해주세요.');
 				}
 			}
-		}else{
-			alert('삭제하실 데이터를 선택해주세요.');
+
+		} else {
+			alert('삭제하실 배너를 선택해주세요.');
 		}
 	});
 	

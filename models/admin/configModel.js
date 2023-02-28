@@ -4,6 +4,17 @@ let config = require('../../config');
 let paging = require('../../modules/pagination');
 
 module.exports = {
+    getConfigDetail: async function(data){
+        let sql = `
+            SELECT
+                *
+            FROM TB_CONFIG
+            WHERE pt_id = ?
+        `;
+        let rslt = await db.queryTransaction(sql, [data.pt_id]);
+
+        return rslt;
+    },
     getPtSmsChargeCount: async function(data){
         let sql = `
             SELECT
